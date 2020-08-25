@@ -16,4 +16,14 @@ todo
 + Add card variable tag
 + Make Save Data Schema
 + Merge xsd? (Might want to wait)
-+ Validate XSD 
++ Validate XSD
++ Add tags to save
++ Add Properties to Request
++ Experiment with HTTP Requests
++ Add request body
+Note To Self: Remove Comments Before Actual Use
+
+GET Request Example
+<address>
+<static>https://habitica.com/api/v3/challenges/groups/</static>
+<variable name="groupId"/>

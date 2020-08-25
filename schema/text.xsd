@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:element name="text">
+    <!--This allows mixed content (text+Elements)-->
     <xs:complexType mixed="true">
       <xs:any/>
     </xs:complexType>
