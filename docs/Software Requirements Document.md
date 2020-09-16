@@ -1,52 +1,6 @@
 This document will be redone in LaTeX after it has been initially completed
 
 Any comments or notes should be made above the horizontal rule.
-[Start of Document](#start-of-document)
-| Emoji | Meaning|
-|------|------|
-| :no_entry:| Do not work on  |
-| :hourglass:   | Wait  |
-|:+1:   |  Easy;   |
-|:skull:   | Difficult   |
-| :grey_question:  |  We need to talk about it  |
-
-Sections:
-- [ ] Introduction <meter value="2" min="0" max="9">2 of 9</meter>
-  - [x] Title (Note: This will be completed in LaTeX)  :no_entry:
-  - [x] Table of Contents (Note: This will be completed in latex) :no_entry:
-  - [ ] Purpose (***Incomplete***)
-  - [ ] Document Conventions
-  - [ ] Intended Audience (***Incomplete***)
-  - [ ] Definitions/Jargon
-  - [ ] Project Scope
-  - [ ] Technical Challenges
-  - [ ] References
-- [ ] Functional Requirements <meter value="0" min="0" max="2">0 of 2</meter>
-  - [ ] Primary
-  - [ ] Secondary
-- [ ] Technical Requirements <meter value="0" min="0" max="2">0 of 2</meter>
-  - [ ] Operating Systems/Compatibility
-  - [ ] Interface Requirements <meter value="1" min="0" max="4">1 of 4</meter>
-    - [ ] User Interface
-    - [x] Hardware interface
-    - [ ] Software interface
-    - [ ] Communications interface
-- [ ] Nonfunctional requirements <meter value="1" min="0" max="6">1 of 6</meter>
-  - [ ] Performance requirements
-  - [ ] Safety/Recovery requirments
-  - [x] Security requirements
-  - [ ] policy requirements
-  - [ ] Software Quality Attributes <meter value="2" min="0" max="5">2 of 5</meter> :hourglass:
-    - [ ] Availability :grey_question: (***Incomplete***)
-    - [x] Correctness
-    - [x] Maintainability
-    - [ ] Reusability :grey_question: (***Incomplete***)
-    - [ ] Portability
-  - [ ] Process Requirements <meter value="1" min="0" max="3">1 of 3</meter>
-    - [ ] Development Process Used :skull:
-    - [x] Time Constraints
-    - [ ] Cost and Delivery Date (***Need to verify***)
-
 
 ---------
 
@@ -59,8 +13,8 @@ Sections:
 ### Project Name
 ### Team Name
 ### Date
-### Team Members
-### Stackeholders/Company - Honor code
+### Team Members 
+### Stakeholders/Company - Honor code
 ## Table of Contents
 ## Purpose
 This Software Requirements Document is for the CSC 429-01 Software Engineering semester project.
@@ -75,6 +29,12 @@ SRD
 
 JRE
 : Java Runtime Environment
+
+JDK
+: Java Development Environment
+
+JVM
+: Java Virtual Machine
 ## Scope
 #### General
 
@@ -85,7 +45,7 @@ JRE
 # Overall Description
 
 ## Product Features
-
+The software will have the following features:
 ## User Characteristics
 
 ## Operating Enviornment
@@ -96,9 +56,9 @@ This software is required to be implemented in Java.
 
 # Functional Requirements
 
-## Primary
+## Primary Functions
 
-## Secondary
+## Secondary Functions
 
 # Technical Requirements
 
@@ -107,7 +67,7 @@ This software will use libraries that are cross-platform to some extent to be al
 ## Interface Requirements
 
 ### User Interface
-
+The User Interface must not be cluttered, and needs to be intuitive.
 ### Hardware Interface
 The softwrae will not require any special hardware interfaces beyond what is required of a standard Java Desktop Application.
 ### Software Interface
@@ -117,15 +77,15 @@ This software will use an API on a remote service to ...
 # Nonfunctional Requirements
 
 ## Performance Requirements
-
 ## Safety/Recovery Requirements
-The software
+The software will have the following features to protect the user data: (1) Backup saving system to prevent primary file from being corrupted due to premature shutdown. (2) Autosaving sytem to save userdata a change has been made.
 ## Security Requirments
 The software would normally have security requirements to protect its users. However for this project, it is beyond its scope and will not be worked on.
 ## Policy Requirements
+
 ## Software Quality Attributes
 ### Availability
-This software may be available through a permissive use license that denies commercial use: the program may be used in commercial activities, however the code may not be directly used without proper attribution.
+This software will have features that will not be available without internet access.
 ### Correctness
 This software will strive to ensure that data is properly saved to prevent loss of the aforementioned data.
 ### Maintainability
@@ -133,11 +93,11 @@ This software will strive to follow the standards for object oriented programmin
 ### Reusability
 This software will strive to follow the standards for object oriented programming.
 ### Portability
-
+This software will strive to work cross-platform.
 ## Process Requirements
 
 ### Development Process Used
-
+This project plans to use a waterdown development process.
 ### Time Constraints
 There are no time constraints except for the delivery date.
 ### Cost and Delivery Date
