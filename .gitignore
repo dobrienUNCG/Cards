@@ -1,7 +1,14 @@
 [core]
+message.txt
 
 [branch "srd"]
+message.txt
 schema/
 340*
+BaseX/
 
-
+[branch "schema"]
+message.txt
+340*
+docs/
+BaseX/
