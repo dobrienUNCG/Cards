@@ -3,12 +3,12 @@ message.txt
 
 [branch "srd"]
 message.txt
-340*
+340\ Project
 BaseX/
 schema/
 
 [branch "schema"]
 message.txt
-340*
+340\ Project
 docs/
 
