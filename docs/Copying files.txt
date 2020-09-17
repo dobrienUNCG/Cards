@@ -1,0 +1,21 @@
+DeMO@DESKTOP-38UFMVM MINGW64 ~/Documents/Repos/Cards (srd)
+$ git restore --source origin/schema .gitignore
+
+DeMO@DESKTOP-38UFMVM MINGW64 ~/Documents/Repos/Cards (srd)
+$ git commit -m "Edit .gitignore" -m "Trying to copy from schema"
+[srd 971c991] Edit .gitignore
+ 1 file changed, 8 insertions(+), 1 deletion(-)
+
+DeMO@DESKTOP-38UFMVM MINGW64 ~/Documents/Repos/Cards (srd)
+$ git push origin srd
+Enumerating objects: 5, done.
+Counting objects: 100% (5/5), done.
+Delta compression using up to 8 threads
+Compressing objects: 100% (3/3), done.
+Writing objects: 100% (3/3), 404 bytes | 202.00 KiB/s, done.
+Total 3 (delta 0), reused 0 (delta 0)
+To https://github.com/dobrienUNCG/Cards.git
+   0c70f50..971c991  srd -> srd
+
+
+Originally from https://stackoverflow.com/questions/307579/how-do-i-copy-a-version-of-a-single-file-from-one-git-branch-to-another

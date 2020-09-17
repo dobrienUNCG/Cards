@@ -1,0 +1,10 @@
+Added BaseX to .gitignore
+
+This is something that I am trying to work on for the 
+database. This is a pretty interesting thing that could be 
+helpful if I can figure out how to use it properly. This 
+will be restricted to the schema branch for the time being 
+as it involves the xml files.
+
+I also added message.txt to the .gitignore file so I can add 
+longer messages to my commits.

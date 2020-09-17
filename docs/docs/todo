@@ -1,0 +1,50 @@
+* TODO SRD [0%]
+  DEADLINE: <2020-09-18 Fri>
+- [ ]  Introduction [0/7]
+  - [ ] Purpose
+  - [ ] Document Conventions
+  - [ ] Intended Audience
+  - [ ] Definitions/ Jargon
+  - [ ] Project Scope 
+  - [ ] Technical Challenges
+  - [ ] References
+- [ ] Functional Requirements [0/2]
+  - [ ] Primary Functions
+  - [ ] Secondary Functions
+- [-] Technical Requirements [1/2]
+  - [X] Operating Systems / Compatibility
+  - [-] Interface Requirements [2/4]
+    - [X] User Interface
+    - [X] Hardware Interface
+    - [ ] Software Interface
+    - [ ] Communications Interface
+- [-] Nonfunctional requirements [4/6]
+  - [ ] Performance Requirements
+  - [X] Safety / Recovery Requirements
+  - [X] Security Requirements
+  - [ ] Policy Requirements
+  - [X] Software Quaility Attributes [5/5]
+    - [X] Availability
+    - [X] Correctness
+    - [X] Maintainability
+    - [X] Reusability
+    - [X] Portability
+  - [X] Process Requirements [3/3]
+    - [X] Development Process Used
+    - [X] Time Constraints
+    - [X] Cost and Delivery Date
+* TODO [#A] Wire Frame                                             :Planning:
+* TODO [#B] Architectural Document
+* TODO [#C] UML Document
+* TODO [#C] Use Case
+* Devin's Side Projects for the Project [0/9]
+  - [ ] Github Backup System
+  - [ ] Finish mdtolatex.py
+  - [ ] Work on a makefile
+  - [ ] Work out Trello API
+  - [ ] Dissect Git 
+    - [ ] AutoSync .gitignore between branches
+  - [ ] Organize text files
+  - [ ] Upload Text Doc Header
+  - [ ] Clean up todo
+  - [ ] Show how emacs org-mode works

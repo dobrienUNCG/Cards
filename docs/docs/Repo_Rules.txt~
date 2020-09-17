@@ -1,0 +1,7 @@
+1. Do not delete commit history
+   - We cannot recover the changes made if the commit history is deleted
+   - We cannot attribute work done by specific group members 
+2. Do not make changes directly to master branch
+   - You should first make a seperate branch then make a merge request 
+3. Do not make branch protections without notifying the members 24 hours in advance
+4. Do not mess with a personal/test branch

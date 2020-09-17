@@ -1,0 +1,38 @@
+Git Guidelines
+
+1. Do not delete commit history
+   - We cannot recover the changes made if the commit history is deleted
+   - We cannot attribute work done by specific group members 
+2. Do not make changes directly to master branch
+   - You should first make a seperate branch then make a merge request 
+3. Do not make branch protections without notifying the members 24 hours in advance
+4. Do not mess with a personal/test branches
+
+BANNED COMMANDS:
+The following commands can destory our project if used; so don't use them.
+
+- git push -d origin branch 
+
+This will delete a branch remotely. I haven't added any protections yet to the
+branches so just don't use it.
+
+- git reset --hard && git push -f
+
+This will delete the commit history and will (forcibly) push this change.
+
+
+- git add ./.../git push -f origin master
+- git push origin +master
+-git rebase -| |- / git push
+[From https://stevebennett.me/2012/02/24/10-things-i-hate-about-git/]
+
+DISCOURAGED COMMANDS
+
+- git add .
+- git merge
+- git rm
+- git push --force
+
+
+Git Commit Messages
+https://gist.github.com/turbo/efb8d57c145e00dc38907f9526b60f17
