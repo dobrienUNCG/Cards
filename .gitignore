@@ -3,12 +3,12 @@ message.txt
 
 [branch "srd"]
 message.txt
-schema/
 340*
 BaseX/
+schema/
 
 [branch "schema"]
 message.txt
 340*
 docs/
-BaseX/
+
