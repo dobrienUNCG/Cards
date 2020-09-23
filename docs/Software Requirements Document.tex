@@ -1,7 +1,11 @@
-\documentclass[12pt]{article}
+\documentclass[12pt, draft]{article}
+\usepackage[acronym]{glossaries}
 \title{Software Requirements Document}
 
-
+\newacronym{srd}{SRD}{Software Requirements Document}
+\newacronym{jre}{JRE}{Java Runtime Environment}
+\newacronym{jdk}{JDK}{Java Development Environment}
+\newacronym{jvm}{JVM}{Java Virtual Machin}
 \begin{document}
 \begin{titlepage}
 \begin{center}
@@ -35,12 +39,14 @@ Engineering semester project. This document will cover the requirements
 that are imposed by the project and the expectations of the software.
 
 
-\subsection{Document Conventions}This document will define 
+\subsection{Document Conventions}
+This document was made using \LaTeX
 
 \subsection{Intended Audience}
 This SRD is intended for Professor Ike. 
 
 \subsection{Definitions/Jargon}
+\makeglossaries
 SRD : Software Requirements Document
 
 JRE : Java Runtime Environment
@@ -51,82 +57,81 @@ JVM : Java Virtual Machine
 
 \subsection{Project Scope}
 
-\subsection{Technical Challenges}\label{technical-challenges}
+\subsection{Technical Challenges}
+\subsubsection{Github and Git}
 
-\subsection{References}\label{references}
+\subsection{References}
 
-\section{Overall Description}\label{overall-description}
-
-\subsection{Product Features}\label{product-features}
+\section{Overall Description}
+\subsection{Product Features}
 
 
 \subsection{User Characteristics}
 
-\subsection{Operating Enviornment}\label{operating-enviornment}
-
-\subsection{Design and Implementation
-Constraints}\label{design-and-implementation-constraints}
+\subsection{Operating Enviornment}
+This software is intended to be used in a professional environment.
+\paragraph[draft=true]{What is a professional Environment?}
+\subsection{Design and Implementation Constraints}
 
 This software is required to be implemented in Java. 
 \subsection{Assumptions and Dependencies}
 
-\section{Functional Requirements}\label{functional-requirements}
+\section{Functional Requirements}
 
-\subsection{Primary Functions}\label{primary-functions}
-
-\subsection{Secondary Functions}\label{secondary-functions}
-
-\section{Technical Requirements}\label{technical-requirements}
-
-\subsection{Operating
-Systems/Compatibility}\label{operating-systemscompatibility}
+\subsection{Primary Functions}
+Primary functions are those that will always be available.
+\subsection{Secondary Functions}
+Secondary functions are those that may not always be available.
+\section{Technical Requirements}
+\subsection{Operating Systems/Compatibility}
 
 This software will use libraries that are cross-platform to some extent
-to be allowed to work on operating systems that run JRE 8. \#\#
-Interface Requirements
+to be allowed to work on operating systems that run JRE 8.
+
+\subsection{Interface Requirements}
 
 \subsubsection{User Interface}\label{user-interface}
 
 The User Interface must not be cluttered, and needs to be intuitive.
 
-\subsubsection{ Hardware Interface} The software will not require any special
-hardware interfaces beyond what is required of a standard Java Desktop
-Application. 
+\subsubsection{ Hardware Interface}
+The software will not require any special hardware interfaces beyond what is required of a standard Java Desktop Application which includes but not limited to the following:
+\begin{itemize}
+\item A Monitor
+\item CPU w/ multithreading capabilities
+\item RAM
+\item Storage Device
+\end{itemize}
+
 \subsubsection{ Software Interface}
+This software will require \acrshort{jre} 8, and some graphical service (like Xorg on linux).
+\subsubsection{Communications Interface}
+This software will use an API on a remote service to \ldots
+\section{Nonfunctional Requirements}
 
-\subsubsection{Communications Interface}\label{communications-interface}
+\subsection{Performance Requirements}
 
-This software will use an API on a remote service to \ldots{} \#
-Nonfunctional Requirements
+\subsection{Safety/Recovery Requirements}
 
-\subsection{Performance Requirements}\label{performance-requirements}
+The software will have the following features to protect the user data: (1) Backup saving system to prevent primary file from being corrupted due to premature shutdown. (2) Autosaving sytem to save userdata a change has been made. 
 
-\subsection{Safety/Recovery
-Requirements}\label{safetyrecovery-requirements}
-
-The software will have the following features to protect the user data:
-(1) Backup saving system to prevent primary file from being corrupted
-due to premature shutdown. (2) Autosaving sytem to save userdata a
-change has been made. 
-
-\subsection{Security Requirments} The software would
-normally have security requirements to protect its users. However for
-this project, it is beyond its scope and will not be worked on. 
+\subsection{Security Requirments}
+The software would normally have security requirements to protect its users. However for this project, it is beyond its scope and will not be worked on. 
 
 \subsection{Policy Requirements}
 
-\subsection{Software Quality
-Attributes}\label{software-quality-attributes}
+\subsection{Software Quality Attributes}
 
-\subsubsection{Availability}\label{availability}
+\subsubsection{Availability}
+This software will have the following feature(s) that will become unavailable without Internet access:
+\begin{itemize}
+\item Google Calendar (Syncing)
+\end{itemize}
+\subsubsection{Correctness}
+This software will strive to ensure that data is properly saved to prevent loss of the aforementioned data.
+\subsubsection{Maintainability}
+This software will strive to follow the standards for object oriented programming to make it easier to maintain the software.
 
-This software will have features that will not be available without
-internet access. 
-\subsubsection{Correctness} This software will strive to ensure
-that data is properly saved to prevent loss of the aforementioned data.
-\subsubsection{Maintainability} This software will strive to follow the standards
-for object oriented programming to make it easier to maintain the
-software. 
 \subsubsection{Reusability}
  This software will strive to follow the standards for object oriented programming. 
 \subsubsection{Portability }
@@ -134,10 +139,11 @@ Thissoftware will strive to work cross-platform.
 
 \subsection{Process Requirements}
 
-\subsubsection{Development Process Used}\label{development-process-used}
+\subsubsection{Development Process Used}}
 
-This project plans to use a waterdown development process. \#\#\# Time
-Constraints There are no time constraints except for the delivery date.
+This project plans to use a waterdown development process.
+\subsubsection{Time Constraints}
+There are no time constraints except for the delivery date.
 \subsubsection{ Cost and Delivery Date}
  The delivery date for the project is
 \textbf{\emph{December 1, 2020}}.
