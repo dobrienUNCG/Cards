@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="340 Project/Project Front page v1/src"/>
+	<classpathentry kind="src" path="CardXMLReader/src"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="lib" path="340 Project/Project Front page v1/dist/Project Front page v1.jar"/>
+	<classpathentry kind="lib" path="CardXMLReader/dist/CardXMLReader.jar"/>
+	<classpathentry kind="output" path="340 Project/Project Front page v1/build/classes"/>
+</classpath>

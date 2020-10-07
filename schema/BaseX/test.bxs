@@ -1,7 +1,0 @@
-CREATE DB card
-
-ADD TO card.xml <card version="0.0.1"><meta><updated><date></date><time></time></updated><due><date></date><time></time></due></meta><data>Something something some</data>$x</card>
-xquery return {Test}
-CLOSE
-
-
