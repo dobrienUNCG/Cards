@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="javafx" name="Cards.app">
+    <output-path>$PROJECT_DIR$/out/artifacts/Cards_app</output-path>
+    <root id="root">
+      <element id="archive" name="Cards_app.jar">
+        <element id="module-output" name="Cards.app" />
+      </element>
+      <element id="artifact" artifact-name="javafx" />
+    </root>
+  </artifact>
+</component>

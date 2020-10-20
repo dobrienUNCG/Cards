@@ -1,0 +1,17 @@
+.setBackground{
+    -fx-background-color:
+    -fx-
+}
+
+.button:hover{
+    -fx-background-color: black;
+}
+
+.button {
+    -fx-background-color: radial-gradient(focus-distance 0% , center 50% 50% , radius 100% , repeat,  #FFFFF0, #979EA8);
+
+  
+}
+.active {
+   -fx-background-color: radial-gradient(focus-distance 0% , center 50% 50% , radius 100% , repeat,  #FFFFF0, lightgreen);
+}
