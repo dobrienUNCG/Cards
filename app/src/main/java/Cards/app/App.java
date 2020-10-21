@@ -4,12 +4,16 @@
 package Cards.app;
 
 
+import Cards.controllers.CardViewController.CardViewController;
+
 public class App{
 
 
     public static void main(String[] args) {
 
-        JavaFXController red = new JavaFXController();
-        red.show();
+       // JavaFXController red = new JavaFXController();
+      //  red.show();
+       CardViewController card = new CardViewController();
+        card.show();
     }
 }

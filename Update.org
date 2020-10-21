@@ -5,16 +5,39 @@
 ** Purpose
 This document is to help keep track of development as we move
 forward. Everything in the overview will essentially be the same so
-you can move to [[Updates]] for information on what is actually going
-on. 
+you can move to [[Updates]] for information on what is actually going on.
+
+*** Personal Note
+I may not always be available, I have projects in other classes so I
+can't always meet up so I am better suited documenting things
+out. That doesn't mean that you can not, but I would like to have this
+available so in situations where I am not able to be reached, there
+some information to explain what everything is and what is going on
+without my real-time feedback; hope that makes some sense.
+
 
 ** Conventions
 *** Org-Mode
-This document is a plain text file that uses
-[[https://orgmode.org/][Org Mode]] which is, on a basic level, a schema that is similar to
-markdown. In truth, that doesn't give it justice since its
-implementation is more powerful than any markdown implementation that
-I have seen. 
+This document is a plain text file that uses [[https://orgmode.org/][Org Mode]] which is, on a
+basic level, a schema that is similar to markdown. In truth, that
+doesn't give it justice since its implementation is more powerful than
+any markdown implementation that I have seen.
+ 
+**** Viewing
+When viewing this document you will typically see one of two versions
+of this document:
+- A Parsed Version: There will be some information that is missing and
+  the formatting may look weird. Most information will be available,
+  but some conventions like =drawers= may not show up. In this case,
+  it is typically possible to view the raw file (See Below)
+
+- The Full Text Version: This is what this document actually looks
+  like. While I am using Org-Mode (which is essentially a version
+  above), it saves the document in a text format that is readable in
+  *any* text editor. Some features like folding may not be available
+  which is important.
+
+
 *** Emacs
 I am using [[https://www.gnu.org/software/emacs/][emacs]] to edit the the document. Emacs is a powerful
 text-editor which does translate to it being difficult to use so I
@@ -34,18 +57,45 @@ branch.
 This will contain two types of items, things that have been completed
 and what needs to be done. 
 
+#+NAME:Priority Type Table
+|----------------------+------------------------------------|
+| Priority Type        | Description                        |
+| (ignore equals sign) |                                    |
+|----------------------+------------------------------------|
+| =#A=                 | Needs to be done Immediately       |
+|----------------------+------------------------------------|
+| =#B=                 | Something that should be done soon |
+|----------------------+------------------------------------|
+| =#C=                 | This can wait, if you have time.   |
+|----------------------+------------------------------------|
+| =None=               | Unknown. Could be anything         |
+|----------------------+------------------------------------|
+
 
 #+TAGS: @devin(d) @sage(s) @jake(j)
 #+TODO: TODO WORKING-ON | DONE
-#+TODO REPORT BUG KNOWNCAUSE WORKING-ON | FIXED
+#+TODO: REPORT BUG KNOWNCAUSE WORKING-ON FEEDBACK | FIXED
 
-** TODO Finish Updates.org                                           :@devin:
-** TODO Standardize Directory Structure
-*** WORKING-ON Gradle Not Working                                    :@devin:
+
+
+** WORKING-ON Standardize Directory Structure
+
+*** TODO Implement MVC File Structure
+*** FEEDBACK Gradle Not Working                                      :@devin:
+    DEADLINE: <2020-10-23 Fri>
     :DESCRIPTION:
     The fix that I have is to remake the entire project
-    this will probably cause some conflicts. 
+    this will probably cause some conflicts. Will wait until Friday
+    for any problems.
     :END:
-*** TODO Add JavaFX
-** TODO Finish Mock-ups
-** TODO Finish SRD 
+*** FEEDBACK Add JavaFX
+** TODO Finish Updates.org                                           :@devin:
+** TODO [#B] Finish Mock-ups
+** TODO [#C] Finish SRD 
+   :DESCRIPTION: 
+   Not to completion, but just continue hammering away at it so
+   it. Specifically work on the functional requirements.
+   :END:
+** TODO [#B] Start Use Case
+** TODO Design Test Cases
+** 
