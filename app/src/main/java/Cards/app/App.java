@@ -5,6 +5,8 @@ package Cards.app;
 
 
 import Cards.controllers.CardViewController.CardViewController;
+import Cards.models.HTMLModel;
+import org.w3c.dom.html.HTMLDocument;
 
 public class App{
 
@@ -13,6 +15,8 @@ public class App{
 
        // JavaFXController red = new JavaFXController();
       //  red.show();
+
+
        CardViewController card = new CardViewController();
         card.show();
     }
