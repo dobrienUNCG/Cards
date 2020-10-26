@@ -12,7 +12,7 @@ import java.net.URL;
 public class JavaFXController extends Application{
     @Override
     public void start(Stage stage) throws Exception{
-
+        // TODO Repurpose Class
 
         Parent root = FXMLLoader.load(getClass().getResource("/Menu.fxml"));
         stage.setScene(new Scene((root)));

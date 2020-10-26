@@ -11,5 +11,5 @@ public class CardController {
     public void createNew(){
 
     }
-
+// TODO Properly Implement from CardViewController
 }

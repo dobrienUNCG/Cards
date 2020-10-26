@@ -13,22 +13,21 @@ import Cards.models.CardLogger;
 import static Cards.models.CardLogger.logg;
 import static Cards.models.CardLogger.logger_setup;
 
-public class App{
+public class App {
 
 
+    /**
+     * Starting Point
+     *
+     * @param args
+     */
     public static void main(String[] args) {
 
 
+        logger_setup(); // This sets up  the logger; only needed here
+        logg.fine("Logger has been setup");
 
-       logger_setup(); // This sets up  the logger; only needed here
-       logg.fine("Logger has been setup");
-
-       HTMLModel x = new HTMLModel();
-
-        // JavaFXController red = new JavaFXController();
-        //  red.show();
-       //CardViewController card = new CardViewController();
-      //  card.show();
+        HTMLModel x = new HTMLModel();
 
         CardViewController card = new CardViewController(x.toString());
         System.out.println(x.toString());

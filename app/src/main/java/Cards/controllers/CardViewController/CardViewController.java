@@ -15,6 +15,8 @@ import javafx.fxml.FXMLLoader;
 import static Cards.models.CardLogger.logg;
 import static Cards.models.HTMLModel.save;
 
+// TODO Break Into Two Classes (View and Controller)
+
 public class CardViewController extends Application{
     @FXML
     VBox sidebar;

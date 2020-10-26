@@ -15,7 +15,7 @@ import java.nio.file.Paths;
 import static Cards.models.CardLogger.logg;
 
 public class HTMLModel {
-
+    //TODO Break into different classes
     String tester = null;
 
     HTMLModel(File x){
