@@ -18,7 +18,7 @@ public class HTMLModel {
     //TODO Break into different classes
     String tester = null;
 
-    HTMLModel(File x){
+    public HTMLModel(File x){
         logg.entering(HTMLModel.class.getName(), "HTMLModel(File x)");
         logg.info("Creating HTMLModel from " + x.toString());
         try {

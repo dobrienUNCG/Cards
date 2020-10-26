@@ -6,7 +6,9 @@ package Cards.app;
 
 import Cards.controllers.CardViewController.CardViewController;
 import Cards.models.Card;
+import Cards.models.HTMLMod;
 import Cards.models.HTMLModel;
+import Cards.views.CardView;
 import org.w3c.dom.html.HTMLDocument;
 import Cards.models.CardLogger;
 
@@ -22,14 +24,23 @@ public class App {
      * @param args
      */
     public static void main(String[] args) {
+        /**
+         * Desired Flow:
+         *  \-> Create App Model
+         *      \-> If Setup(TRUE) -> Start
+     *          \-> If Setup(FALSE) -> Setup
+         *
+         */
+
 
 
         logger_setup(); // This sets up  the logger; only needed here
         logg.fine("Logger has been setup");
+        
 
-        HTMLModel x = new HTMLModel();
+        HTMLMod x = new HTMLMod("/Test.html");
 
-        CardViewController card = new CardViewController(x.toString());
+        CardView card = new CardView(x.toString());
         System.out.println(x.toString());
 
         card.show();
