@@ -15,7 +15,8 @@
                <children>
                   <VBox fx:id="sidebar" layoutX="14.0" layoutY="38.0" prefHeight="374.0" prefWidth="148.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Button mnemonicParsing="false" prefHeight="52.0" prefWidth="148.0" text="New Card" />
+                        <Button fx:id="reg" mnemonicParsing="false" onAction="#change" prefHeight="52.0" prefWidth="148.0" text="Load Card" />
+                        <Button fx:id="save" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#saveit" prefHeight="52.0" prefWidth="148.0" text="Save Card" />
                         <Button fx:id="newCard" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#createNew" prefHeight="52.0" prefWidth="148.0" text="Create New" />
                      </children>
                   </VBox>
@@ -23,7 +24,7 @@
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <HTMLEditor htmlText="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable=&quot;true&quot;&gt;&#10;&lt;form&gt;&lt;input type=&quot;checkbox&quot; id=&quot;someuid&quot; name=&quot;someuid&quot; value=&quot;Testing&quot;&gt; Testing&#10;&lt;/form&gt;&lt;/body&gt;&lt;/html&gt;" layoutX="8.0" layoutY="100.0" prefHeight="374.0" prefWidth="444.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                  <HTMLEditor fx:id="editor" htmlText="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable=&quot;true&quot;&gt;&#10;&lt;form&gt;&lt;input type=&quot;checkbox&quot; id=&quot;someuid&quot; name=&quot;someuid&quot; value=&quot;Testing&quot;&gt; Testing&#10;&lt;/form&gt;&lt;/body&gt;&lt;/html&gt;" layoutX="8.0" layoutY="100.0" prefHeight="374.0" prefWidth="444.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                </children>
             </AnchorPane>
         </items>

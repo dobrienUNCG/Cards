@@ -14,6 +14,7 @@ repositories {
 dependencies {
     implementation project(':utilities')
     compile fileTree(dir: 'libs/javafx-sdk-11.0.2/lib', include: '*.jar')
+    compile 'org.jsoup:jsoup:1.13.1'
 }
 
 application {

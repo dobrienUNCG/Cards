@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="jsoup">
+    <output-path>$PROJECT_DIR$/out/artifacts/jsoup</output-path>
+    <root id="archive" name="jsoup.jar">
+      <element id="library" level="application" name="jsoup" />
+    </root>
+  </artifact>
+</component>
