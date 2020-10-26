@@ -1,14 +1,12 @@
 package Cards.models;
 
-import org.w3c.dom.html.HTMLDocument;
+import java.util.Date;
 
-public class Card {
-    private String title;
-    private HTMLDocument doc;
-    public Card(){
-        title = "New Card";
-
-    }
+public class Card{
+    private String name;
+    private String description;
+    private Date created_date;
+    private Date modified_date;
 
 
 
