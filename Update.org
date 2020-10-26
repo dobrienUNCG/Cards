@@ -98,12 +98,28 @@ and what needs to be done.
    :END:
 ** TODO [#B] Start Use Case
 ** TODO Design Test Cases
-** TODO Data System
+** TODO Data System For Cards
 *** TODO Reading 
 **** TODO Improve method of reading data from files
 **** TODO Finalize structure for save file (reading purposes)
 *** TODO Writing
+**** TODO Add backups and abstract it.
+**** TODO Add descriptions
 *** TODO Optimize
+** TODO GUI Skeleton
+   Goal is a working copy; not final visual appearence
+*** Views
+**** TODO Settings View
+**** TODO Calendar VIew
+**** TODO Help View
+**** TODO Card View
+**** TODO Main View
+**** TODO Personal Settings View
+*** Connect Views
+*** Add Controllers
+    These should be seperate from the views themselves. I don't think
+    we should have the same class that creates the view being the same
+    one that acts as the controller.
 
 
 
