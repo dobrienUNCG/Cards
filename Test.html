@@ -1,25 +1,32 @@
-<html dir="ltr"><head> 
-  <title>Testing</title> 
- </head> 
- <body contenteditable="true"> 
-  <h1>Testing</h1> 
-  <p>This is a test for rich-text using HTML.</p> 
-  <p>Currently I can save and load from a HTML file. There are currently the following problems:</p> 
-  <p></p> 
-  <ul> 
-   <li>No Backups (And is very fragile)</li> 
-   <li>Only have it set to a specific file</li> 
-   <li>Keeps old body in memory and will use it when reloading the file without closing the application.</li> 
-   <ul> 
-    <li>A file that has been saved is not overwritten when loaded.</li> 
-    <li>However if a file is loaded and saved; the file is overwritten</li> 
-   </ul> 
-   <li>Haven't added checking for special syntax.</li> 
-   <li>Need to seperate IO</li> 
-   <li>This is just a demo</li> 
-  </ul> 
-  <p>Started seperating HTMLModel</p><p>Update:</p><p>I got loading files somewhat working (still need to break into different classes) however saving is still not working</p> 
-  <br> 
-  <p></p> 
- 
-</body></html>
+<html>
+<head>
+<title>This is a random card list</title>
+</head>
+<body>
+<section title="Card A">
+I need to do <span class="event"><span date="2018-12-30T19:34:50.63">something</span> at 8pm</span>
+</section>
+<section title="Card B">
+This is an example of a card? Lets see how this works!.
+
+</section>
+<section title="Card C">
+This card is in an HTML Document with other cards! 
+
+</section>
+<section title="Card D">
+Each card is essentially a section block in the document.
+</section>
+<section title="Card E">
+Events scanning has not been implemented (or syncronous date creation), but a schema has been worked on!.
+</section>
+<section title="Card F">
+An event is comprised of two span tags for style purposes. The first tag will be around the entire detected statement, and the second tag will be around a parsed version. 
+
+This can be combined into a single span tag.
+</section>
+<section title="Card G">
+The test cases that I am thinking of using will be different versions of this detection system and comparing the output of what has been found to what is desired.
+</section>
+</body>
+</html>

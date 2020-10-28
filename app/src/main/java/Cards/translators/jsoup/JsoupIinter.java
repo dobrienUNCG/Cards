@@ -1,5 +1,7 @@
 package Cards.translators.jsoup;
 
+import Cards.models.Card;
+import Cards.models.CardEvent;
 import Cards.translators.io.CardFile;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
@@ -7,9 +9,16 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 import static Cards.models.CardLogger.logg;
 
+/**
+ * JSoup Translator Class
+ * This class is the middleman between JSoup (HTML Parser Library)
+ * and the program.
+ */
 public class JsoupIinter {
     private CardFile f;
     Document doc;
@@ -19,12 +28,12 @@ public class JsoupIinter {
 
     public JsoupIinter(CardFile x){
         f = x;
-        logg.info("f = " + f.get_path());
+
         parse_file();
     }
     public JsoupIinter(String x){
        f = new CardFile(x);
-        logg.info("f = " + f.get_path());
+
         parse_file();
     }
     public String get_doc(){
@@ -58,8 +67,36 @@ public class JsoupIinter {
 
     private void parse_file(){
         logg.entering(this.getClass().getName(), "parse_file()");
-        doc = Jsoup.parse(f.get_path());
+        try {
+            doc = Jsoup.parse(f.get_card_file(), "UTF-8");
+            logg.info(doc.toString());
+        }catch(IOException e){
+            logg.warning("Failed to load file");
+        }
         logg.exiting(this.getClass().getName(), "parse_file()");
+    }
+    public ArrayList<Card> get_cards(){
+        ArrayList<Card> cards = new ArrayList<Card>();
+        for(Element x: doc.getElementsByTag("section")){
+            String body = x.toString(); // For HTML
+            String title = x.attributes().get("title");
+
+            ArrayList<CardEvent> events = new ArrayList<CardEvent>();
+            for(Element y: x.getElementsByTag("span")){
+
+                if(y.attributes().hasDeclaredValueForKey("date")){
+                   System.out.println("Here?");
+
+                   System.out.println("Date"+ y.attr("date"));
+                   LocalDateTime date = LocalDateTime.parse(y.attr("date").toString());
+                   String desc = y.text();
+                   events.add(new CardEvent(date, desc));
+               }
+
+            }
+            cards.add(new Card(title, body, events));
+        }
+        return cards;
     }
 
 }

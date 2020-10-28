@@ -14,6 +14,12 @@ import java.nio.file.Paths;
 
 import static Cards.models.CardLogger.logg;
 
+/**
+ * Currently trying to break up into seperate classes
+ * FileIO operations to FileIO Translator
+ * JSoup Interaction to JSoup Translator
+ *
+ */
 public class HTMLModel {
     //TODO Break into different classes
     String tester = null;
@@ -51,7 +57,7 @@ public class HTMLModel {
     }
 
  static public void save(String y){
-
+        //FIXME
         try {
             FileWriter x = new FileWriter("Test.html", false);
             x.write(y);

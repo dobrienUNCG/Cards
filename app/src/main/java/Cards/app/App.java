@@ -4,13 +4,11 @@
 package Cards.app;
 
 
-import Cards.controllers.CardViewController.CardViewController;
-import Cards.models.Card;
+
 import Cards.models.HTMLMod;
-import Cards.models.HTMLModel;
+
 import Cards.views.CardView;
-import org.w3c.dom.html.HTMLDocument;
-import Cards.models.CardLogger;
+import Cards.views.MainMenuView;
 
 import static Cards.models.CardLogger.logg;
 import static Cards.models.CardLogger.logger_setup;
@@ -24,26 +22,18 @@ public class App {
      * @param args
      */
     public static void main(String[] args) {
-        /**
-         * Desired Flow:
-         *  \-> Create App Model
-         *      \-> If Setup(TRUE) -> Start
-     *          \-> If Setup(FALSE) -> Setup
-         *
-         */
 
-
-
+        // TODO Move To an App Model (PENDING)
         logger_setup(); // This sets up  the logger; only needed here
         logg.fine("Logger has been setup");
-        
 
-        HTMLMod x = new HTMLMod("/Test.html");
 
-        CardView card = new CardView(x.toString());
-        System.out.println(x.toString());
+        HTMLMod x = new HTMLMod("Test.html");
+        System.out.println(x.cardsToString());
 
-        card.show();
-        logg.fine("Exiting Program");
+        MainMenuView menu = new MainMenuView();
+        menu.show();
+
+        logg.exiting("App", "main");
     }
 }

@@ -9,6 +9,7 @@ import java.util.logging.*;
 public class CardLogger {
     /**
      * This is the logger; import into other classes to use it.
+     * Can be *disabled* by changing the Level
      * @see Logger*
      * @since 10/25/2020
      */
@@ -21,9 +22,9 @@ public class CardLogger {
     public static void logger_setup(){
         LogManager.getLogManager().getLogger(Logger.GLOBAL_LOGGER_NAME).setLevel(Level.FINEST);
         Handler handlerObj = new ConsoleHandler();
-        handlerObj.setLevel(Level.ALL);
+        handlerObj.setLevel(Level.ALL); // Change when release
         logg.addHandler(handlerObj);
-        logg.setLevel(Level.ALL);
+        logg.setLevel(Level.ALL); // Change when release
         logg.setUseParentHandlers(false);
     }
 }

@@ -1,32 +1,29 @@
 package Cards.app;
-import javafx.application.Application;
+
+
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 
-import javafx.stage.Stage;
 
-import javafx.fxml.FXMLLoader;
+import java.util.HashMap;
 
-import java.net.URL;
+// https://stackoverflow.com/questions/37200845/how-to-switch-scenes-in-javafx
+public class JavaFXController {
+   private HashMap<String, Parent> views = new HashMap<>();
+   private Scene active;
 
-public class JavaFXController extends Application{
-    @Override
-    public void start(Stage stage) throws Exception{
-        // TODO Repurpose Class
+   JavaFXController(Scene active){
+       this.active = active;
+   }
 
-        Parent root = FXMLLoader.load(getClass().getResource("/Menu.fxml"));
-        stage.setScene(new Scene((root)));
-        /*
-        Long Notice:
-            I found out that you cannot actually have a scene (or is it a stage?)
-            within the FXML file or it will fail to load with a weird error stating
-            that stage cannot be cast to parent.
-         */
-        stage.show();
-    }
-    public static void show(){
-        launch();
-    }
-
+   public void add_scene(String name, Parent scene){
+       views.put(name, scene);
+   }
+   public void remove_scene(String name){
+       views.remove(name);
+   }
+   public void activate(String name){
+       active.setRoot(views.get(name));
+   }
 
 }

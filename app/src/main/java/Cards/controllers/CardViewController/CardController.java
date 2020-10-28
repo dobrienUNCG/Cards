@@ -3,7 +3,7 @@ package Cards.controllers.CardViewController;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.layout.VBox;
-
+//TODO  Remove Class
 public class CardController {
     @FXML
     VBox sidebar;
@@ -11,5 +11,5 @@ public class CardController {
     public void createNew(){
 
     }
-// TODO Properly Implement from CardViewController
+
 }
