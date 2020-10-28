@@ -1,75 +1,73 @@
 package Cards.models;
-
+/**
+ * Last Updated: 10/26/2020
+ * HTML Data Model
+ *
+ * @author Devin M. O'Brien
+ * @deprecated No longer supported, but being used as a reference.
+ */
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
 import static Cards.models.CardLogger.logg;
 
 /**
- * Currently trying to break up into seperate classes
- * FileIO operations to FileIO Translator
- * JSoup Interaction to JSoup Translator
- *
+ * @deprecated No longer supported, but being used as reference.
  */
 public class HTMLModel {
-    //TODO Break into different classes
-    String tester = null;
 
-    public HTMLModel(File x){
+    String document = null;
+
+    public HTMLModel(File _x) {
         logg.entering(HTMLModel.class.getName(), "HTMLModel(File x)");
-        logg.info("Creating HTMLModel from " + x.toString());
+        logg.info("Creating HTMLModel from " + _x.toString());
         try {
-            Document doc = Jsoup.parse(x, "UTF-8");
+            Document doc = Jsoup.parse(_x, "UTF-8");
             System.out.println(doc.toString());
-           tester = doc.toString();
+            document = doc.toString();
         } catch (IOException ex) {
             ex.printStackTrace();
         }
         logg.exiting(HTMLModel.class.getName(), "HTMLModel(File x)");
     }
-    public HTMLModel(){
 
+    public HTMLModel() {
         logg.entering(HTMLModel.class.getName(), "HTMLModel(File x)");
         logg.info("Creating HTMLModel from test");
         Path current = Paths.get("Test.html");
         System.out.println(current.toAbsolutePath());
         File y = new File(String.valueOf(current));
-        try{
+        try {
             Document doc = Jsoup.parse(y, "UTF-8");
-            tester = doc.toString();
+            document = doc.toString();
 
-            System.out.println(tester);
+            System.out.println(document);
             System.out.println(doc.head().getElementsByTag("title"));
-        }catch(IOException ex){
+        } catch (IOException ex) {
             ex.printStackTrace();
         }
         logg.exiting(HTMLModel.class.getName(), "HTMLModel(File x)");
-
     }
 
- static public void save(String y){
-        //FIXME
+    static public void save(String _input) {
         try {
-            FileWriter x = new FileWriter("Test.html", false);
-            x.write(y);
-            x.close();
-        }catch(IOException e){
+            FileWriter filew = new FileWriter("Test.html", false);
+            filew.write(_input);
+            filew.close();
+        } catch (IOException e) {
             System.out.println(e);
         }
-
     }
 
     @Override
     public String toString() {
-        return tester;
+        return document;
     }
 }

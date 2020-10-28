@@ -1,6 +1,11 @@
 package Cards.controllers.mainmenuController;
+/**
+ * Last Updated: 10/28/2020
+ * Controller for Main Menu View
+ *
+ * @AUTHOR Devin M. O'Brien
+ */
 
-import Cards.views.CardView;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,7 +14,6 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 public class MainMenuController {
-    // TODO Write Class
 
     @FXML
     Button home_button;
@@ -19,17 +23,13 @@ public class MainMenuController {
     public void create_card() throws Exception {
         Stage appStage;
         Parent root;
-        {
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/Template.fxml"));
-            appStage=(Stage)home_button.getScene().getWindow();
-            root= loader.load();
-            Scene scene = new Scene(root);
-            appStage.setScene(scene);
-            appStage.show();
 
-        }
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/Template.fxml"));
+        appStage = (Stage) home_button.getScene().getWindow();
+        root = loader.load();
+        Scene scene = new Scene(root);
+        appStage.setScene(scene);
+        appStage.show();
     }
-
-
 }

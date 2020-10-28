@@ -1,36 +1,32 @@
 package Cards.models;
-
+/**
+ * Last Updated: 10/28/2020
+ * HTML Data Model
+ *
+ * @AUTHOR Devin M. O'Brien
+ */
 
 import Cards.translators.io.CardFile;
-import Cards.translators.jsoup.JsoupIinter;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
+import Cards.translators.jsoup.JSoupTranslator;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import static Cards.models.CardLogger.logg;
+import static Cards.translators.jsoup.JSoupTranslator.replaceBodyTag;
 
 public class HTMLMod {
 
-    String head;
-    String body;
-    String doc;
-    ArrayList<Card> cards;
+    private final String head;
+    private final String body;
+    private String doc;
+    private ArrayList<Card> cards;
 
-
-    /**
-     * Currently sets up placeholder data, once I look at the translator, I will try
-     * fine tuning.
-     * @param x
-     */
-    public HTMLMod(String x){
-       logg.entering("HTMLMod", "HTMLMod");
-        JsoupIinter y = new JsoupIinter(x); // JSoup interaction
+    public HTMLMod(String x) {
+        logg.entering("HTMLMod", "HTMLMod");
+        JSoupTranslator y = new JSoupTranslator(x); // JSoup interaction
         head = y.get_head();
         logg.info("head = " + head);
         body = y.get_body();
@@ -38,23 +34,68 @@ public class HTMLMod {
         doc = y.get_doc();
         logg.info("doc = " + doc);
         cards = y.get_cards();
-       logg.exiting("HTMLMod", "HTMLMod");
-       ;
-    }
-    public HTMLMod(File x){
-       logg.entering("HTMLMod", "HTMLMod");
-        JsoupIinter y = new JsoupIinter(new CardFile(x)); // JSoup interaction
-        head = y.get_head();
-        logg.info("head = " + head);
-        body = y.get_body();
-        logg.info("body - " + body);
-        doc = y.get_doc();
-        logg.info("doc = " + doc);
-        cards = y.get_cards();
-       logg.exiting("HTMLMod", "HTMLMod");
-       ;
+        logg.exiting("HTMLMod", "HTMLMod");
     }
 
+    public HTMLMod(File x) {
+        logg.entering("HTMLMod", "HTMLMod");
+        JSoupTranslator jst = new JSoupTranslator(new CardFile(x)); // JSoup interaction
+        head = jst.get_head();
+        logg.info("head = " + head);
+        body = jst.get_body();
+        logg.info("body - " + body);
+        doc = jst.get_doc();
+        logg.info("doc = " + doc);
+        cards = jst.get_cards();
+        logg.exiting("HTMLMod", "HTMLMod");
+    }
+
+     public void save(String _input) {
+        try {
+            FileWriter filew = new FileWriter("Test.html", false);
+            filew.write(head + "<body>"+ _input + "</body></html>");
+            filew.close();
+        } catch (IOException e) {
+            System.out.println(e);
+        }
+    }
+
+    public ArrayList<Card> update_cards(ArrayList<Card> _cards){
+            this.cards = _cards;
+            for (Card card : cards){
+                String temp = replaceBodyTag(card.getBody());
+                card.setBody(temp);
+            }
+            return _cards;
+    }
+    public Card update_cards(Card _cards){
+
+
+                String temp = replaceBodyTag(_cards.getBody());
+                _cards.setBody(temp);
+
+            return _cards;
+    }
+
+
+
+
+
+    @Override
+    public String toString() {
+        return "HTMLMod{" +
+                "head='" + head + '\'' +
+                ", body='" + body + '\'' +
+                ", doc='" + doc + '\'' +
+                ", cards=" + cards +
+                '}';
+    }
+
+    public String cardsToString() {
+        return "" + cards;
+    }
+
+    //=================  GETTERS ===============
 
     public String getHead() {
         return head;
@@ -67,20 +108,9 @@ public class HTMLMod {
     public String getDoc() {
         return doc;
     }
-    public ArrayList<Card> get_cards(){
+
+    public ArrayList<Card> get_cards() {
         return cards;
     }
 
-    @Override
-    public String toString() {
-        return "HTMLMod{" +
-                "head='" + head + '\'' +
-                ", body='" + body + '\'' +
-                ", doc='" + doc + '\'' +
-                ", cards=" + cards +
-                '}';
-    }
-    public String cardsToString(){
-        return "" + cards;
-    }
 }

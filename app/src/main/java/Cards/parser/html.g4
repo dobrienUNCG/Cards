@@ -1,9 +1,0 @@
-grammar html;
-
-
-
-
-
-
-
-program: .;
