@@ -21,13 +21,6 @@ public class App {
      * @param args
      */
     public static void main(String[] args) {
-        /**
-         * Desired Flow:
-         *  \-> Create App Model
-         *      \-> If Setup(TRUE) -> Start
-     *          \-> If Setup(FALSE) -> Setup
-         *
-         */
 
         loggerSetup();
         logg.fine("Logger has been setup");
