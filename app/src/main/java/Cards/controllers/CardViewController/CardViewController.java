@@ -45,6 +45,10 @@ public class CardViewController {
     CardFile openCard;
     HTMLMod htmlMod;
 
+==== BASE ====
+    public void setBody(String x){
+        body = x;
+    }
     public CardViewController(){
 
     }
@@ -144,6 +148,9 @@ public class CardViewController {
     public void com_load() {
         openFile();
     }
+==== BASE ====
+    public void change(){
+==== BASE ====
 
 
     public void close_menu() {
