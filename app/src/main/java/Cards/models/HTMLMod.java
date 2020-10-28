@@ -53,7 +53,7 @@ public class HTMLMod {
     public void save(String _input) {
         try {
             FileWriter filew = new FileWriter("Test.html", false);
-            filew.write(this.head + "<body>" + _input + "</body></html>");
+            filew.write("<html>"+ this.head + "<body>" + _input + "</body></html>");
             filew.close();
         } catch (IOException e) {
             System.out.println(e);
@@ -73,7 +73,6 @@ public class HTMLMod {
 
         String temp = replaceBodyTag(_cards.getBody());
         _cards.setBody(temp);
-
         return _cards;
     }
 
