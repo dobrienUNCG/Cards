@@ -10,13 +10,11 @@ import java.util.ArrayList;
 
 import static Cards.models.CardLogger.logg;
 import static Cards.translators.jsoup.JSoupTranslator.getTextInBody;
-import static Cards.translators.jsoup.JSoupTranslator.parseCard;
-
 
 public class Card {
-    private  String name;
-    private  String body;
-    private  ArrayList<CardEvent> events;
+    private String name;
+    private String body;
+    private ArrayList<CardEvent> events;
 
     public Card(String _name, String _body, ArrayList<CardEvent> _events) {
         this.name = _name;
@@ -29,20 +27,22 @@ public class Card {
         return "<section title=\"" + this.name + "\">" + this.body + "</section>";
     }
 
-    public void setBody (String _input){
-       String test = getTextInBody(_input);
-        this.body = test;
-
-    }
-
-    //=================  GETTERS ===============
-
+//=====GETTER=====
     public String getBody() {
         logg.info(this.body);
         return this.body;
     }
 
+    //=================  GETTERS ===============
+
     public String getName() {
         return this.name;
+    }
+
+//=====SETTERS=====
+    public void setBody(String _input) {
+        String test = getTextInBody(_input);
+        this.body = test;
+
     }
 }

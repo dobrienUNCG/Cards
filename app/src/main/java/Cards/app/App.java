@@ -7,7 +7,6 @@ package Cards.app;
  * @AUTHOR Devin M. O'Brien
  */
 
-
 import Cards.views.MainMenuView;
 
 import static Cards.models.CardLogger.logg;

@@ -11,6 +11,7 @@ import Cards.models.HTMLMod;
 import Cards.translators.io.CardFile;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -18,15 +19,12 @@ import javafx.scene.layout.VBox;
 import javafx.scene.web.HTMLEditor;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.fxml.FXMLLoader;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import static Cards.models.CardLogger.logg;
-
-
 
 public class CardViewController {
     public String body;
@@ -45,7 +43,7 @@ public class CardViewController {
     CardFile openCard;
     HTMLMod htmlMod;
 
-    public CardViewController(){
+    public CardViewController() {
 
     }
 
@@ -74,18 +72,16 @@ public class CardViewController {
         this.current = 0;
         this.openCard = new CardFile(filechooser.showOpenDialog(stage));
         removeOldCards();
-         this.htmlMod = new HTMLMod(openCard.get_file());
+        this.htmlMod = new HTMLMod(openCard.get_file());
         this.cards = this.htmlMod.get_cards();
-        if (!this.cards.isEmpty()) {
+        if ( !this.cards.isEmpty() ) {
             updateEditor(this.cards.get(0).getBody());
         }
-
 
         // Loading cards to editor
         int counter = 0;
 
-
-        for (Card card : cards) {
+        for ( Card card : cards ) {
             Button button = new Button();
             button.setText(card.getName());
             button.setMaxWidth(100000000);
@@ -94,7 +90,7 @@ public class CardViewController {
             button.setOnAction(e -> {
                 switch_card(finalCounter);
             });
-            
+
             counter++;
             this.sidebar.getChildren().add(button);
         }
@@ -114,10 +110,8 @@ public class CardViewController {
         this.current = _x;
         updateEditor(this.cards.get(_x).getBody());
         logg.exiting("CardViewController", "switch_card");
-        
+
     }
-
-
 
     public void go_to_main_menu() throws IOException {
         Stage appStage;
@@ -135,7 +129,7 @@ public class CardViewController {
 
         String out = "";
         this.cards.get(this.current).setBody(this.editor.getHtmlText());
-        for(Card x: cards){
+        for ( Card x : cards ) {
             out = out + x.toString();
         }
         this.htmlMod.save(out);
@@ -145,15 +139,14 @@ public class CardViewController {
         openFile();
     }
 
-
     public void close_menu() {
         Platform.exit();
     }
 
-    private void removeOldCards(){
-        if(this.sidebar.getChildren().size() > 2)
+    private void removeOldCards() {
+        if ( this.sidebar.getChildren().size() > 2 ) {
             this.sidebar.getChildren().remove(2, this.sidebar.getChildren().size());
+        }
     }
-
 
 }

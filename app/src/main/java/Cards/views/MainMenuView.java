@@ -2,25 +2,21 @@ package Cards.views;
 /**
  * Updated 10/27/2020
  * Main Menu View
+ *
  * @author Devin M. O'Brien
  */
 
-import Cards.models.HTMLModel;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.io.File;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-
 import static Cards.models.CardLogger.logg;
 
 public class MainMenuView extends Application {
     @Override
-    public void start(Stage stage) throws Exception{
+    public void start(Stage stage) throws Exception {
         logg.entering(this.getClass().getName(), "start");
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/Menu.fxml"));
@@ -39,6 +35,5 @@ public class MainMenuView extends Application {
         logg.exiting(this.getClass().getName(), "show");
 
     }
-
 
 }

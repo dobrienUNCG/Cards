@@ -2,6 +2,7 @@ package Cards.translators.io;
 /**
  * Last Updated: 10/28/2020
  * Card File
+ *
  * @author Devin M. O'Brien
  */
 
@@ -19,7 +20,6 @@ public class CardFile {
     private Path path;
     private ArrayList<Card> cards;
 
-
     public CardFile(String _x) {
         logg.entering(this.getClass().getName(), "CardFile(String _x)");
         Path fil;
@@ -28,8 +28,7 @@ public class CardFile {
             file = new File(String.valueOf(path));
             logg.info(file.getAbsolutePath().toString());
 
-
-        } catch (Exception e) {
+        } catch ( Exception e ) {
             logg.warning(e.toString());
 
         }
@@ -41,9 +40,9 @@ public class CardFile {
         path = file.toPath();
     }
 
-
     //=================  GETTERS ===============
 
+//=====GETTER=====
     public File get_file() {
         return file;
     }
@@ -54,6 +53,7 @@ public class CardFile {
 
     //=================  SETTERS ===============
 
+//=====SETTERS=====
     public void set_path(String _x) {
         logg.entering(this.getClass().getName(), "CardFile(String _x)");
         Path fil;
@@ -61,7 +61,7 @@ public class CardFile {
             path = Paths.get(_x);
             logg.info("Path: " + path.toString());
 
-        } catch (Exception e) {
+        } catch ( Exception e ) {
             logg.warning("Failed To Get Path " + e.toString());
         }
         logg.exiting(this.getClass().getName(), "CardFile(String _x)");

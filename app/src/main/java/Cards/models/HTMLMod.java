@@ -53,16 +53,16 @@ public class HTMLMod {
     public void save(String _input) {
         try {
             FileWriter filew = new FileWriter("Test.html", false);
-            filew.write("<html>"+ this.head + "<body>" + _input + "</body></html>");
+            filew.write("<html>" + this.head + "<body>" + _input + "</body></html>");
             filew.close();
-        } catch (IOException e) {
+        } catch ( IOException e ) {
             System.out.println(e);
         }
     }
 
     public ArrayList<Card> update_cards(ArrayList<Card> _cards) {
         this.cards = _cards;
-        for (Card card : cards) {
+        for ( Card card : cards ) {
             String temp = replaceBodyTag(card.getBody());
             card.setBody(temp);
         }
@@ -75,7 +75,6 @@ public class HTMLMod {
         _cards.setBody(temp);
         return _cards;
     }
-
 
     @Override
     public String toString() {
@@ -93,6 +92,7 @@ public class HTMLMod {
 
     //=================  GETTERS ===============
 
+//=====GETTER=====
     public String getHead() {
         return head;
     }

@@ -31,22 +31,22 @@ public class CardEvent {
                 '}';
     }
 
-    //=================  GETTERS ===============
 
+    //=====GETTER=====
     public LocalDateTime getDate() {
         return this.date;
     }
 
-    public void setDate(LocalDateTime _date) {
-        this.date = _date;
+    public String getDesc() {
+        if ( this.desc == null ) {
+            return null;
+        }
+        return this.desc;
     }
 
-    //=================  SETTERS ===============
-
-    public String getDesc() {
-        if (this.desc == null)
-            return null;
-        return this.desc;
+    //=====SETTERS=====
+    public void setDate(LocalDateTime _date) {
+        this.date = _date;
     }
 
     public void setDesc(String _desc) {
