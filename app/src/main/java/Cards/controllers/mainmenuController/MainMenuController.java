@@ -3,7 +3,7 @@ package Cards.controllers.mainmenuController;
  * Last Updated: 10/28/2020
  * Controller for Main Menu View
  *
- * @AUTHOR Devin M. O'Brien
+ * @author Devin M. O'Brien
  */
 
 import javafx.fxml.FXML;
@@ -26,7 +26,7 @@ public class MainMenuController {
 
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/Template.fxml"));
-        appStage = (Stage) home_button.getScene().getWindow();
+        appStage = (Stage) this.home_button.getScene().getWindow();
         root = loader.load();
         Scene scene = new Scene(root);
         appStage.setScene(scene);

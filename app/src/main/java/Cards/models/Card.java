@@ -9,6 +9,7 @@ package Cards.models;
 import java.util.ArrayList;
 
 import static Cards.models.CardLogger.logg;
+import static Cards.translators.jsoup.JSoupTranslator.getTextInBody;
 import static Cards.translators.jsoup.JSoupTranslator.parseCard;
 
 
@@ -25,29 +26,12 @@ public class Card {
 
     @Override
     public String toString() {
-        return "\nCard{" +
-                "name='" + this.name + '\'' +
-                ", created_date=" +
-                ", modified_date=" +
-                ", \nbody='" + this.body + '\'' +
-                ", events=" + this.events +
-                '}';
+        return "<section title=\"" + this.name + "\">" + this.body + "</section>";
     }
 
     public void setBody (String _input){
-logg.entering("Card", "setBody(" + _input + ")");
-        if(_input.equals(" ") || _input.isEmpty() || _input.length() < 1)
-            System.out.println("SAVE ME!");
-
-        logg.info(_input + _input.length());
-        logg.info(_input.length() + "");
-
-        if(_input.charAt(0) == '<') {
-            String parsed = parseCard(_input);
-            this.body = parsed;
-            logg.info(this.body);
-        }
-logg.exiting("Card", "setBody");
+       String test = getTextInBody(_input);
+        this.body = test;
 
     }
 

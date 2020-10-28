@@ -49,10 +49,9 @@ public class CardViewController {
 
     }
 
-
     public CardViewController(String _x) {
         logg.entering(this.getClass().getName(), "CardViewController()");
-        body = _x;
+        this.body = _x;
         logg.exiting(this.getClass().getName(), "CardViewController()");
     }
 
@@ -71,48 +70,49 @@ public class CardViewController {
                 new FileChooser.ExtensionFilter("HTML Files", "*.html")
         );
 
-
-        openCard = new CardFile(filechooser.showOpenDialog(stage));
-         htmlMod = new HTMLMod(openCard.get_file()); // Still working on switching
-        cards = htmlMod.get_cards();
-        if (!cards.isEmpty()) {
-            updateEditor(cards.get(0).getBody());
+        this.cards = new ArrayList<>();
+        this.current = 0;
+        this.openCard = new CardFile(filechooser.showOpenDialog(stage));
+        removeOldCards();
+         this.htmlMod = new HTMLMod(openCard.get_file());
+        this.cards = this.htmlMod.get_cards();
+        if (!this.cards.isEmpty()) {
+            updateEditor(this.cards.get(0).getBody());
         }
 
 
         // Loading cards to editor
         int counter = 0;
 
-        removeOldCards();
+
         for (Card card : cards) {
             Button button = new Button();
             button.setText(card.getName());
             button.setMaxWidth(100000000);
             int finalCounter = counter;
+
             button.setOnAction(e -> {
                 switch_card(finalCounter);
             });
             
             counter++;
-            sidebar.getChildren().add(button);
+            this.sidebar.getChildren().add(button);
         }
         logg.exiting("CardViewController", "openFile");
     }
 
     public void updateEditor(String _input) {
         logg.entering("CardViewController", "change");
-        editor.setHtmlText(_input);
+        this.editor.setHtmlText(_input);
         System.out.println(_input);
         logg.exiting("CardViewController", "change");
     }
 
-
-
     public void switch_card(int _x) {
         logg.entering("CardViewController", "switch_card");
-        cards.get(current).setBody(editor.getHtmlText());
-        current = _x;
-        updateEditor(cards.get(_x).getBody());
+        this.cards.get(this.current).setBody(this.editor.getHtmlText());
+        this.current = _x;
+        updateEditor(this.cards.get(_x).getBody());
         logg.exiting("CardViewController", "switch_card");
         
     }
@@ -132,16 +132,16 @@ public class CardViewController {
     }
 
     public void com_save() {
-        cards = htmlMod.update_cards(cards);
+
         String out = "";
-        for(Card card: cards){
-            out = out + htmlMod.update_cards(card);
+        this.cards.get(this.current).setBody(this.editor.getHtmlText());
+        for(Card x: cards){
+            out = out + x.toString();
         }
-        htmlMod.save(out);
+        this.htmlMod.save(out);
     }
 
     public void com_load() {
-
         openFile();
     }
 
@@ -151,8 +151,8 @@ public class CardViewController {
     }
 
     private void removeOldCards(){
-        if(sidebar.getChildren().size() > 2)
-            sidebar.getChildren().remove(2, sidebar.getChildren().size());
+        if(this.sidebar.getChildren().size() > 2)
+            this.sidebar.getChildren().remove(2, this.sidebar.getChildren().size());
     }
 
 

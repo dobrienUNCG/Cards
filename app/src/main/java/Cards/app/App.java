@@ -8,9 +8,6 @@ package Cards.app;
  */
 
 
-import Cards.models.HTMLMod;
-
-import Cards.views.CardView;
 import Cards.views.MainMenuView;
 
 import static Cards.models.CardLogger.logg;
@@ -18,17 +15,15 @@ import static Cards.models.CardLogger.loggerSetup;
 
 public class App {
 
-
     /**
-     * main method
+     * Main method
+     *
      * @param args
      */
     public static void main(String[] args) {
 
-
         loggerSetup();
         logg.fine("Logger has been setup");
-
 
         MainMenuView menu = new MainMenuView();
         menu.show();

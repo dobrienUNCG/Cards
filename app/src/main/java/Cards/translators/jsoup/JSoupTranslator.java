@@ -130,6 +130,21 @@ public class JSoupTranslator {
         return body.toString();
     }
 
+    public static String removeBodyTag(String _input){
+        Document temp = Jsoup.parse(_input);
+        Element init = temp.body();
+        Elements body = init.getElementsByTag("body");
+         body.remove();
+
+        return temp.toString();
+    }
+    public static String getTextInBody(String _input){
+        Document temp = Jsoup.parse(_input);
+        Element init = temp.body();
+        return init.html();
+
+    }
+
     //=================  SETTERS ===============
 
 

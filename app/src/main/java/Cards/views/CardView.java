@@ -14,7 +14,7 @@ import static Cards.models.CardLogger.logg;
 
 public class CardView {
 
-
+    // Required for JavaFx
     public CardView() {
 
     }
@@ -23,10 +23,6 @@ public class CardView {
         logg.entering(this.getClass().getName(), "CardViewController()");
 
         logg.exiting(this.getClass().getName(), "CardViewController()");
-    }
-
-    public void setBody(String x) {
-
     }
 
     public Scene get_a_card() throws Exception {

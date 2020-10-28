@@ -26,15 +26,15 @@ public class CardEvent {
     @Override
     public String toString() {
         return "CardEvent{" +
-                "date=" + date +
-                ", desc='" + desc + '\'' +
+                "date=" + this.date +
+                ", desc='" + this.desc + '\'' +
                 '}';
     }
 
     //=================  GETTERS ===============
 
     public LocalDateTime getDate() {
-        return date;
+        return this.date;
     }
 
     public void setDate(LocalDateTime _date) {
@@ -44,9 +44,9 @@ public class CardEvent {
     //=================  SETTERS ===============
 
     public String getDesc() {
-        if (desc == null)
+        if (this.desc == null)
             return null;
-        return desc;
+        return this.desc;
     }
 
     public void setDesc(String _desc) {

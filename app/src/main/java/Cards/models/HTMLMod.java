@@ -24,61 +24,58 @@ public class HTMLMod {
     private String doc;
     private ArrayList<Card> cards;
 
-    public HTMLMod(String x) {
+    public HTMLMod(String _x) {
         logg.entering("HTMLMod", "HTMLMod");
-        JSoupTranslator y = new JSoupTranslator(x); // JSoup interaction
-        head = y.get_head();
-        logg.info("head = " + head);
-        body = y.get_body();
-        logg.info("body - " + body);
-        doc = y.get_doc();
-        logg.info("doc = " + doc);
-        cards = y.get_cards();
+        JSoupTranslator y = new JSoupTranslator(_x); // JSoup interaction
+        this.head = y.get_head();
+        logg.info("head = " + this.head);
+        this.body = y.get_body();
+        logg.info("body - " + this.body);
+        this.doc = y.get_doc();
+        logg.info("doc = " + this.doc);
+        this.cards = y.get_cards();
         logg.exiting("HTMLMod", "HTMLMod");
     }
 
-    public HTMLMod(File x) {
+    public HTMLMod(File _x) {
         logg.entering("HTMLMod", "HTMLMod");
-        JSoupTranslator jst = new JSoupTranslator(new CardFile(x)); // JSoup interaction
-        head = jst.get_head();
-        logg.info("head = " + head);
-        body = jst.get_body();
-        logg.info("body - " + body);
-        doc = jst.get_doc();
-        logg.info("doc = " + doc);
-        cards = jst.get_cards();
+        JSoupTranslator jst = new JSoupTranslator(new CardFile(_x)); // JSoup interaction
+        this.head = jst.get_head();
+        logg.info("head = " + this.head);
+        this.body = jst.get_body();
+        logg.info("body - " + this.body);
+        this.doc = jst.get_doc();
+        logg.info("doc = " + this.doc);
+        this.cards = jst.get_cards();
         logg.exiting("HTMLMod", "HTMLMod");
     }
 
-     public void save(String _input) {
+    public void save(String _input) {
         try {
             FileWriter filew = new FileWriter("Test.html", false);
-            filew.write(head + "<body>"+ _input + "</body></html>");
+            filew.write(this.head + "<body>" + _input + "</body></html>");
             filew.close();
         } catch (IOException e) {
             System.out.println(e);
         }
     }
 
-    public ArrayList<Card> update_cards(ArrayList<Card> _cards){
-            this.cards = _cards;
-            for (Card card : cards){
-                String temp = replaceBodyTag(card.getBody());
-                card.setBody(temp);
-            }
-            return _cards;
-    }
-    public Card update_cards(Card _cards){
-
-
-                String temp = replaceBodyTag(_cards.getBody());
-                _cards.setBody(temp);
-
-            return _cards;
+    public ArrayList<Card> update_cards(ArrayList<Card> _cards) {
+        this.cards = _cards;
+        for (Card card : cards) {
+            String temp = replaceBodyTag(card.getBody());
+            card.setBody(temp);
+        }
+        return _cards;
     }
 
+    public Card update_cards(Card _cards) {
 
+        String temp = replaceBodyTag(_cards.getBody());
+        _cards.setBody(temp);
 
+        return _cards;
+    }
 
 
     @Override

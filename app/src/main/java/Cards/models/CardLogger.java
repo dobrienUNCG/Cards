@@ -4,7 +4,10 @@ import java.util.logging.*;
 
 
 /**
+ * Last Updated: 10/28/2020
  * Logger for Card Project
+ *
+ * @author Devin M. O'Brien
  */
 public class CardLogger {
     /**

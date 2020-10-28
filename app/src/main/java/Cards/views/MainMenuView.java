@@ -1,4 +1,9 @@
 package Cards.views;
+/**
+ * Updated 10/27/2020
+ * Main Menu View
+ * @author Devin M. O'Brien
+ */
 
 import Cards.models.HTMLModel;
 import javafx.application.Application;
@@ -28,8 +33,7 @@ public class MainMenuView extends Application {
         logg.exiting(this.getClass().getName(), "start");
     }
 
-    public void show()
-    {
+    public void show() {
         logg.entering(this.getClass().getName(), "show");
         launch();
         logg.exiting(this.getClass().getName(), "show");
