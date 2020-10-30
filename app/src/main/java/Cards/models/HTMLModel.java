@@ -21,7 +21,7 @@ import static Cards.models.CardLogger.logg;
 /**
  * @deprecated No longer supported, but being used as reference.
  */
-public class HTMLModel {
+class HTMLModel {
 
     String document = null;
 

@@ -104,9 +104,9 @@ public class JSoupTranslator {
         return ez.get(0).toString();
     }
 
-    //=================  GETTERS ===============
 
-//=====GETTER=====
+
+        //=====GETTER=====
     public String get_doc() {
         return doc.toString();
     }

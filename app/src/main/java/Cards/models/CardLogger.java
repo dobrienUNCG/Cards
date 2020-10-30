@@ -15,7 +15,7 @@ public class CardLogger {
      * Can be *disabled* by changing the Level
      *
      * @see Logger*
-     * @since 10/25/2020
+     *
      */
     public static final Logger logg = Logger.getLogger(CardLogger.class.getName());
 

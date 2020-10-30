@@ -77,10 +77,12 @@ and what needs to be done.
 #+TODO: REPORT BUG KNOWNCAUSE WORKING-ON FEEDBACK | FIXED
 
 
-
+* Project [0%]
+  DEADLINE: <2020-11-18 Wed>
 ** WORKING-ON Standardize Directory Structure
-
+   SCHEDULED: <2020-10-31 Sat>
 *** TODO Implement MVC File Structure
+    SCHEDULED: <2020-10-31 Sat>
 **** DONE Gradle Not Working                                         :@devin:
      DEADLINE: <2020-10-23 Fri>
      :DESCRIPTION:
@@ -89,9 +91,9 @@ and what needs to be done.
      for any problems.
      :END:
 **** DONE Add JavaFX
-** TODO Finish Updates.org
 ** TODO [#B] Finish Mock-ups
 ** TODO [#C] Finish SRD 
+   DEADLINE: <2020-11-13 Fri>
    :DESCRIPTION: 
    Not to completion, but just continue hammering away at it so
    it. Specifically work on the functional requirements.
@@ -99,27 +101,45 @@ and what needs to be done.
 ** TODO [#B] Start Use Case
 ** TODO Design Test Cases
 ** TODO Data System For Cards
-*** TODO Reading 
-**** TODO Improve method of reading data from files
-**** TODO Finalize structure for save file (reading purposes)
+*** DONE Reading 
+**** DONE Improve method of reading data from files                  :@devin:
+**** DONE Finalize structure for save file (reading purposes)        :@devin:
+
 *** TODO Writing
+**** DONE Save Properly
+
 **** TODO Add backups and abstract it.
 **** TODO Add descriptions
+*** TODO Keyword Detection
+    DEADLINE: <2020-11-08 Sun>
+**** WORKING-ON Detect Keyword
+     SCHEDULED: <2020-10-31 Sat> DEADLINE: <2020-11-03 Tue>
+**** TODO Add Tags
+     DEADLINE: <2020-11-10 Tue>
+
 *** TODO Optimize
 ** TODO GUI Skeleton
+   SCHEDULED: <2020-11-01 Sun> DEADLINE: <2020-11-05 Thu>
    Goal is a working copy; not final visual appearence
-*** Views
+*** Views [0/6]
 **** TODO Settings View
+     DEADLINE: <2020-11-15 Sun>
 **** TODO Calendar VIew
 **** TODO Help View
+     DEADLINE: <2020-11-14 Sat>
 **** TODO Card View
+     DEADLINE: <2020-11-10 Tue>
 **** TODO Main View
+     DEADLINE: <2020-11-13 Fri>
 **** TODO Personal Settings View
-*** Connect Views
-*** Add Controllers
-    These should be seperate from the views themselves. I don't think
-    we should have the same class that creates the view being the same
-    one that acts as the controller.
-
-
-
+**** TODO Connect Views
+*** Controllers [0/5]
+**** TODO Card Controller
+     DEADLINE: <2020-11-06 Fri>
+**** TODO Main Menu Controller
+     DEADLINE: <2020-11-07 Sat>
+**** TODO Help Controller
+     DEADLINE: <2020-11-09 Mon>
+**** TODO Settings Controller
+     DEADLINE: <2020-11-16 Mon>
+**** TODO Calendar Controller	
