@@ -49,6 +49,8 @@
                                   <Menu mnemonicParsing="false" text="Edit">
                                     <items>
                                       <MenuItem mnemonicParsing="false" text="Delete" />
+                                          <MenuItem mnemonicParsing="false" text="Check for Dates" />
+                                          <MenuItem mnemonicParsing="false" onAction="#get_selection" text="Get Selection" />
                                     </items>
                                   </Menu>
                                   <Menu mnemonicParsing="false" text="Help">
@@ -59,7 +61,11 @@
                                     <Menu mnemonicParsing="false" text="Debug">
                                       <items>
                                         <MenuItem fx:id="debug_save" mnemonicParsing="false" onAction="#com_save" text="Save" />
-                                          <MenuItem mnemonicParsing="false" onAction="#com_load" text="Load" />
+                                          <Menu mnemonicParsing="false" onAction="#com_load" text="Load">
+                                            <items>
+                                              <MenuItem mnemonicParsing="false" text="Load Test File" />
+                                            </items>
+                                          </Menu>
                                           <MenuItem mnemonicParsing="false" onAction="#go_to_main_menu" text="Main Menu" />
                                       </items>
                                     </Menu>

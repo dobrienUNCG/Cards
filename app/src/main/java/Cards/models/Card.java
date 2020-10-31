@@ -39,6 +39,21 @@ public class Card {
         return this.name;
     }
 
+    public CardEvent getRecent(){
+        CardEvent recent = null;
+        for(CardEvent event : events){
+            if(recent == null)
+                recent = event;
+            if(recent.getDate().compareTo(event.getDate()) < 0){
+
+            }else{
+                recent = event;
+            }
+
+        }
+        return recent;
+    }
+
 //=====SETTERS=====
     public void setBody(String _input) {
         String test = getTextInBody(_input);

@@ -32,9 +32,9 @@ public class CardView {
         Parent root = loader.load();
 
         Scene scene = new Scene(root);
-
         logg.exiting(this.getClass().getName(), "start");
         return scene;
+
     }
 
 }

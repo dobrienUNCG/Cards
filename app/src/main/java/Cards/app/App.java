@@ -7,6 +7,8 @@ package Cards.app;
  * @AUTHOR Devin M. O'Brien
  */
 
+import Cards.models.CardScanner;
+import Cards.translators.io.HTMLTranslator;
 import Cards.views.MainMenuView;
 
 import static Cards.models.CardLogger.logg;
@@ -20,7 +22,8 @@ public class App {
         logg.fine("Logger has been setup");
 
         MainMenuView menu = new MainMenuView();
-        menu.show();
+       menu.show();
+
 
         logg.exiting("App", "main");
     }

@@ -79,6 +79,11 @@ public class JSoupTranslator {
         return init.html();
 
     }
+    public static String normalize(String _input){
+        Document temp = Jsoup.parse(_input);
+        return temp.normalise().outerHtml();
+    }
+
 
     private void parse_file() {
         logg.entering(this.getClass().getName(), "parse_file()");
@@ -88,6 +93,7 @@ public class JSoupTranslator {
         } catch ( IOException e ) {
             logg.warning("Failed to load file");
         }
+        doc.normalise();
         logg.exiting(this.getClass().getName(), "parse_file()");
     }
 
@@ -102,6 +108,18 @@ public class JSoupTranslator {
 
         logg.exiting(this.getClass().getName(), "get_tag(String x)");
         return ez.get(0).toString();
+    }
+    public String get_tag_inner(String x) {
+        logg.entering(this.getClass().getName(), "get_tag(String x)");
+        Elements ez = doc.getElementsByTag(x);
+        if ( ez == null ) {
+            logg.warning("Invalid Input");
+            logg.exiting(this.getClass().getName(), "get_tag(String x)");
+            return null;
+        }
+
+        logg.exiting(this.getClass().getName(), "get_tag(String x)");
+        return ez.text();
     }
 
 

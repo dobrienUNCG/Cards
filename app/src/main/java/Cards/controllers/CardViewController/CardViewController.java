@@ -15,8 +15,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Dialog;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.HTMLEditor;
+import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -99,8 +101,10 @@ public class CardViewController {
 
     public void updateEditor(String _input) {
         logg.entering("CardViewController", "change");
+
         this.editor.setHtmlText(_input);
         System.out.println(_input);
+
         logg.exiting("CardViewController", "change");
     }
 
@@ -124,6 +128,21 @@ public class CardViewController {
         appStage.setScene(scene);
         appStage.show();
     }
+    String select = "(function getText(){\n" +
+            "if(window.getSelection){\n" +
+            "return window.getSelection().toString();\n" +
+            "}"+ "})()";
+
+    public String get_selection(){
+        WebView x = (WebView) editor.lookup("WebView");
+        if(x != null){
+            Object y = x.getEngine().executeScript(select);
+            if(y instanceof String){
+                return (String) y;
+            }
+        }
+        return null;
+    }
 
     public void com_save() {
 
@@ -146,7 +165,30 @@ public class CardViewController {
     private void removeOldCards() {
         if ( this.sidebar.getChildren().size() > 2 ) {
             this.sidebar.getChildren().remove(2, this.sidebar.getChildren().size());
+
         }
     }
+
+    private void convert_to_date(){
+        String select = get_selection();
+        if(select == null){
+            return;
+        }
+
+    }
+    private void add_event(){
+        FXMLLoader x = new FXMLLoader();
+        x.setLocation(getClass().getResource("/EventCreationDialog.fxml"));
+        Dialog<Scene> d = null;
+        try {
+            d = x.load();
+        }catch ( IOException z ){
+
+        }
+        if(d != null)
+
+    }
+
+
 
 }

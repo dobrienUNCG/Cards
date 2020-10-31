@@ -15,6 +15,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import static Cards.models.CardLogger.logg;
+import static Cards.translators.jsoup.JSoupTranslator.normalize;
 import static Cards.translators.jsoup.JSoupTranslator.replaceBodyTag;
 
 public class HTMLMod {
@@ -24,6 +25,11 @@ public class HTMLMod {
     private String doc;
     private ArrayList<Card> cards;
 
+    /**
+     * HTMLMod Constructor
+     *
+     * @param _x
+     */
     public HTMLMod(String _x) {
         logg.entering("HTMLMod", "HTMLMod");
         JSoupTranslator y = new JSoupTranslator(_x); // JSoup interaction
@@ -52,8 +58,9 @@ public class HTMLMod {
 
     public void save(String _input) {
         try {
+           String input = normalize(_input);
             FileWriter filew = new FileWriter("Test.html", false);
-            filew.write("<html>" + this.head + "<body>" + _input + "</body></html>");
+            filew.write("<html>" + this.head + "<body>" + input + "</body></html>");
             filew.close();
         } catch ( IOException e ) {
             System.out.println(e);

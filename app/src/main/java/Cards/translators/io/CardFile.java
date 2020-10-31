@@ -40,6 +40,7 @@ public class CardFile {
         path = file.toPath();
     }
 
+
     //=================  GETTERS ===============
 
 //=====GETTER=====
