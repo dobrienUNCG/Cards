@@ -50,11 +50,12 @@ public class MainMenuController {
             try {
                 FXMLLoader loader = new FXMLLoader();
                 loader.setLocation(getClass().getResource("/Template.fxml"));
-                appStage = (Stage) this.home_button.getScene().getWindow();
+                Stage child = new Stage();
+
                 root = loader.load();
                 Scene scene = new Scene(root);
-                appStage.setScene(scene);
-                appStage.show();
+                child.setScene(scene);
+                child.show();
             } catch ( IOException _e ) {
                 _e.printStackTrace();
             }
@@ -67,7 +68,7 @@ public class MainMenuController {
     @FXML
     public void initialize() {
 
-
+        ;
         for ( int i = 0; i < recentCards.size() && i <= 6; i++ ) {
             // Gets Card List
             HTMLTranslator htmlTranslator = new HTMLTranslator(recentCards.get(i));

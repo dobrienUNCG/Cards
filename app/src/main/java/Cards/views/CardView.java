@@ -13,7 +13,7 @@ import Cards.models.Card;
 import Cards.models.CardList;
 import Cards.models.HTMLMod;
 import Cards.translators.io.CardFile;
-import javafx.application.Platform;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -48,10 +48,13 @@ public class CardView {
     CardFile openCard;
     CardList cardList;
     HTMLMod htmlMod;
-    String select = "(function getText(){\n" + "if(window.getSelection){\n" + "return window.getSelection();\n" + "}" + "})()";
+    String select =
+            "(function getText(){\n" + "if(window.getSelection){\n" + "return window.getSelection();\n" + "}" + "})()";
+
     public CardView() {
 
     }
+
     public CardView(CardFile x) {
         logg.entering(this.getClass().getName(), "CardViewController()");
 
@@ -69,7 +72,6 @@ public class CardView {
             openFile(AppModel.activeFile);
         }
     }
-
 
     public CardFile askFilePath() {
         FileChooser fileChooser = new FileChooser();
@@ -164,6 +166,7 @@ public class CardView {
 
     /**
      * Changes content of HTML Editor
+     *
      * @param _input
      */
     public void updateEditor(String _input) {
@@ -173,6 +176,7 @@ public class CardView {
 
     /**
      * Switch to card
+     *
      * @param _index card being switched to
      */
     public void switch_card(int _index) {
@@ -196,6 +200,7 @@ public class CardView {
     public void go_to_main_menu() throws IOException {
 
     }
+
     public void com_save() {
 
     }
@@ -247,6 +252,10 @@ public class CardView {
         return scene;
     }
 
+    /**
+     *
+     * @return
+     */
     public String get_selection() {
         WebView webView = (WebView) editor.lookup("WebView");
         if ( webView != null ) {
@@ -257,10 +266,7 @@ public class CardView {
             }
 
         }
-        return null;
+        return null ;
     }
 
 }
-
-
-
