@@ -72,13 +72,13 @@ and what needs to be done.
 #+TODO: REPORT BUG KNOWNCAUSE WORKING-ON FEEDBACK | FIXED
 
 
-* Project [0%]
+* Project [16%]
   DEADLINE: <2020-11-18 Wed>
 ** Docs [0/6]
 *** TODO State Diagram
 *** TODO [#A] Finish Mock-ups
 *** TODO [#B] Start Use Case x2
-    SCHEDULED: <2020-11-01 Sun>
+    SCHEDULED: <2020-11-14 Sat> DEADLINE: <2020-11-16 Mon>
 *** TODO [#C] Finish SRD 
     DEADLINE: <2020-11-13 Fri>
     :DESCRIPTION: 
@@ -89,11 +89,13 @@ and what needs to be done.
 *** TODO Architect DIagram
     
 ** TODO Design Test Cases
-** WORKING-ON Standardize Directory Structure
+** DONE Standardize Directory Structure
    SCHEDULED: <2020-10-31 Sat>
 
 *** TODO Implement MVC File Structure
-    SCHEDULED: <2020-10-31 Sat>
+    DEADLINE: <2020-11-17 Tue> SCHEDULED: <2020-11-16 Mon>
+    - Note taken on [2020-11-04 Wed 20:21] \\
+      Pushed date back due to the upcoming Monday.
 **** DONE Gradle Not Working                                         :@devin:
      DEADLINE: <2020-10-23 Fri>
      :DESCRIPTION:
@@ -112,42 +114,42 @@ and what needs to be done.
 
 **** TODO Add backups and abstract it.
 **** TODO Add descriptions
-*** TODO Keyword Detection
+** TODO Keyword Detection
     :LOGBOOK:
     CLOCK: [2020-10-31 Sat 15:00]--[2020-10-31 Sat 18:50] =>  3:50
     :END:
-    DEADLINE: <2020-11-08 Sun>
-    
-**** WORKING-ON Detect Keyword
-     SCHEDULED: <2020-11-01 Sun> DEADLINE: <2020-11-03 Tue>
-     I have been making progress; I had to add a way to get current selection (for editing an event and making one). 
-     I am currently behind on this and will have to pick back up tomorrow.
+    DEADLINE: <2020-11-08 Sun> 
+** TODO Event System
+*** TODO Create Event
+*** TODO Edit Event
+
+
 **** TODO Add Tags
-     DEADLINE: <2020-11-10 Tue>
+     DEADLINE: <2020-11-17 Tue>
 
 *** TODO Optimize
 ** TODO GUI Skeleton
-   SCHEDULED: <2020-11-01 Sun> DEADLINE: <2020-11-05 Thu>
+   SCHEDULED: <2020-11-14 Sat> DEADLINE: <2020-11-15 Sun>
    Goal is a working copy; not final visual appearence
 *** Views [0/6]
 **** TODO Settings View
      DEADLINE: <2020-11-15 Sun>
 **** TODO Calendar VIew
-**** TODO Help View
+**** Help View
      DEADLINE: <2020-11-14 Sat>
 **** TODO Card View
-     DEADLINE: <2020-11-10 Tue>
+     DEADLINE: <2020-11-17 Tue>
 **** TODO Main View
      DEADLINE: <2020-11-13 Fri>
 **** TODO Personal Settings View
 **** TODO Connect Views
 *** Controllers [0/5]
 **** TODO Card Controller
-     DEADLINE: <2020-11-06 Fri>
-**** TODO Main Menu Controller
-     DEADLINE: <2020-11-07 Sat>
+     DEADLINE: <2020-11-20 Fri>
+**** TODO [#A] Main Menu Controller
+     DEADLINE: <2020-11-21 Sat>
 **** TODO Help Controller
-     DEADLINE: <2020-11-09 Mon>
+     DEADLINE: <2020-11-16 Mon>
 **** TODO Settings Controller
      DEADLINE: <2020-11-16 Mon>
 **** TODO Calendar Controller	

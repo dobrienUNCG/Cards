@@ -8,15 +8,15 @@ package Cards.models;
 
 import java.time.LocalDateTime;
 
-
 public class CardEvent {
 
     private LocalDateTime date;
-    private String desc;
+    private String description;
+    private String uuid;
 
-    public CardEvent(LocalDateTime date, String desc) {
+    public CardEvent(LocalDateTime date, String description) {
         this.date = date;
-        this.desc = desc;
+        this.description = description;
     }
 
     public CardEvent(LocalDateTime date) {
@@ -25,23 +25,19 @@ public class CardEvent {
 
     @Override
     public String toString() {
-        return "CardEvent{" +
-                "date=" + this.date +
-                ", desc='" + this.desc + '\'' +
-                '}';
+        return "CardEvent{" + "date=" + this.date + ", desc='" + this.description + '\'' + '}';
     }
-
 
     //=====GETTER=====
     public LocalDateTime getDate() {
         return this.date;
     }
 
-    public String getDesc() {
-        if ( this.desc == null ) {
+    public String getDescription() {
+        if ( this.description == null ) {
             return null;
         }
-        return this.desc;
+        return this.description;
     }
 
     //=====SETTERS=====
@@ -49,9 +45,8 @@ public class CardEvent {
         this.date = _date;
     }
 
-    public void setDesc(String _desc) {
-        this.desc = _desc;
+    public void setDescription(String _description) {
+        this.description = _description;
     }
-
 
 }

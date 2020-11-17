@@ -1,52 +1,75 @@
 package Cards.models;
 /**
- * Last Updated: 10/28/2020
+ * Last Updated: 11/17/2020 4:49 PM
  * Card Data Model
  *
  * @AUTHOR Devin M. O'Brien
  */
 
 import java.util.ArrayList;
+import java.util.UUID;
 
 import static Cards.models.CardLogger.logg;
 import static Cards.translators.jsoup.JSoupTranslator.getTextInBody;
 
 public class Card {
-    private String name;
-    private String body;
+    private MetaData metaData = new MetaData();
     private ArrayList<CardEvent> events;
-
+    private String body;
+    /**
+     * @param _name   Name of Card
+     * @param _body   Body of Card HTML
+     * @param _events CardEvents
+     */
     public Card(String _name, String _body, ArrayList<CardEvent> _events) {
-        this.name = _name;
+        metaData.setTitle(_name);
         this.body = _body;
         this.events = _events;
     }
 
-    @Override
-    public String toString() {
-        return "<section title=\"" + this.name + "\">" + this.body + "</section>";
+    public void add_event(CardEvent _event) {
+        this.events.add(_event);
     }
 
-//=====GETTER=====
+    /**
+     * @deprecated Not Implemented
+     * @param _index
+     */
+    public void remove_event(int _index) {
+        throw new RuntimeException("Not Implemented");
+    }
+
+    /**
+     * @deprecated Not Implemented
+     * @param uuid
+     */
+    public void remove_event(UUID uuid) {
+        throw new RuntimeException("Not Implemented");
+    }
+
+    @Override
+    public String toString() {
+        return "<section title=\"" + metaData.getTitle() + "\">" + this.body + "</section>";
+    }
+
+    //=====GETTER=====
     public String getBody() {
-        logg.info(this.body);
         return this.body;
     }
 
-    //=================  GETTERS ===============
-
     public String getName() {
-        return this.name;
+        return metaData.getTitle();
     }
 
-    public CardEvent getRecent(){
+    public CardEvent getRecent() {
         CardEvent recent = null;
-        for(CardEvent event : events){
-            if(recent == null)
+        for ( CardEvent event : events ) {
+            if ( recent == null ) {
                 recent = event;
-            if(recent.getDate().compareTo(event.getDate()) < 0){
+            }
+            if ( recent.getDate().compareTo(event.getDate()) < 0 ) {
 
-            }else{
+            } else {
                 recent = event;
             }
 
@@ -54,10 +77,14 @@ public class Card {
         return recent;
     }
 
-//=====SETTERS=====
+    //=====SETTERS=====
     public void setBody(String _input) {
         String test = getTextInBody(_input);
         this.body = test;
 
+    }
+
+    public void setName(String _name) {
+        metaData.setTitle(_name);
     }
 }

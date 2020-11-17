@@ -1,26 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ContextMenu?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<TitledPane collapsible="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="492.0" prefWidth="784.0" text="Cards" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Cards.controllers.mainmenuController.MainMenuController">
+<TitledPane collapsible="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="492.0" prefWidth="784.0" styleClass="title" text="Cards" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Cards.controllers.MainMenuController">
    <content>
-      <SplitPane dividerPositions="0.2391304347826087" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="160.0" prefWidth="200.0">
+      <SplitPane id="main" dividerPositions="0.2391304347826087" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="160.0" prefWidth="200.0">
         <items>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <VBox layoutX="38.0" layoutY="31.0" prefHeight="374.0" prefWidth="175.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <VBox layoutX="38.0" layoutY="31.0" prefHeight="374.0" prefWidth="175.0" styleClass="main" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Button fx:id="home_button" accessibleText="Home Button" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="52.0" prefWidth="175.0" styleClass="active" text="Home" textFill="#00ff09">
+                        <Button fx:id="home_button" accessibleText="Home Button" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="52.0" prefWidth="175.0" styleClass="active" text="🏠" textFill="#575b57">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
@@ -38,33 +45,86 @@
                                     <SeparatorMenuItem mnemonicParsing="false" />
                                 </items>
                               </ContextMenu>
-                           </contextMenu></Button>
-                        <Button fx:id="calendar_button" accessibleText="Calendar Button" layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="52.0" prefWidth="175.0" text="Calendar">
+                           </contextMenu>
+                           <VBox.margin>
+                              <Insets left="10.0" right="10.0" top="10.0" />
+                           </VBox.margin>
+                           <effect>
+                              <DropShadow />
+                           </effect></Button>
+                        <Button fx:id="calendar_button" accessibleText="Calendar Button" layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="52.0" prefWidth="175.0" text="📅">
                            <tooltip>
                               <Tooltip text="Disabled" />
-                           </tooltip></Button>
-                        <Button fx:id="personal_settings_button" accessibleText="Personal Settings Button" layoutX="10.0" layoutY="62.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="52.0" prefWidth="175.0" text="Personal Settings">
+                           </tooltip>
+                           <VBox.margin>
+                              <Insets left="10.0" right="10.0" top="10.0" />
+                           </VBox.margin>
+                           <effect>
+                              <DropShadow />
+                           </effect></Button>
+                        <Button fx:id="personal_settings_button" accessibleText="Personal Settings Button" layoutX="10.0" layoutY="62.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="52.0" prefWidth="175.0" text="🔑">
                            <tooltip>
                               <Tooltip hideOnEscape="false" text="Disabled" />
-                           </tooltip></Button>
-                        <Button fx:id="settings_button" accessibleText="Settings Button" layoutX="10.0" layoutY="114.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="52.0" prefWidth="175.0" text="Settings" textFill="#00ff33">
+                           </tooltip>
+                           <VBox.margin>
+                              <Insets left="10.0" right="10.0" top="10.0" />
+                           </VBox.margin>
+                           <effect>
+                              <DropShadow />
+                           </effect></Button>
+                        <Button fx:id="settings_button" accessibleText="Settings Button" layoutX="10.0" layoutY="114.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="52.0" prefWidth="175.0" text="⚙" textFill="#00ff33">
                            <tooltip>
                               <Tooltip text="Disabled" />
-                           </tooltip></Button>
-                        <Button fx:id="HelpButton" accessibleText="Help Button" contentDisplay="CENTER" layoutX="10.0" layoutY="166.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="52.0" prefWidth="175.0" text="Help" textFill="#50c914">
+                           </tooltip>
+                           <VBox.margin>
+                              <Insets left="10.0" right="10.0" top="10.0" />
+                           </VBox.margin>
+                           <effect>
+                              <DropShadow />
+                           </effect></Button>
+                        <Button fx:id="HelpButton" accessibleText="Help Button" contentDisplay="CENTER" layoutX="10.0" layoutY="166.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="52.0" prefWidth="175.0" text="?" textFill="#50c914">
                            <tooltip>
                               <Tooltip text="Disabled" />
-                           </tooltip></Button>
+                           </tooltip>
+                           <VBox.margin>
+                              <Insets left="10.0" right="10.0" top="10.0" />
+                           </VBox.margin>
+                           <effect>
+                              <DropShadow />
+                           </effect></Button>
                      </children>
                   </VBox>
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                <children>
-                  <SplitPane dividerPositions="0.15447154471544716" layoutX="183.0" layoutY="86.0" orientation="VERTICAL" prefHeight="371.0" prefWidth="451.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <SplitPane fx:id="splitpane" dividerPositions="0.14655172413793102" layoutX="183.0" layoutY="86.0" orientation="VERTICAL" prefHeight="371.0" prefWidth="451.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <items>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
+                      <AnchorPane fx:id="mainsplit" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" styleClass="main">
+                           <children>
+                              <Label layoutX="20.0" layoutY="21.0" prefHeight="28.0" prefWidth="163.0" styleClass="main" text="Recently Created" underline="true">
+                                 <font>
+                                    <Font size="19.0" />
+                                 </font>
+                              </Label>
+                           </children></AnchorPane>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                           <children>
+                              <GridPane fx:id="grid" hgap="10.0" layoutX="171.0" layoutY="118.0" prefHeight="389.0" prefWidth="590.0" styleClass="main" vgap="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <padding>
+                                    <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+                                 </padding>
+                              </GridPane>
+                           </children></AnchorPane>
                     </items>
                   </SplitPane>
                </children></AnchorPane>
