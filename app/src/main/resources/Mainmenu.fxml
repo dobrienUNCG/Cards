@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.stage.Stage?>
 
-<Stage xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Cards.controllers.mainmenuController.MainMenuController">
+<Stage xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Cards.controllers.MainMenuController">
     <scene>
         <Scene>
          <TitledPane prefHeight="395.0" prefWidth="648.0">

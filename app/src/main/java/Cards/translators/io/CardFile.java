@@ -6,70 +6,78 @@ package Cards.translators.io;
  * @author Devin M. O'Brien
  */
 
-import Cards.models.Card;
+import Cards.models.CardList;
 
 import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 
 import static Cards.models.CardLogger.logg;
 
 public class CardFile {
     private File file;
     private Path path;
-    private ArrayList<Card> cards;
+    private CardList cardList;
 
-    public CardFile(String _x) {
-        logg.entering(this.getClass().getName(), "CardFile(String _x)");
-        Path fil;
+    public CardFile(String _file) {
+        logg.entering(this.getClass().getName(), "CardFile(String _file)");
         try {
-            path = Paths.get(_x);
-            file = new File(String.valueOf(path));
-            logg.info(file.getAbsolutePath().toString());
+            this.path = Paths.get(_file);
+            this.file = new File(String.valueOf(path));
+            logg.info(file.getAbsolutePath());
+            logg.info(path.toString());
 
         } catch ( Exception e ) {
             logg.warning(e.toString());
 
         }
-        logg.exiting(this.getClass().getName(), "CardFile(String _x)");
+        logg.exiting(this.getClass().getName(), "CardFile(String _file)");
     }
 
-    public CardFile(File _x) {
-        file = _x;
-        path = file.toPath();
+    public CardFile(File _file) {
+        this.file = _file;
+        this.path = this.file.toPath();
     }
 
-    //=================  GETTERS ===============
 
-//=====GETTER=====
-    public File get_file() {
-        return file;
+
+    //=====GETTER=====
+    public File getFile() {
+        return this.file;
     }
 
     public File get_card_file() {
-        return file;
+        return this.file;
+    }
+    public CardList getCardList(){
+        return this.cardList;
     }
 
-    //=================  SETTERS ===============
 
-//=====SETTERS=====
-    public void set_path(String _x) {
-        logg.entering(this.getClass().getName(), "CardFile(String _x)");
-        Path fil;
+    //=====SETTERS=====
+    public void set_path(String _path) {
+        logg.entering(this.getClass().getName(), "CardFile(String _path)");
+
         try {
-            path = Paths.get(_x);
-            logg.info("Path: " + path.toString());
+            this.path = Paths.get(_path);
+            logg.info("Path: " + this.path.toString());
 
         } catch ( Exception e ) {
             logg.warning("Failed To Get Path " + e.toString());
         }
-        logg.exiting(this.getClass().getName(), "CardFile(String _x)");
+        logg.exiting(this.getClass().getName(), "CardFile(String _path)");
 
     }
 
-    public void set_path(Path _x) {
-        path = _x;
+    public Path getPath(){
+        return path;
+    }
+
+    public void set_path(Path _path) {
+        this.path = _path;
+    }
+    public void set_cardlist(CardList _cardlist){
+        this.cardList = _cardlist;
     }
 
 }

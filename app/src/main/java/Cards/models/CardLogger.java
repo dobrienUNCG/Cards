@@ -2,7 +2,6 @@ package Cards.models;
 
 import java.util.logging.*;
 
-
 /**
  * Last Updated: 10/28/2020
  * Logger for Card Project
@@ -15,7 +14,6 @@ public class CardLogger {
      * Can be *disabled* by changing the Level
      *
      * @see Logger*
-     *
      */
     public static final Logger logg = Logger.getLogger(CardLogger.class.getName());
 

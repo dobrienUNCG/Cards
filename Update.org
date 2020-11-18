@@ -5,7 +5,7 @@
 ** Purpose
 This document is to help keep track of development as we move
 forward. Everything in the overview will essentially be the same so
-you can move to [[Updates]] for information on what is actually going on.
+you can move to [[Todo]] for information on what is actually going on.
 
 *** Personal Note
 I may not always be available, I have projects in other classes so I
@@ -45,14 +45,9 @@ don't expect anyone else to use it. If you would like me to describe
 the problems with it, I can add a list, but otherwise I will leave
 that open-ended.
 *** Task Management
-With [[Org-Mode]], I can implemnt some task management through [[https://orgmode.org/manual/TODO-dependencies.html#TODO-dependencies][TODO]] (not
-great example, but easiest to look at) and tags which I may do moving
-forward.
+With [[Org-Mode]], I have implemented some task management.
 
-Should I do this, the copy that you to look at would be in the main
-branch. 
-
-* Updates
+* Todo
 ** Description
 This will contain two types of items, things that have been completed
 and what needs to be done. 
@@ -77,12 +72,30 @@ and what needs to be done.
 #+TODO: REPORT BUG KNOWNCAUSE WORKING-ON FEEDBACK | FIXED
 
 
-* Project [0%]
+* Project [16%]
   DEADLINE: <2020-11-18 Wed>
-** WORKING-ON Standardize Directory Structure
+** Docs [0/6]
+*** TODO State Diagram
+*** TODO [#A] Finish Mock-ups
+*** TODO [#B] Start Use Case x2
+    SCHEDULED: <2020-11-14 Sat> DEADLINE: <2020-11-16 Mon>
+*** TODO [#C] Finish SRD 
+    DEADLINE: <2020-11-13 Fri>
+    :DESCRIPTION: 
+    Not to completion, but just continue hammering away at it so
+    it. Specifically work on the functional requirements.
+    :END:
+*** TODO State Diagram
+*** TODO Architect DIagram
+    
+** TODO Design Test Cases
+** DONE Standardize Directory Structure
    SCHEDULED: <2020-10-31 Sat>
+
 *** TODO Implement MVC File Structure
-    SCHEDULED: <2020-10-31 Sat>
+    DEADLINE: <2020-11-17 Tue> SCHEDULED: <2020-11-16 Mon>
+    - Note taken on [2020-11-04 Wed 20:21] \\
+      Pushed date back due to the upcoming Monday.
 **** DONE Gradle Not Working                                         :@devin:
      DEADLINE: <2020-10-23 Fri>
      :DESCRIPTION:
@@ -91,15 +104,6 @@ and what needs to be done.
      for any problems.
      :END:
 **** DONE Add JavaFX
-** TODO [#B] Finish Mock-ups
-** TODO [#C] Finish SRD 
-   DEADLINE: <2020-11-13 Fri>
-   :DESCRIPTION: 
-   Not to completion, but just continue hammering away at it so
-   it. Specifically work on the functional requirements.
-   :END:
-** TODO [#B] Start Use Case
-** TODO Design Test Cases
 ** TODO Data System For Cards
 *** DONE Reading 
 **** DONE Improve method of reading data from files                  :@devin:
@@ -110,36 +114,48 @@ and what needs to be done.
 
 **** TODO Add backups and abstract it.
 **** TODO Add descriptions
-*** TODO Keyword Detection
-    DEADLINE: <2020-11-08 Sun>
-**** WORKING-ON Detect Keyword
-     SCHEDULED: <2020-10-31 Sat> DEADLINE: <2020-11-03 Tue>
+** TODO Keyword Detection
+    :LOGBOOK:
+    CLOCK: [2020-10-31 Sat 15:00]--[2020-10-31 Sat 18:50] =>  3:50
+    :END:
+    DEADLINE: <2020-11-08 Sun> 
+** TODO Event System
+*** TODO Create Event
+*** TODO Edit Event
+
+
 **** TODO Add Tags
-     DEADLINE: <2020-11-10 Tue>
+     DEADLINE: <2020-11-17 Tue>
 
 *** TODO Optimize
 ** TODO GUI Skeleton
-   SCHEDULED: <2020-11-01 Sun> DEADLINE: <2020-11-05 Thu>
+   SCHEDULED: <2020-11-14 Sat> DEADLINE: <2020-11-15 Sun>
    Goal is a working copy; not final visual appearence
 *** Views [0/6]
 **** TODO Settings View
      DEADLINE: <2020-11-15 Sun>
 **** TODO Calendar VIew
-**** TODO Help View
+**** Help View
      DEADLINE: <2020-11-14 Sat>
 **** TODO Card View
-     DEADLINE: <2020-11-10 Tue>
+     DEADLINE: <2020-11-17 Tue>
 **** TODO Main View
      DEADLINE: <2020-11-13 Fri>
 **** TODO Personal Settings View
 **** TODO Connect Views
 *** Controllers [0/5]
 **** TODO Card Controller
-     DEADLINE: <2020-11-06 Fri>
-**** TODO Main Menu Controller
-     DEADLINE: <2020-11-07 Sat>
+     DEADLINE: <2020-11-20 Fri>
+**** TODO [#A] Main Menu Controller
+     DEADLINE: <2020-11-21 Sat>
 **** TODO Help Controller
-     DEADLINE: <2020-11-09 Mon>
+     DEADLINE: <2020-11-16 Mon>
 **** TODO Settings Controller
      DEADLINE: <2020-11-16 Mon>
 **** TODO Calendar Controller	
+
+
+* Resources
+- For link to Startup State Diagram @devin
+  - There is not much there, but it is something I started working on
+    while thinking of how the program will work.

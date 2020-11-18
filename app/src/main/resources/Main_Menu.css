@@ -1,0 +1,20 @@
+.active{
+    -fx-background-color: lightgreen;
+}
+*{
+  
+   
+    -fx-text-fill: grey;
+}
+.title{
+    -fx-text-fill: white;
+    -fx-background-color: grey;
+}
+.button{
+    -fx-font-size: 25;
+    -fx-background-color: lightgray;
+}
+.main{
+    -fx-background-color: #b3b3b3;
+    -fx-text-fill: black;
+}

@@ -1,0 +1,9 @@
+.button{
+    -fx-max-height: 10em;
+    -fx-min-height: 0em;
+    -fx-text-fill: black;
+    -fx-wrap-text: true;
+}
+.titled-pane{
+    -fx-background-color: grey;
+}

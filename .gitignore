@@ -5,3 +5,6 @@
 # Ignore Gradle build output directory
 build
 docs/Software Requirements Document.log
+*.html
+*.html
+Settings.cfg

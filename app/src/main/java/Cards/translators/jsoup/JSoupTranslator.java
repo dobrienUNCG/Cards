@@ -26,11 +26,18 @@ public class JSoupTranslator {
     private CardFile cardFile;
     private Document doc;
 
+    /**
+     * JSoup Translator Constructor
+     * @param _x
+     */
     public JSoupTranslator(CardFile _x) {
         cardFile = _x;
         parse_file();
     }
-
+    /**
+     * JSoup Translator Constructor
+     * @param _x
+     */
     public JSoupTranslator(String _x) {
         cardFile = new CardFile(_x);
 
@@ -79,6 +86,11 @@ public class JSoupTranslator {
         return init.html();
 
     }
+    public static String normalize(String _input){
+        Document temp = Jsoup.parse(_input);
+        return temp.normalise().outerHtml();
+    }
+
 
     private void parse_file() {
         logg.entering(this.getClass().getName(), "parse_file()");
@@ -88,8 +100,11 @@ public class JSoupTranslator {
         } catch ( IOException e ) {
             logg.warning("Failed to load file");
         }
+        doc.normalise();
         logg.exiting(this.getClass().getName(), "parse_file()");
     }
+
+
 
     public String get_tag(String x) {
         logg.entering(this.getClass().getName(), "get_tag(String x)");
@@ -102,6 +117,28 @@ public class JSoupTranslator {
 
         logg.exiting(this.getClass().getName(), "get_tag(String x)");
         return ez.get(0).toString();
+    }
+    public String get_tag_inner(String x) {
+        logg.entering(this.getClass().getName(), "get_tag(String x)");
+        Elements ez = doc.getElementsByTag(x);
+        if ( ez == null ) {
+            logg.warning("Invalid Input");
+            logg.exiting(this.getClass().getName(), "get_tag(String x)");
+            return null;
+        }
+
+        logg.exiting(this.getClass().getName(), "get_tag(String x)");
+        return ez.text();
+    }
+
+    public String get_meta(String type){
+        Elements metatags = doc.getElementsByTag("meta");
+        for(Element tag : metatags){
+           if( tag.attr("name").contentEquals(type)){
+               return tag.attr("content");
+           }
+        }
+        return null;
     }
 
 

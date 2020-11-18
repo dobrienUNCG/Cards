@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.web.HTMLEditor?>
 
-<TitledPane fx:id="titlebar" animated="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="500.0" prefWidth="800.0" text="Template Card" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Cards.controllers.CardViewController.CardViewController">
+<TitledPane fx:id="titlebar" animated="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" prefHeight="500.0" prefWidth="800.0" text="Template Card" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Cards.views.CardView">
    <content>
       <SplitPane dividerPositions="0.1372745490981964" prefHeight="160.0" prefWidth="200.0">
         <items>
@@ -23,7 +23,7 @@
                            <children>
                               <VBox fx:id="sidebar" layoutX="16.0" layoutY="46.0" prefHeight="372.0" prefWidth="132.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                    <Button fx:id="card01" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="51.0" prefWidth="132.0" text="Template Card" />
+                                    <Button fx:id="titlebutton" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#changeDetails" prefHeight="51.0" prefWidth="132.0" text="Template Card" />
                                     <Button fx:id="createNewCard" layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#createNew" prefHeight="51.0" prefWidth="132.0" text="Create Card" />
                                  </children>
                               </VBox>
@@ -49,6 +49,8 @@
                                   <Menu mnemonicParsing="false" text="Edit">
                                     <items>
                                       <MenuItem mnemonicParsing="false" text="Delete" />
+                                          <MenuItem mnemonicParsing="false" text="Check for Dates" />
+                                          <MenuItem mnemonicParsing="false" onAction="#get_selection" text="Get Selection" />
                                     </items>
                                   </Menu>
                                   <Menu mnemonicParsing="false" text="Help">
@@ -59,8 +61,13 @@
                                     <Menu mnemonicParsing="false" text="Debug">
                                       <items>
                                         <MenuItem fx:id="debug_save" mnemonicParsing="false" onAction="#com_save" text="Save" />
-                                          <MenuItem mnemonicParsing="false" onAction="#com_load" text="Load" />
+                                          <Menu mnemonicParsing="false" onAction="#com_load" text="Load">
+                                            <items>
+                                              <MenuItem mnemonicParsing="false" text="Load Test File" />
+                                            </items>
+                                          </Menu>
                                           <MenuItem mnemonicParsing="false" onAction="#go_to_main_menu" text="Main Menu" />
+                                          <MenuItem mnemonicParsing="false" onAction="#showHTML" text="Show HTML" />
                                       </items>
                                     </Menu>
                                 </menus>
@@ -69,7 +76,7 @@
                         </AnchorPane>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="217.0" prefWidth="415.0">
                            <children>
-                              <HTMLEditor fx:id="editor" htmlText="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable=&quot;true&quot;&gt;&lt;/body&gt;&lt;/html&gt;" layoutX="144.0" layoutY="81.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="325.0" prefWidth="856.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                              <HTMLEditor fx:id="editor" htmlText="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable=&quot;true&quot;&gt;&lt;/body&gt;&lt;/html&gt;" layoutX="144.0" layoutY="81.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="325.0" prefWidth="856.0" stylesheets="@Card.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                            </children>
                         </AnchorPane>
                     </items>
