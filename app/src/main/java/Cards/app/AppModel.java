@@ -13,6 +13,7 @@ import Cards.models.settings.CardSettings;
 import Cards.translators.io.CardFile;
 import Cards.views.MainMenuView;
 import javafx.application.Application;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import static Cards.models.settings.CardSettings.save_settings;
@@ -34,6 +35,12 @@ public class AppModel extends Application {
         _stage.show();
 
     }
+    static public void newWindow(Scene _scene){
+        Stage stage = new Stage();
+        stage.setScene(_scene);
+        stage.show();
+    }
+
 
     /**
      * Starts JavaFX Application

@@ -45,6 +45,16 @@ public class HTMLMod {
         this.doc = jsoup.get_doc();
         logg.info("doc = " + this.doc);
         this.cards = jsoup.get_cards();
+    }    public void parse(){
+        CardFile _x = cardFile;
+        JSoupTranslator jsoup = new JSoupTranslator(_x);
+        this.head = jsoup.get_head();
+        logg.info("head = " + this.head);
+        this.body = jsoup.get_body();
+        logg.info("body - " + this.body);
+        this.doc = jsoup.get_doc();
+        logg.info("doc = " + this.doc);
+        this.cards = jsoup.get_cards();
     }
     private void parse(File _x){
         dev.log("Creating HTMLMod");

@@ -12,6 +12,7 @@ import Cards.models.Card;
 import Cards.models.CardList;
 import Cards.translators.io.CardFile;
 import Cards.translators.io.HTMLTranslator;
+import Cards.views.CardView;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -25,7 +26,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-
+import static Cards.app.AppModel.newWindow;
 import static Cards.models.CardLogger.logg;
 import static Cards.models.settings.CardSettings.recentCards;
 
@@ -42,24 +43,12 @@ public class MainMenuController {
 
     public void create_card() {
 
-        {
-
-            Stage appStage;
-            Parent root;
-
             try {
-                FXMLLoader loader = new FXMLLoader();
-                loader.setLocation(getClass().getResource("/Template.fxml"));
-                Stage child = new Stage();
-
-                root = loader.load();
-                Scene scene = new Scene(root);
-                child.setScene(scene);
-                child.show();
-            } catch ( IOException _e ) {
+                newWindow(new CardView().get_a_card());
+            } catch ( Exception _e ) {
                 _e.printStackTrace();
             }
-        }
+
     }
 
     /**

@@ -69,6 +69,10 @@ public class CardFile {
 
     }
 
+    public Path getPath(){
+        return path;
+    }
+
     public void set_path(Path _path) {
         this.path = _path;
     }

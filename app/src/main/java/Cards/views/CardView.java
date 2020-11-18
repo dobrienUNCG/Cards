@@ -135,8 +135,9 @@ public class CardView {
         removeOldCards();
         add_file(this.openCard);
         this.htmlMod = new HTMLMod(openCard.getFile());
+        this.htmlMod.parse();
         this.cards = this.htmlMod.get_cards();
-        if ( ! this.cards.isEmpty() ) {
+        if (!this.cards.isEmpty()) {
             updateEditor(this.cards.get(0).getBody());
         }
         // Loading cards to editor
@@ -246,7 +247,7 @@ public class CardView {
         loader.setLocation(getClass().getResource("/Template.fxml"));
         Parent root = loader.load();
         Scene scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getResource("./Card.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("/Card.css").toExternalForm());
 
         logg.exiting(this.getClass().getName(), "start");
         return scene;
