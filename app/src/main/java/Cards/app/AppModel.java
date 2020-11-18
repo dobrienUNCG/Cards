@@ -1,6 +1,7 @@
 package Cards.app;
 /**
  * App Model
+ * Updated: 11/18/2020
  *
  * This class connects the settings to the program. Technically, this also starts up the
  * program.

@@ -67,6 +67,7 @@
                                             </items>
                                           </Menu>
                                           <MenuItem mnemonicParsing="false" onAction="#go_to_main_menu" text="Main Menu" />
+                                          <MenuItem mnemonicParsing="false" onAction="#showHTML" text="Show HTML" />
                                       </items>
                                     </Menu>
                                 </menus>

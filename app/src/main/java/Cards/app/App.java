@@ -22,7 +22,7 @@ public class App {
         logg.fine("Logger has been setup");
         AppModel appModel = new AppModel();
         appModel.launcher();
-
+        save_settings();
         logg.exiting("App", "main");
     }
 }

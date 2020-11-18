@@ -36,7 +36,10 @@ public class CardList {
     }
 
     public String toString() {
-        return this.metaData.getTitle() + " " + this.metaData.getDescription() + " " + this.cards.toString();
+        String title = "<title>" + metaData.getTitle().replaceAll("<(/|t)itle>", "") + "</title>";
+        String description = "<meta name=\"description\" content=\""+metaData.getDescription() + "\">";
+
+        return "<head>" + title + " " + description + "</head>";
     }
 
     public Card getCard(int _index) {
@@ -55,6 +58,13 @@ public class CardList {
 
     public String getTitle() {
         return this.metaData.getTitle();
+    }
+
+    public void setTitle(String _title){
+        this.metaData.setTitle(_title);
+    }
+    public void setDescription(String _description){
+        this.metaData.setDescription(_description);
     }
 
     public ArrayList<Card> getCards() {

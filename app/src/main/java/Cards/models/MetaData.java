@@ -1,5 +1,11 @@
 package Cards.models;
-
+/**
+ * Update: 11/18/2020
+ * MetaData Model
+ *
+ * @apiNote To be adaptable, it is using a hashmap to store data. Rather than
+ *  fields.
+ */
 
 import java.util.HashMap;
 

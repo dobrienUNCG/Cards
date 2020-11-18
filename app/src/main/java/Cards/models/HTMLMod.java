@@ -1,12 +1,15 @@
 package Cards.models;
 /**
- * Last Updated: 10/28/2020
+ * Last Updated: 11/18/2020
  * HTML Data Model
+ *
+ * @apiNote Moving away from using this to HTMLTranslator.
  *
  * @AUTHOR Devin M. O'Brien
  */
 
 import Cards.app.DevMode;
+import Cards.models.settings.CardSettings;
 import Cards.translators.io.CardFile;
 import Cards.translators.jsoup.JSoupTranslator;
 
@@ -26,7 +29,7 @@ public class HTMLMod {
     private String doc;
     private ArrayList<Card> cards;
     private CardFile cardFile;
-    DevMode dev = (x) -> {logg.fine(x);};
+
 
     /**
      * HTMLMod Constructor
@@ -57,7 +60,7 @@ public class HTMLMod {
         this.cards = jsoup.get_cards();
     }
     private void parse(File _x){
-        dev.log("Creating HTMLMod");
+
         JSoupTranslator jsoup = new JSoupTranslator(new CardFile(_x)); // JSoup interaction
         this.head = jsoup.get_head();
         logg.info("head = " + this.head);
@@ -77,26 +80,48 @@ public class HTMLMod {
      * @param _input
      */
     public void save(String _input) {
-        dev.log("Saving");
+
         try {
            String input = normalize(_input);
             FileWriter fileWriter = new FileWriter("Test.html", false);
-            fileWriter.write("<html>" + this.head + "<body>" + input + "</body></html>");
+            String out = "<html>" + (this.head!=null?this.head:"") + "<body>" + input + "</body></html>";
+            logg.info(out);
+            fileWriter.write(out);
             fileWriter.close();
         } catch ( IOException e ) {
             System.out.println(e);
         }
     }
     public void save(CardFile _cardFile, ArrayList<Card> _cards) {
-        dev.log("Saving");
+
         String out = "";
+        CardSettings.add_file(_cardFile);
         for(Card card: _cards){
             out += card.toString();
         }
         try {
-           String input = normalize(out);
+            String out2 = "<html>" + (this.head!=null?this.head:"") + "<body>" + out + "</body></html>";
+            out2 = normalize(out2);
+            logg.info(out);
             FileWriter fileWriter = new FileWriter(_cardFile.getFile(), false);
-            fileWriter.write("<html>" + this.head + "<body>" + input + "</body></html>");
+            fileWriter.write(out2);
+            fileWriter.close();
+        } catch ( IOException e ) {
+            System.out.println(e);
+        }
+    } public void save(CardFile _cardFile, CardList _cardList) {
+        String out = "";
+        CardSettings.add_file(_cardFile);
+        for(Card card: _cardList.getCards()){
+            out += card.toString();
+        }
+            out = out.replaceAll("<((/b)|b)ody>", "");
+        try {
+            String out2 = "<html>" + _cardList.toString()+ "<body>" + out + "</body></html>";
+            out2 = normalize(out2);
+            logg.info(out);
+            FileWriter fileWriter = new FileWriter(_cardFile.getFile(), false);
+            fileWriter.write(out2);
             fileWriter.close();
         } catch ( IOException e ) {
             System.out.println(e);

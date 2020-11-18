@@ -9,14 +9,13 @@ import java.util.regex.Pattern;
 
 import static Cards.models.CardLogger.logg;
 
-public class CardScanner {
-    DevMode dev = (x)-> {logg.info(x);};
+public class CardScanner implements DevMode{
     String input;
     ArrayList<Pattern> keys = new ArrayList<Pattern>();
 
 
     public CardScanner(String input) {
-        dev.log("Creating Scanner");
+        log("Created Scanner");
         this.input = input;
          keys.add(Pattern.compile("/[@]/"));
          keys.add(Pattern.compile("(.*)(at)\\s(\\S*)"));

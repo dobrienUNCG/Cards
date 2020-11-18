@@ -14,11 +14,13 @@ import Cards.models.CardList;
 import Cards.models.HTMLMod;
 import Cards.translators.io.CardFile;
 
+import Cards.translators.io.HTMLTranslator;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.HTMLEditor;
 import javafx.scene.web.WebView;
@@ -70,7 +72,11 @@ public class CardView {
     public void initialize() {
         if ( AppModel.activeFile != null ) {
             openFile(AppModel.activeFile);
+        }else {
+            cardList = new CardList("New Card", "Description", new ArrayList<>());
         }
+        titlebutton.setText(cardList.getTitle());
+
     }
 
     public CardFile askFilePath() {
@@ -98,11 +104,9 @@ public class CardView {
         button.setText(text);
         button.setMaxWidth(100000000);
 
-        if ( cards == null ) {
-            cards = new ArrayList<>();
-        }
-        cards.add(new Card(text, "", null));
-        final int index = cards.size() - 1;
+
+        cardList.getCards().add((new Card(text, "", null)));
+        final int index = cardList.cards.size() - 1;
         button.setOnAction(e -> {
             switch_card(index);
         });
@@ -110,10 +114,10 @@ public class CardView {
         menu.setOnAction(event -> {
             System.out.println("Hello?");
             button.fire();
-            prompt.getEditor().setText(cards.get(index).getName());
+            prompt.getEditor().setText(cardList.getCard(index).getName());
             prompt.showAndWait();
             String input = prompt.getEditor().getText();
-            cards.get(index).setName(input);
+            cardList.getCard((index)).setName(input);
             button.setText(input);
         });
         ContextMenu contextMenu = new ContextMenu();
@@ -128,22 +132,21 @@ public class CardView {
      * @param _cardFile TODO Add Seperate
      */
     public void openFile(CardFile _cardFile) {
-        this.cards = new ArrayList<>();
         this.current = 0;
         this.openCard = AppModel.activeFile;
         AppModel.activeFile = null;
         removeOldCards();
         add_file(this.openCard);
-        this.htmlMod = new HTMLMod(openCard.getFile());
-        this.htmlMod.parse();
-        this.cards = this.htmlMod.get_cards();
-        if (!this.cards.isEmpty()) {
-            updateEditor(this.cards.get(0).getBody());
+        HTMLTranslator htmlTranslator = new HTMLTranslator(openCard);
+        cardList = htmlTranslator.get_card_list();
+
+        if (!this.cardList.cards.isEmpty()) {
+            updateEditor(this.cardList.cards.get(0).getBody());
         }
         // Loading cards to editor
         int counter = 0;
 
-        for ( Card card : cards ) {
+        for ( Card card : cardList.cards ) {
 
             Button button = new Button();
             button.setText(card.getName());
@@ -182,10 +185,14 @@ public class CardView {
      */
     public void switch_card(int _index) {
         logg.entering("CardViewController", "switch_card");
-        this.cards.get(this.current).setBody(this.editor.getHtmlText());
+        saveCard();
         this.current = _index;
-        updateEditor(this.cards.get(_index).getBody());
+        updateEditor(this.cardList.cards.get(_index).getBody());
         logg.exiting("CardViewController", "switch_card");
+    }
+
+    void saveCard(){
+        this.cardList.cards.get(this.current).setBody(this.editor.getHtmlText());
     }
 
     /**
@@ -195,6 +202,25 @@ public class CardView {
      *         TODO Finish Dialog
      */
     public void changeDetails() {
+        GridPane grid = new GridPane();
+        TextField title = new TextField();
+        if(cardList.getTitle() != null)
+            title.setText(cardList.getTitle());
+        TextArea desc = new TextArea();
+        if(cardList.getDescription() != null)
+            desc.setText(cardList.getDescription());
+        grid.add(title,2,1);
+        grid.add(desc,1, 2);
+
+        Dialog dia = new Dialog();
+        dia.getDialogPane().setContent(grid);
+        dia.getDialogPane().getButtonTypes().add(ButtonType.OK);
+        dia.showAndWait();
+        cardList.setTitle(title.getText());
+        cardList.setDescription(desc.getText());
+        titlebutton.setText(cardList.getTitle());
+        System.out.println(cardList.getTitle());
+        System.out.println(cardList.getDescription());
 
     }
 
@@ -202,7 +228,22 @@ public class CardView {
 
     }
 
+    public void showHTML(){
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("HTML");
+        alert.setContentText(editor.getHtmlText());
+        alert.show();
+    }
+
+
     public void com_save() {
+        if(openCard == null){
+            openCard = askFilePath();
+        }
+        if(htmlMod == null)
+            htmlMod = new HTMLMod(openCard.getPath().toString());
+        saveCard();
+        htmlMod.save(openCard, cardList);
 
     }
 
@@ -216,20 +257,7 @@ public class CardView {
         }
     }
 
-    private void add_event() {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/EventCreationDialog.fxml"));
-        Dialog<Scene> d = null;
-        try {
-            d = loader.load();
-        } catch ( IOException z ) {
 
-        }
-        if ( d != null ) {
-
-        }
-
-    }
 
     /**
      * @deprecated Not implemented

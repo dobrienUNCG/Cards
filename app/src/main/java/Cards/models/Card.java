@@ -80,6 +80,7 @@ public class Card {
     //=====SETTERS=====
     public void setBody(String _input) {
         String test = getTextInBody(_input);
+        String test2 = test.replaceAll("<((/b)|b)ody>", " ");
         this.body = test;
 
     }
