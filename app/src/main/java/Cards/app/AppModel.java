@@ -22,12 +22,11 @@ import static Cards.models.settings.CardSettings.save_settings;
 
 public class AppModel extends Application {
 
-    private CardSettings cardSettings;
+    CardSettings cardSettings;
     public static CardFile activeFile = null;
 
     public AppModel() {
-		this.cardSettings = new CardSettings();
-		this.cardSettings.save_settings();
+
     }
 
     @Override

@@ -9,24 +9,20 @@ package Cards.models;
 import java.util.ArrayList;
 import java.util.UUID;
 
-import interfaces.MetaData;
-
 import static Cards.models.CardLogger.logg;
 import static Cards.translators.jsoup.JSoupTranslator.getTextInBody;
 
-public class Card implements Title{
-    private String title;
-    private String body;
-    
+public class Card {
+    private MetaData metaData = new MetaData();
     private ArrayList<CardEvent> events;
- 
+    private String body;
     /**
      * @param _name   Name of Card
      * @param _body   Body of Card HTML
      * @param _events CardEvents
      */
     public Card(String _name, String _body, ArrayList<CardEvent> _events) {
-        this.title = _name;
+        metaData.setTitle(_name);
         this.body = _body;
         this.events = _events;
     }
@@ -53,7 +49,7 @@ public class Card implements Title{
 
     @Override
     public String toString() {
-        return "<section title=\"" + this.getTitle() + "\">" + this.getBody() + "</section>";
+        return "<section title=\"" + metaData.getTitle() + "\">" + this.body + "</section>";
     }
 
     //=====GETTER=====
@@ -61,8 +57,8 @@ public class Card implements Title{
         return this.body;
     }
 
-    public String getTitle() {
-        return this.title;
+    public String getName() {
+        return metaData.getTitle();
     }
 
     public CardEvent getRecent() {
@@ -89,7 +85,7 @@ public class Card implements Title{
 
     }
 
-    public void setTitle(String _name) {
-    	this.title = _name;
+    public void setName(String _name) {
+        metaData.setTitle(_name);
     }
 }
