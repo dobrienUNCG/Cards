@@ -1,52 +1,24 @@
 package Cards.models;
 /**
- * Last Updated: 10/28/2020
+ * Last Updated: 11/23/2020
  * Card Event Data Model
  *
  * @AUTHOR Devin M. O'Brien
+ * TODO Remake Card Event based on Translator Class
  */
 
 import java.time.LocalDateTime;
 
 public class CardEvent {
 
-    private LocalDateTime date;
-    private String description;
-    private String uuid;
+	private String title;
+	private String description;
+	private Object startDate;
+	private Object endDate;
+	private boolean allDay;
 
-    public CardEvent(LocalDateTime date, String description) {
-        this.date = date;
-        this.description = description;
-    }
-
-    public CardEvent(LocalDateTime date) {
-        this.date = date;
-    }
-
-    @Override
-    public String toString() {
-        return "CardEvent{" + "date=" + this.date + ", desc='" + this.description + '\'' + '}';
-    }
-
-    //=====GETTER=====
-    public LocalDateTime getDate() {
-        return this.date;
-    }
-
-    public String getDescription() {
-        if ( this.description == null ) {
-            return null;
-        }
-        return this.description;
-    }
-
-    //=====SETTERS=====
-    public void setDate(LocalDateTime _date) {
-        this.date = _date;
-    }
-
-    public void setDescription(String _description) {
-        this.description = _description;
-    }
-
+	int getDate() {
+		// Just So it compiles
+		return 0;
+	}
 }

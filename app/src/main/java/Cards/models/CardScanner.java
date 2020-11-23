@@ -10,22 +10,23 @@ import java.util.regex.Pattern;
 import static Cards.models.CardLogger.logg;
 
 public class CardScanner implements DevMode{
-    String input;
-    ArrayList<Pattern> keys = new ArrayList<Pattern>();
+   
+    static ArrayList<Pattern> pattern = new ArrayList<>();
+   static {
+    	pattern.add(Pattern.compile(""));
+    }
 
 
-    public CardScanner(String input) {
+    public CardScanner(String _input) {
         log("Created Scanner");
-        this.input = input;
-         keys.add(Pattern.compile("/[@]/"));
-         keys.add(Pattern.compile("(.*)(at)\\s(\\S*)"));
-
+        start(_input);
 
     }
 
-    public void start() {
-        Scanner scan = new Scanner(input);
-        Pattern keyword = keys.get(1);
+    public void start(String _input) {
+    	// FIXME This is needs to be completed
+        Scanner scan = new Scanner(_input);
+        Pattern keyword = pattern.get(1);
         Matcher matcher = null;
         String line = null;
         while ( scan.hasNext() ) {

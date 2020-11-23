@@ -4,22 +4,28 @@ import java.util.ArrayList;
 
 public class CardList {
     public ArrayList<Card> cards = new ArrayList<>();
-    private MetaData metaData = new MetaData();
-
+   
+    private String title;
+    private String description;
 
     /**
-     * Creates a Card List
+     * Card List Constructor
      *
      * @param _title
      * @param _description
      * @param _cards
      */
     public CardList(String _title, String _description, ArrayList<Card> _cards) {
-        metaData.setTitle(_title);
-        metaData.setDescription(_description);
+        this.title = _title;
+        this.description = _description;
         this.cards = _cards;
     }
 
+    
+    /***
+     * TODO Need to check if this works
+     * @return
+     */
     public Card most_recent() {
         Card most_recent = null;
         for ( Card card : this.cards ) {
@@ -36,8 +42,8 @@ public class CardList {
     }
 
     public String toString() {
-        String title = "<title>" + metaData.getTitle().replaceAll("<(/|t)itle>", "") + "</title>";
-        String description = "<meta name=\"description\" content=\""+metaData.getDescription() + "\">";
+        String title = "<title>" + getTitle().replaceAll("<(/|t)itle>", "") + "</title>";
+        String description = "<meta name=\"description\" content=\""+getDescription() + "\">";
 
         return "<head>" + title + " " + description + "</head>";
     }
@@ -53,18 +59,18 @@ public class CardList {
 
     //=====GETTER=====
     public String getDescription() {
-        return this.metaData.getDescription();
+        return this.description;
     }
 
     public String getTitle() {
-        return this.metaData.getTitle();
+        return this.title;
     }
 
     public void setTitle(String _title){
-        this.metaData.setTitle(_title);
+        this.title = _title;
     }
     public void setDescription(String _description){
-        this.metaData.setDescription(_description);
+        this.description = _description;
     }
 
     public ArrayList<Card> getCards() {
