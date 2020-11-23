@@ -8,3 +8,5 @@ docs/Software Requirements Document.log
 *.html
 *.html
 Settings.cfg
+/build/
+/out/
