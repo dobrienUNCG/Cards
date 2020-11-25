@@ -1,14 +1,17 @@
 package Cards.translators.io;
+/**
+ * Translator Between Translator
+ * Date: 11/24/2020
+ */
 
 import Cards.models.CardList;
 import Cards.translators.jsoup.JSoupTranslator;
 
-public class HTMLTranslator {
-    JSoupTranslator js = null;
-    public HTMLTranslator(String _file) {
-        js = new JSoupTranslator(new CardFile(_file));
 
-    }public HTMLTranslator(CardFile _file) {
+public class HTMLTranslator {
+    private JSoupTranslator js;
+
+   public HTMLTranslator(CardFile _file) {
         js = new JSoupTranslator(_file);
 
     }

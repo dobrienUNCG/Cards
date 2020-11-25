@@ -1,4 +1,9 @@
 package Cards.views;
+/****
+ * NO CLUE
+ * @author Devin M OBrien
+ * @apiNote I do not remember what this was going to be for.
+ */
 
 import Cards.translators.io.CardFile;
 

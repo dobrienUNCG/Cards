@@ -10,6 +10,7 @@ package Cards.app;
  * @since 11/11/2020
  */
 
+import Cards.models.ViewModel;
 import Cards.models.settings.CardSettings;
 import Cards.translators.io.CardFile;
 import Cards.views.MainMenuView;
@@ -23,8 +24,9 @@ import static Cards.models.settings.CardSettings.save_settings;
 public class AppModel extends Application {
 
     CardSettings cardSettings;
+    ViewModel viewModel = new ViewModel();
     public static CardFile activeFile = null;
-
+    static boolean launched = false;
     public AppModel() {
 
     }
@@ -32,22 +34,30 @@ public class AppModel extends Application {
     @Override
     public void start(Stage _stage) throws Exception {
         _stage.titleProperty().set("Cards");
-        _stage.setScene(new MainMenuView().mainmenu());
+        _stage.setScene(viewModel.getMainMenu());
         _stage.show();
 
     }
-    static public void newWindow(Scene _scene){
+     private void newWindow(Scene _scene){
         Stage stage = new Stage();
         stage.setScene(_scene);
         stage.show();
+    }
+    public static void changeView(ViewModel.View red){
+
     }
 
 
     /**
      * Starts JavaFX Application
      */
-    public void launcher() {
-        launch();
+    final public void launcher() {
+        if(!launched) {
+            this.launched = true;
+            cardSettings = new CardSettings();;
+            launch();
+            save_settings();
+        }
     }
 
 }

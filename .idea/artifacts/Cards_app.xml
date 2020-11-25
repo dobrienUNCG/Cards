@@ -1,7 +1,7 @@
 <component name="ArtifactManager">
-  <artifact type="javafx" name="Cards.app">
+  <artifact type="jar" name="Cards.app">
     <output-path>$PROJECT_DIR$/out/artifacts/Cards_app</output-path>
-    <root id="root">
+    <root id="archive" name="Cards.app.jar">
       <element id="archive" name="Cards_app.jar">
         <element id="module-output" name="Cards.app" />
       </element>

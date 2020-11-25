@@ -107,19 +107,16 @@ public class JSoupTranslator {
 
 
     public String get_tag(String x) {
-        logg.entering(this.getClass().getName(), "get_tag(String x)");
-        Elements ez = doc.getElementsByTag(x);
+       Elements ez = doc.getElementsByTag(x);
         if ( ez == null ) {
             logg.warning("Invalid Input");
             logg.exiting(this.getClass().getName(), "get_tag(String x)");
             return null;
         }
-
-        logg.exiting(this.getClass().getName(), "get_tag(String x)");
         return ez.get(0).toString();
     }
     public String get_tag_inner(String x) {
-        logg.entering(this.getClass().getName(), "get_tag(String x)");
+
         Elements ez = doc.getElementsByTag(x);
         if ( ez == null ) {
             logg.warning("Invalid Input");
@@ -127,8 +124,7 @@ public class JSoupTranslator {
             return null;
         }
 
-        logg.exiting(this.getClass().getName(), "get_tag(String x)");
-        return ez.text();
+       return ez.text();
     }
 
     public String get_meta(String type){

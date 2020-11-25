@@ -27,7 +27,7 @@
                <children>
                   <VBox layoutX="38.0" layoutY="31.0" prefHeight="374.0" prefWidth="175.0" styleClass="main" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Button fx:id="home_button" accessibleText="Home Button" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="52.0" prefWidth="175.0" styleClass="active" text="🏠" textFill="#575b57">
+                        <Button fx:id="home_button" accessibleText="Home Button" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#openHome" prefHeight="52.0" prefWidth="175.0" styleClass="active" text="🏠" textFill="#575b57">
                            <cursor>
                               <Cursor fx:constant="HAND" />
                            </cursor>
@@ -52,7 +52,7 @@
                            <effect>
                               <DropShadow />
                            </effect></Button>
-                        <Button fx:id="calendar_button" accessibleText="Calendar Button" layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="52.0" prefWidth="175.0" text="📅">
+                        <Button fx:id="calendar_button" accessibleText="Calendar Button" layoutX="10.0" layoutY="10.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#openCalendar" prefHeight="52.0" prefWidth="175.0" text="📅">
                            <tooltip>
                               <Tooltip text="Disabled" />
                            </tooltip>
@@ -62,7 +62,7 @@
                            <effect>
                               <DropShadow />
                            </effect></Button>
-                        <Button fx:id="personal_settings_button" accessibleText="Personal Settings Button" layoutX="10.0" layoutY="62.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="52.0" prefWidth="175.0" text="🔑">
+                        <Button fx:id="personal_settings_button" accessibleText="Personal Settings Button" layoutX="10.0" layoutY="62.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#openPersonal" prefHeight="52.0" prefWidth="175.0" text="🔑">
                            <tooltip>
                               <Tooltip hideOnEscape="false" text="Disabled" />
                            </tooltip>
@@ -72,7 +72,7 @@
                            <effect>
                               <DropShadow />
                            </effect></Button>
-                        <Button fx:id="settings_button" accessibleText="Settings Button" layoutX="10.0" layoutY="114.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="52.0" prefWidth="175.0" text="⚙" textFill="#00ff33">
+                        <Button fx:id="settings_button" accessibleText="Settings Button" layoutX="10.0" layoutY="114.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#openSettings" prefHeight="52.0" prefWidth="175.0" text="⚙" textFill="#00ff33">
                            <tooltip>
                               <Tooltip text="Disabled" />
                            </tooltip>
@@ -82,7 +82,7 @@
                            <effect>
                               <DropShadow />
                            </effect></Button>
-                        <Button fx:id="HelpButton" accessibleText="Help Button" contentDisplay="CENTER" layoutX="10.0" layoutY="166.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" prefHeight="52.0" prefWidth="175.0" text="?" textFill="#50c914">
+                        <Button fx:id="HelpButton" accessibleText="Help Button" contentDisplay="CENTER" layoutX="10.0" layoutY="166.0" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#openHelp" prefHeight="52.0" prefWidth="175.0" text="?" textFill="#50c914">
                            <tooltip>
                               <Tooltip text="Disabled" />
                            </tooltip>

@@ -6,33 +6,33 @@ package Cards.controllers;
  * @author Devin M. O'Brien
  */
 
-import Cards.app.App;
+
 import Cards.app.AppModel;
-import Cards.models.Card;
+
 import Cards.models.CardList;
 import Cards.translators.io.CardFile;
 import Cards.translators.io.HTMLTranslator;
-import Cards.views.CardView;
+
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
+
 import javafx.scene.control.Button;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.TitledPane;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 
-import static Cards.app.AppModel.newWindow;
+
+import static Cards.app.AppModel.changeView;
 import static Cards.models.CardLogger.logg;
 import static Cards.models.settings.CardSettings.recentCards;
-
+import static Cards.models.ViewModel.View.*;
 public class MainMenuController {
 
-    public GridPane the_main;
+
     @FXML
     Button home_button;
     @FXML
@@ -40,15 +40,36 @@ public class MainMenuController {
 
     @FXML
     GridPane grid;
+    @FXML
+    SplitPane splitpane;
+
+
+    AnchorPane current;
+
+    @FXML
+    void openHome(){
+        AppModel.changeView(MAINMENU);
+    }
+    @FXML
+    void openCalendar(){
+        AppModel.changeView(CALENDAR);
+    }
+    @FXML
+    void openSettings(){
+        AppModel.changeView(SETTINGS);
+    }
+    @FXML
+    void openPersonal(){
+        AppModel.changeView(PERSONAL);
+    }
+
+    @FXML
+    void openHelp(){
+       AppModel.changeView(HELP);
+    }
 
     public void create_card() {
-
-            try {
-                newWindow(new CardView().get_a_card());
-            } catch ( Exception _e ) {
-                _e.printStackTrace();
-            }
-
+        AppModel.changeView(CARD);
     }
 
     /**
@@ -56,8 +77,8 @@ public class MainMenuController {
      */
     @FXML
     public void initialize() {
+        current = (AnchorPane) splitpane.getParent();
 
-        ;
         for ( int i = 0; i < recentCards.size() && i <= 6; i++ ) {
             // Gets Card List
             HTMLTranslator htmlTranslator = new HTMLTranslator(recentCards.get(i));
