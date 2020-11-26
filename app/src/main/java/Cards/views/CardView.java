@@ -70,6 +70,7 @@ public class CardView {
     public void initialize() {
         if (AppModel.activeFile != null) {
             openFile(AppModel.activeFile);
+            AppModel.activeFile = null;
         } else {
             cardList = new CardList("New Card", "Description", new ArrayList<>());
         }
