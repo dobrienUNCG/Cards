@@ -4,6 +4,7 @@ package Cards.translators.io;
  * Card File
  *
  * @author Devin M. O'Brien
+ * TODO Fix Settings Crash when files are moved
  */
 
 import Cards.models.CardList;

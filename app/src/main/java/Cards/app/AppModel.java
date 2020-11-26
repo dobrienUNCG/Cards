@@ -1,53 +1,104 @@
 package Cards.app;
 /**
- * App Model
  * Updated: 11/18/2020
- *
- * This class connects the settings to the program. Technically, this also starts up the
- * program.
+ * This class connects everything together.
  *
  * @Author Devin M. O'Brien
- * @since 11/11/2020
  */
+
+import Cards.data.request.RequestManager;
+
 
 import Cards.models.settings.CardSettings;
 import Cards.translators.io.CardFile;
-import Cards.views.MainMenuView;
+import Cards.translators.io.ViewIO;
 import javafx.application.Application;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import static Cards.models.settings.CardSettings.save_settings;
 
-
 public class AppModel extends Application {
 
-    CardSettings cardSettings;
     public static CardFile activeFile = null;
+    public static RequestManager requestManager = new RequestManager();
+    public static final ViewIO viewIO = new ViewIO();
+    static boolean launched = false;
+    CardSettings cardSettings;
 
     public AppModel() {
 
     }
 
+    /**
+     * Starts up the JavaFX Application.
+     *
+     * @param _stage Application Stage for JavaFX
+     * @throws Exception FileIO
+     */
     @Override
     public void start(Stage _stage) throws Exception {
         _stage.titleProperty().set("Cards");
-        _stage.setScene(new MainMenuView().mainmenu());
+        _stage.setScene(new Scene(viewIO.getMainMenu()));
         _stage.show();
 
     }
-    static public void newWindow(Scene _scene){
+
+    /**
+     * Creates a new window from a scene.
+     *
+     * @param _scene
+     */
+    public static void newWindow(Scene _scene) {
         Stage stage = new Stage();
         stage.setScene(_scene);
         stage.show();
     }
+    public static void newWindowHold(Scene _scene) {
+        Stage stage = new Stage();
+        stage.setScene(_scene);
+        stage.showAndWait();
+    }
 
+    /**
+     * @param _view
+     * @return JavaFX Parent Element
+     */
+    public static Parent changeView(ViewIO.View _view) {
+        switch (_view) {
+            case HELP -> {
+                return viewIO.getHelpScreen();
+            }
+            case CALENDAR -> {
+                return viewIO.getCalendarScreen();
+            }
+            case SETTINGS -> {
+                return viewIO.getSettingsScreen();
+            }
+            case MAINMENU -> {
+                return viewIO.getMainMenu();
+            }
+            case EVENT -> {
+                return viewIO.getEventCreator();
+            }
+            case CARD -> {
+                return viewIO.getCardEditor();
+            }
+        }
+        return null;
+    }
 
     /**
      * Starts JavaFX Application
      */
-    public void launcher() {
-        launch();
+    final public void launcher() {
+        if (!launched) {
+            launched = true;
+            cardSettings = new CardSettings();
+            launch();
+            save_settings();
+        }
     }
 
 }

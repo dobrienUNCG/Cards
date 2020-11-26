@@ -16,6 +16,7 @@ import static Cards.models.CardLogger.logg;
 
 public class MainMenuView {
 
+
     public Scene mainmenu() throws IOException {
         logg.entering(this.getClass().getName(), "start");
         FXMLLoader loader = new FXMLLoader();
@@ -26,6 +27,8 @@ public class MainMenuView {
         scene.getStylesheets().add("/Main_Menu.css");
         return scene;
     }
+
+
 }
 
 

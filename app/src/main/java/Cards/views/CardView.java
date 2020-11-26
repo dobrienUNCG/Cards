@@ -12,11 +12,13 @@ import Cards.app.AppModel;
 import Cards.models.Card;
 import Cards.models.CardList;
 import Cards.models.HTMLMod;
+
+
 import Cards.translators.io.CardFile;
 
 import Cards.translators.io.HTMLTranslator;
+import Cards.translators.io.ViewIO;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -30,6 +32,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 import static Cards.models.CardLogger.logg;
 import static Cards.models.settings.CardSettings.add_file;
@@ -64,27 +67,34 @@ public class CardView {
     }
 
     @FXML
-    void close_menu() {
-
-    }
-
-    @FXML
     public void initialize() {
-        if ( AppModel.activeFile != null ) {
+        if (AppModel.activeFile != null) {
             openFile(AppModel.activeFile);
-        }else {
+        } else {
             cardList = new CardList("New Card", "Description", new ArrayList<>());
         }
         titlebutton.setText(cardList.getTitle());
 
     }
 
-    public CardFile askFilePath() {
+    public void setTags() {
+
+    }
+
+    public CardFile askSavePath() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save");
+        // FIXME Needs to be HTML File
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("All Files", "*"));
-        CardFile cardFile1 = new CardFile(fileChooser.showSaveDialog(stage));
-        return cardFile1;
+        return new CardFile(fileChooser.showSaveDialog(stage));
+
+    }
+
+    public CardFile askFilePath() {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Load CardFile");
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("All Files", "*"));
+        return new CardFile(fileChooser.showOpenDialog(stage));
 
     }
 
@@ -103,7 +113,6 @@ public class CardView {
         Button button = new Button();
         button.setText(text);
         button.setMaxWidth(100000000);
-
 
         cardList.getCards().add((new Card(text, "", null)));
         final int index = cardList.cards.size() - 1;
@@ -129,12 +138,11 @@ public class CardView {
     /**
      * Opens a Card
      *
-     * @param _cardFile TODO Add Seperate
+     * @param _cardFile
      */
     public void openFile(CardFile _cardFile) {
         this.current = 0;
-        this.openCard = AppModel.activeFile;
-        AppModel.activeFile = null;
+        this.openCard = _cardFile;
         removeOldCards();
         add_file(this.openCard);
         HTMLTranslator htmlTranslator = new HTMLTranslator(openCard);
@@ -146,7 +154,7 @@ public class CardView {
         // Loading cards to editor
         int counter = 0;
 
-        for ( Card card : cardList.cards ) {
+        for (Card card : cardList.cards) {
 
             Button button = new Button();
             button.setText(card.getName());
@@ -165,7 +173,7 @@ public class CardView {
     }
 
     public void openFile() {
-
+        openFile(askFilePath());
     }
 
     /**
@@ -191,26 +199,22 @@ public class CardView {
         logg.exiting("CardViewController", "switch_card");
     }
 
-    void saveCard(){
-        this.cardList.cards.get(this.current).setBody(this.editor.getHtmlText());
-    }
-
     /**
      * calls Dialog to change CardList Information
      *
      * @deprecated Incomplete
-     *         TODO Finish Dialog
+     * TODO Finish Dialog
      */
     public void changeDetails() {
         GridPane grid = new GridPane();
         TextField title = new TextField();
-        if(cardList.getTitle() != null)
+        if (cardList.getTitle() != null)
             title.setText(cardList.getTitle());
         TextArea desc = new TextArea();
-        if(cardList.getDescription() != null)
+        if (cardList.getDescription() != null)
             desc.setText(cardList.getDescription());
-        grid.add(title,2,1);
-        grid.add(desc,1, 2);
+        grid.add(title, 2, 1);
+        grid.add(desc, 1, 2);
 
         Dialog dia = new Dialog();
         dia.getDialogPane().setContent(grid);
@@ -228,19 +232,18 @@ public class CardView {
 
     }
 
-    public void showHTML(){
+    public void showHTML() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("HTML");
         alert.setContentText(editor.getHtmlText());
         alert.show();
     }
 
-
     public void com_save() {
-        if(openCard == null){
-            openCard = askFilePath();
+        if (openCard == null) {
+            openCard = askSavePath();
         }
-        if(htmlMod == null)
+        if (htmlMod == null)
             htmlMod = new HTMLMod(openCard.getPath().toString());
         saveCard();
         htmlMod.save(openCard, cardList);
@@ -252,50 +255,79 @@ public class CardView {
     }
 
     private void removeOldCards() {
-        if ( this.sidebar.getChildren().size() > 2 ) {
+        if (this.sidebar.getChildren().size() > 2) {
             this.sidebar.getChildren().remove(2, this.sidebar.getChildren().size());
         }
     }
 
-
-
-    /**
-     * @deprecated Not implemented
-     *         TODO Finsih Checking for Events
-     */
-    void check_for_events() {
-
-    }
-
-    //=====GETTER=====
-    //=====GETTER=====
-    public Scene get_a_card() throws Exception {
-        logg.entering(this.getClass().getName(), "start");
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/Template.fxml"));
-        Parent root = loader.load();
-        Scene scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getResource("/Card.css").toExternalForm());
-
-        logg.exiting(this.getClass().getName(), "start");
-        return scene;
-    }
+//=================  GETTERS ===============
 
     /**
+     * Creates an event.
      *
      * @return
      */
     public String get_selection() {
-        WebView webView = (WebView) editor.lookup("WebView");
-        if ( webView != null ) {
-            Object y = webView.getEngine().executeScript(select);
-            if ( y instanceof String ) {
-                System.out.println((String) y);
-                return (String) y;
+            /*
+              JavaScript loaded as a string.
+                TODO Make Static (or Volatile)
+             */
+            String script = "(function insertAround(){\n" +
+                    // Finds all span elements in the document.
+                    "    var spec = document.getElementsByTagName(\"span\");\n" +
+                    "    var size = spec.length;\n" +
+                    "    var save;\n" +
+                    //Loops through the array of span tags, removing old tags
+                    "    for(var i = 0; i < size; i++){\n" +
+                    "        if(spec.item(i).getAttribute(\"type\") == \"edit\"){\n" +
+                    //          Copies content of edit tag.
+                    "           save = spec.item(i).innerHTML;\n" +
+                    "            var save2 = spec.item(i);\n" +
+                    "            save2.insertAdjacentHTML(\"beforebegin\", save);\n" +
+                    "            save2.parentElement.removeChild(save2);\n" +
+                    "        }\n" +
+                    "    }\n" +
+                    "    var range = window.getSelection().getRangeAt(0);\n" +
+                    "    var x = document.createElement(\"span\");\n" +
+                    "    x.setAttribute(\"type\", \"edit\");\n" +
+                    "    range.surroundContents(x);\n" +
+                    "})()";
+            WebView webView = (WebView) editor.lookup("WebView");
+
+            if (webView != null) {
+                webView.getEngine().executeScript(script);
+                // For Debugging TODO Remove Out
+                System.out.println(webView.getEngine().getDocument().getChildNodes().toString());
             }
 
-        }
-        return null ;
+            // TODO Add Caller to Event View and edit event code to the card.
+            AppModel.newWindow(new Scene(Objects.requireNonNull(AppModel.changeView(ViewIO.View.EVENT))));
+
+            Parent parent = AppModel.changeView(ViewIO.View.CARD);
+            Scene eventEditor = new Scene(Objects.requireNonNull(parent));
+            AppModel.newWindowHold(eventEditor);
+            System.out.println(eventEditor.toString());
+
+            return null;
+    }
+
+
+    // TODO Implement or Remove
+    @FXML
+    void close_menu() {
+
+    }
+
+    void saveCard() {
+        this.cardList.cards.get(this.current).setBody(this.editor.getHtmlText());
+    }
+
+    /**
+     * @deprecated Not implemented
+     * TODO Finsih Checking for Events
+     */
+    void check_for_events() {
+
     }
 
 }

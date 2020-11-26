@@ -3,8 +3,9 @@ package Cards.models;
 import java.util.ArrayList;
 
 public class CardList {
+    @SuppressWarnings("UnusedAssignment")
     public ArrayList<Card> cards = new ArrayList<>();
-    private MetaData metaData = new MetaData();
+    private final MetaData metaData = new MetaData();
 
 
     /**

@@ -9,12 +9,11 @@ package Cards.models;
 import java.util.ArrayList;
 import java.util.UUID;
 
-import static Cards.models.CardLogger.logg;
 import static Cards.translators.jsoup.JSoupTranslator.getTextInBody;
 
 public class Card {
-    private MetaData metaData = new MetaData();
-    private ArrayList<CardEvent> events;
+    private final MetaData metaData = new MetaData();
+    private final ArrayList<CardEvent> events;
     private String body;
     /**
      * @param _name   Name of Card
@@ -33,7 +32,7 @@ public class Card {
 
     /**
      * @deprecated Not Implemented
-     * @param _index
+     * @param _index position
      */
     public void remove_event(int _index) {
         throw new RuntimeException("Not Implemented");

@@ -13,7 +13,7 @@ import java.util.HashMap;
  * TODO Add UUID
  */
 public class MetaData{
-    HashMap<String, Object> metaData = new HashMap<>();
+    final HashMap<String, Object> metaData = new HashMap<>();
     MetaData(){
         metaData.put("title", null);
         metaData.put("description", null);

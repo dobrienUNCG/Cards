@@ -23,7 +23,7 @@ import static Cards.models.CardLogger.logg;
 
 public class JSoupTranslator {
 
-    private CardFile cardFile;
+    private final CardFile cardFile;
     private Document doc;
 
     /**
@@ -107,19 +107,16 @@ public class JSoupTranslator {
 
 
     public String get_tag(String x) {
-        logg.entering(this.getClass().getName(), "get_tag(String x)");
-        Elements ez = doc.getElementsByTag(x);
+       Elements ez = doc.getElementsByTag(x);
         if ( ez == null ) {
             logg.warning("Invalid Input");
             logg.exiting(this.getClass().getName(), "get_tag(String x)");
             return null;
         }
-
-        logg.exiting(this.getClass().getName(), "get_tag(String x)");
         return ez.get(0).toString();
     }
     public String get_tag_inner(String x) {
-        logg.entering(this.getClass().getName(), "get_tag(String x)");
+
         Elements ez = doc.getElementsByTag(x);
         if ( ez == null ) {
             logg.warning("Invalid Input");
@@ -127,8 +124,7 @@ public class JSoupTranslator {
             return null;
         }
 
-        logg.exiting(this.getClass().getName(), "get_tag(String x)");
-        return ez.text();
+       return ez.text();
     }
 
     public String get_meta(String type){
@@ -174,7 +170,7 @@ public class JSoupTranslator {
                     System.out.println("Here?");
 
                     System.out.println("Date" + y.attr("date"));
-                    LocalDateTime date = LocalDateTime.parse(y.attr("date").toString());
+                    LocalDateTime date = LocalDateTime.parse(y.attr("date"));
                     String desc = y.text();
                     events.add(new CardEvent(date, desc));
                 }
