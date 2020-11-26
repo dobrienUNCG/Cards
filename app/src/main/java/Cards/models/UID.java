@@ -6,7 +6,7 @@ public class UID {
 
     protected UUID uuid;
 
-    UID(){
+    public UID(){
         uuid = UUID.randomUUID();
     }
     UID(String _uuid){

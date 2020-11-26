@@ -10,3 +10,8 @@ docs/Software Requirements Document.log
 Settings.cfg
 /build/
 /out/
+tokens/StoredCredential
+app/src/main/resources/credentials.json
+app/src/main/resources/credentials.json
+app/src/main/resources/credentials.json
+app/src/main/resources/credentials.json

@@ -12,11 +12,12 @@ import Cards.app.AppModel;
 import Cards.models.Card;
 import Cards.models.CardList;
 import Cards.models.HTMLMod;
+
+import Cards.models.ViewIO;
 import Cards.translators.io.CardFile;
 
 import Cards.translators.io.HTMLTranslator;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -74,6 +75,10 @@ public class CardView {
 
     }
 
+    public void setTags() {
+
+    }
+
     public CardFile askSavePath() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save");
@@ -83,6 +88,7 @@ public class CardView {
         return cardFile1;
 
     }
+
     public CardFile askFilePath() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Load CardFile");
@@ -256,26 +262,57 @@ public class CardView {
 
 //=================  GETTERS ===============
 
-
-
     /**
-     * TODO Add Script to create elements around selection
+     * Creates an event.
      *
      * @return
      */
     public String get_selection() {
-        WebView webView = (WebView) editor.lookup("WebView");
-        if (webView != null) {
-            Object y = webView.getEngine().executeScript(select);
-            if (y instanceof String) {
-                System.out.println((String) y);
-                return (String) y;
+            /*
+              JavaScript loaded as a string.
+                TODO Make Static (or Volatile)
+             */
+            String script = "(function insertAround(){\n" +
+                    // Finds all span elements in the document.
+                    "    var spec = document.getElementsByTagName(\"span\");\n" +
+                    "    var size = spec.length;\n" +
+                    "    var save;\n" +
+                    //Loops through the array of span tags, removing old tags
+                    "    for(var i = 0; i < size; i++){\n" +
+                    "        if(spec.item(i).getAttribute(\"type\") == \"edit\"){\n" +
+                    //          Copies content of edit tag.
+                    "           save = spec.item(i).innerHTML;\n" +
+                    "            var save2 = spec.item(i);\n" +
+                    "            save2.insertAdjacentHTML(\"beforebegin\", save);\n" +
+                    "            save2.parentElement.removeChild(save2);\n" +
+                    "        }\n" +
+                    "    }\n" +
+                    "    var range = window.getSelection().getRangeAt(0);\n" +
+                    "    var x = document.createElement(\"span\");\n" +
+                    "    x.setAttribute(\"type\", \"edit\");\n" +
+                    "    range.surroundContents(x);\n" +
+                    "})()";
+            WebView webView = (WebView) editor.lookup("WebView");
+
+            if (webView != null) {
+                webView.getEngine().executeScript(script);
+                // For Debugging TODO Remove Out
+                System.out.println(webView.getEngine().getDocument().getChildNodes().toString());
             }
 
-        }
-        return null;
+            // TODO Add Caller to Event View and edit event code to the card.
+            AppModel.newWindow(new Scene(AppModel.changeView(ViewIO.View.EVENT)));
+
+            Parent parent = AppModel.changeView(ViewIO.View.CARD);
+            Scene eventEditor = new Scene(parent);
+            AppModel.newWindowHold(eventEditor);
+            System.out.println(eventEditor.toString());
+
+            return null;
     }
 
+
+    // TODO Implement or Remove
     @FXML
     void close_menu() {
 

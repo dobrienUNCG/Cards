@@ -10,24 +10,23 @@
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<TitledPane animated="false" collapsible="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" text="Event Creator" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/11.0.1">
+<TitledPane animated="false" collapsible="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" text="Event Creator" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Cards.views.EventCreationView">
   <content>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
          <children>
-            <TextArea layoutX="13.0" layoutY="191.0" prefHeight="173.0" prefWidth="491.0" />
+            <TextArea fx:id="description" layoutX="13.0" layoutY="191.0" prefHeight="173.0" prefWidth="491.0" />
             <Label layoutX="17.0" layoutY="167.0" text="Description" />
-            <TextField layoutX="72.0" layoutY="11.0" promptText="Event Title" />
+            <TextField fx:id="eventTitle" layoutX="72.0" layoutY="11.0" promptText="Event Title" />
             <Group layoutX="40.0" layoutY="42.0" />
             <Label layoutX="25.0" layoutY="15.0" text="Name" />
             <Label layoutX="26.0" layoutY="47.0" text="Date" />
-            <DatePicker layoutX="72.0" layoutY="43.0" promptText="Start Date" showWeekNumbers="true" />
-            <CheckBox layoutX="503.0" layoutY="6.0" mnemonicParsing="false" text="Completed" />
-            <DatePicker layoutX="71.0" layoutY="74.0" promptText="End Date" showWeekNumbers="true" />
-            <TextField layoutX="251.0" layoutY="43.0" promptText="Start Time" />
-            <TextField layoutX="251.0" layoutY="74.0" promptText="End Time" />
-            <Button layoutX="513.0" layoutY="338.0" mnemonicParsing="false" text="Create Event" />
-            <CheckBox layoutX="230.0" layoutY="2.0" mnemonicParsing="false" text="Duration" />
-            <CheckBox layoutX="231.0" layoutY="21.0" mnemonicParsing="false" text="All Day" />
+            <DatePicker fx:id="startDate" layoutX="72.0" layoutY="43.0" promptText="Start Date" showWeekNumbers="true" />
+            <CheckBox fx:id="completed" layoutX="503.0" layoutY="6.0" mnemonicParsing="false" text="Completed" />
+            <DatePicker fx:id="endDate" layoutX="71.0" layoutY="74.0" promptText="End Date" showWeekNumbers="true" />
+            <TextField fx:id="startTime" layoutX="251.0" layoutY="43.0" promptText="Start Time" />
+            <TextField fx:id="endTime" layoutX="251.0" layoutY="74.0" promptText="End Time" />
+            <Button layoutX="513.0" layoutY="338.0" mnemonicParsing="false" onAction="#createEvent" text="Create Event" />
+            <CheckBox fx:id="allDay" layoutX="231.0" layoutY="21.0" mnemonicParsing="false" text="All Day" />
          </children></AnchorPane>
   </content>
 </TitledPane>

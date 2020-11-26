@@ -15,6 +15,7 @@ import Cards.translators.io.HTMLTranslator;
 
 import javafx.fxml.FXML;
 
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.SplitPane;
 import javafx.scene.control.TitledPane;
@@ -24,12 +25,10 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 
-
-
-import static Cards.app.AppModel.changeView;
 import static Cards.models.CardLogger.logg;
+import static Cards.models.ViewIO.View.*;
 import static Cards.models.settings.CardSettings.recentCards;
-import static Cards.models.ViewModel.View.*;
+
 public class MainMenuController {
 
 
@@ -48,28 +47,28 @@ public class MainMenuController {
 
     @FXML
     void openHome(){
-        AppModel.changeView(MAINMENU);
+        current.getChildren().setAll(splitpane);
     }
     @FXML
     void openCalendar(){
-        AppModel.changeView(CALENDAR);
+        current.getChildren().setAll(AppModel.changeView(CALENDAR));
     }
     @FXML
     void openSettings(){
-        AppModel.changeView(SETTINGS);
+        current.getChildren().setAll(AppModel.changeView(SETTINGS));
     }
     @FXML
     void openPersonal(){
-        AppModel.changeView(PERSONAL);
+        current.getChildren().setAll(AppModel.changeView(PERSONAL));
     }
 
     @FXML
     void openHelp(){
-       AppModel.changeView(HELP);
+       current.getChildren().setAll(AppModel.changeView(HELP));
     }
 
     public void create_card() {
-        AppModel.changeView(CARD);
+        AppModel.newWindow(new Scene(AppModel.changeView(CARD)));
     }
 
     /**
