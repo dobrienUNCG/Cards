@@ -4,7 +4,7 @@ import java.util.UUID;
 
 public class UID {
 
-    protected UUID uuid;
+    protected final UUID uuid;
 
     public UID(){
         uuid = UUID.randomUUID();

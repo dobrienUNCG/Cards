@@ -10,8 +10,6 @@ import Cards.translators.api.TaskEvent;
 import com.google.api.client.util.DateTime;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.util.converter.DateTimeStringConverter;
 
 import java.text.SimpleDateFormat;
@@ -44,6 +42,7 @@ public class EventCreationView {
             endTime.setTextFormatter(new TextFormatter<>(new DateTimeStringConverter(format), format.parse("00:00")));
 
         }catch(Exception e){
+            // TODO Change to Logger
             System.err.println(e);
         }
     }
@@ -55,6 +54,7 @@ public class EventCreationView {
             return new TaskEvent(eventTitle.getText(), DateTime.parseRfc3339(startDate.getValue().toString() + "T" + startTime.getText()), DateTime.parseRfc3339(endDate.getValue().toString() + "T" + endTime.getText()),
                     description.getText(), DateTime.parseRfc3339(LocalDateTime.now().toString()), null, new UID().toString(), allDay.isSelected());
         } catch(Exception error){
+            // TODO Change to logger
             System.err.println(error);
         }
         return null;
@@ -67,7 +67,7 @@ public class EventCreationView {
                 ", eventTitle=" + eventTitle.getText() +
                 ", startDate=" + startDate.getValue().toString() +
                 ", endDate=" + endDate.getValue().toString() +
-                ", startTime=" + startTime.getText().toString() +
+                ", startTime=" + startTime.getText() +
                 ", endTime=" + endTime.getText() +
                 ", allDay=" + allDay.isSelected() +
                 ", completed=" + completed.isSelected() +

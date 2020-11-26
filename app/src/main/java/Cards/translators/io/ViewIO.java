@@ -1,22 +1,14 @@
-package Cards.models;
+package Cards.translators.io;
 
-import Cards.translators.io.CardFile;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
-
-import static Cards.models.CardLogger.logg;
 
 public class ViewIO {
 
     public enum View{
-        CARD{
-
-        }, MAINMENU, HELP, CALENDAR, SETTINGS, PERSONAL, EVENT;
+        CARD, MAINMENU, HELP, CALENDAR, SETTINGS, PERSONAL, EVENT
     }
 
     public Parent getMainMenu(){
@@ -36,8 +28,7 @@ public class ViewIO {
         try{
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/EventCreationDialog.fxml"));
-            Parent root = loader.load();
-            return root;
+            return loader.load();
         }catch(IOException error){
             System.err.println("Couldn't load event creator");
             System.err.println(error.toString());
@@ -67,8 +58,7 @@ public class ViewIO {
         try{
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/Settings.fxml"));
-            Parent root = loader.load();
-            return root;
+            return loader.load();
         }catch (Exception e){
             System.err.println("Couldn't Load Settings Screen Files");
             System.err.println(e.toString());
@@ -80,10 +70,10 @@ public class ViewIO {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/Help.fxml"));
-            Parent p = loader.load();
-            return p;
+            return loader.load();
         }catch(Exception e){
             System.err.println("Couldn't Load Help Files");
+            // TODO Change to Logger
             System.err.println(e);
         }
         return null;
@@ -93,9 +83,9 @@ public class ViewIO {
         try{
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/CalendarNew.fxml"));
-            Parent p = loader.load();
-            return p;
+            return loader.load();
         }catch(Exception e){
+            // TODO Change to logger
             System.err.println(e);
         }
        return null;

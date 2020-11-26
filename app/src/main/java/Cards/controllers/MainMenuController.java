@@ -26,8 +26,9 @@ import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 
 import static Cards.models.CardLogger.logg;
-import static Cards.models.ViewIO.View.*;
+
 import static Cards.models.settings.CardSettings.recentCards;
+import static Cards.translators.io.ViewIO.View.*;
 
 public class MainMenuController {
 
@@ -67,6 +68,7 @@ public class MainMenuController {
        current.getChildren().setAll(AppModel.changeView(HELP));
     }
 
+    @SuppressWarnings("ConstantConditions")
     public void create_card() {
         AppModel.newWindow(new Scene(AppModel.changeView(CARD)));
     }
@@ -90,8 +92,7 @@ public class MainMenuController {
             webView.setEffect(new DropShadow());
             final int index = i;
             webView.setOnMouseClicked(e->{
-                CardFile recentCard = recentCards.get(index);
-                AppModel.activeFile = recentCard;
+                AppModel.activeFile = recentCards.get(index);
                 create_card();
             });
             TitledPane titlePane = new TitledPane(cardList.getTitle(), webView);

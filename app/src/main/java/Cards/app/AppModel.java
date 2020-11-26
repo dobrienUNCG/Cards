@@ -7,10 +7,11 @@ package Cards.app;
  */
 
 import Cards.data.request.RequestManager;
-import Cards.models.ViewIO;
+
 
 import Cards.models.settings.CardSettings;
 import Cards.translators.io.CardFile;
+import Cards.translators.io.ViewIO;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -22,7 +23,7 @@ public class AppModel extends Application {
 
     public static CardFile activeFile = null;
     public static RequestManager requestManager = new RequestManager();
-    public static ViewIO viewIO = new ViewIO();
+    public static final ViewIO viewIO = new ViewIO();
     static boolean launched = false;
     CardSettings cardSettings;
 
@@ -33,8 +34,8 @@ public class AppModel extends Application {
     /**
      * Starts up the JavaFX Application.
      *
-     * @param _stage
-     * @throws Exception
+     * @param _stage Application Stage for JavaFX
+     * @throws Exception FileIO
      */
     @Override
     public void start(Stage _stage) throws Exception {
@@ -95,7 +96,6 @@ public class AppModel extends Application {
         if (!launched) {
             launched = true;
             cardSettings = new CardSettings();
-            ;
             launch();
             save_settings();
         }

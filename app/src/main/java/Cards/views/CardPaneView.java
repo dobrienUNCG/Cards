@@ -7,10 +7,11 @@ package Cards.views;
 
 import Cards.translators.io.CardFile;
 
+@SuppressWarnings("FieldCanBeLocal")
 public class CardPaneView {
-    private String title;
-    private String content;
-    private CardFile cardFile;
+    private final String title;
+    private final String content;
+    private final CardFile cardFile;
 
     CardPaneView(String _title, String _content, CardFile _cardFile) {
         this.title = _title;

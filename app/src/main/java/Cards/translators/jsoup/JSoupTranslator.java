@@ -23,7 +23,7 @@ import static Cards.models.CardLogger.logg;
 
 public class JSoupTranslator {
 
-    private CardFile cardFile;
+    private final CardFile cardFile;
     private Document doc;
 
     /**
@@ -170,7 +170,7 @@ public class JSoupTranslator {
                     System.out.println("Here?");
 
                     System.out.println("Date" + y.attr("date"));
-                    LocalDateTime date = LocalDateTime.parse(y.attr("date").toString());
+                    LocalDateTime date = LocalDateTime.parse(y.attr("date"));
                     String desc = y.text();
                     events.add(new CardEvent(date, desc));
                 }

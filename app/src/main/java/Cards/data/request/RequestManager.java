@@ -12,8 +12,8 @@ import java.util.Iterator;
 
 public class RequestManager {
 
-    ArrayList<Request> request = new ArrayList<>();
-    GoogleTranslator googleTranslator = new GoogleTranslator();
+    final ArrayList<Request> request = new ArrayList<>();
+    final GoogleTranslator googleTranslator = new GoogleTranslator();
 
 
     public RequestManager() {
@@ -75,6 +75,7 @@ public class RequestManager {
                 }
             }
         }catch(Exception e){
+            // TODO Change to logger
             System.err.println(e);
         }
         request.clear();

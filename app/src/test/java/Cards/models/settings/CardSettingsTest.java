@@ -1,12 +1,5 @@
 package Cards.models.settings;
 
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Tag;
-
-
-import java.io.File;
-import java.io.FileReader;
-import java.io.Reader;
 import java.util.ArrayList;
 import java.util.Scanner;
 import org.junit.jupiter.api.Test;

@@ -16,7 +16,7 @@ import java.text.ParseException;
 
 public class TaskEvent extends Main {
 
-    private TranslatorInterface thisTranslator = new GoogleTranslator();
+    private final TranslatorInterface thisTranslator = new GoogleTranslator();
     private String summary;
     //All-Day Event use
     private DateTime beginDate;

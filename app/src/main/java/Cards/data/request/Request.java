@@ -2,12 +2,11 @@ package Cards.data.request;
 
 import Cards.translators.api.TaskEvent;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 public class Request {
-private RequestType requestType;
-private ArrayList<String> params;
+private final RequestType requestType;
+private final ArrayList<String> params;
 private TaskEvent taskEvent;
 
 

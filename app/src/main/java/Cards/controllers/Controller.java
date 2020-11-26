@@ -2,10 +2,7 @@ package Cards.controllers;
 
 import Cards.models.Model;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-
- public abstract class Controller implements Runnable {
+public abstract class Controller implements Runnable {
     private Thread thread;
     private boolean parent = false;
     private Model model;
@@ -36,6 +33,7 @@ import java.beans.PropertyChangeListener;
             try {
                 wait();
             }catch(Exception x){
+                // TODO Change To Logger
                 System.err.println(x);
             }
     }

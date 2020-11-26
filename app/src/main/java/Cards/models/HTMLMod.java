@@ -27,7 +27,7 @@ public class HTMLMod {
     private String body;
     private String doc;
     private ArrayList<Card> cards;
-    private CardFile cardFile;
+    private final CardFile cardFile;
 
     /**
      * HTMLMod Constructor
@@ -68,43 +68,46 @@ public class HTMLMod {
             fileWriter.write(out);
             fileWriter.close();
         } catch (IOException e) {
+            // TODO Change To Logger
             System.out.println(e);
         }
     }
 
     public void save(CardFile _cardFile, ArrayList<Card> _cards) {
-        String out = "";
+        StringBuilder out = new StringBuilder();
         CardSettings.add_file(_cardFile);
         for (Card card : _cards) {
-            out += card.toString();
+            out.append(card.toString());
         }
         try {
             String out2 = "<html>" + (this.head != null ? this.head : "") + "<body>" + out + "</body></html>";
             out2 = normalize(out2);
-            logg.info(out);
+            logg.info(out.toString());
             FileWriter fileWriter = new FileWriter(_cardFile.getFile(), false);
             fileWriter.write(out2);
             fileWriter.close();
         } catch (IOException e) {
+            // TODO Change to Logger
             System.out.println(e);
         }
     }
 
     public void save(CardFile _cardFile, CardList _cardList) {
-        String out = "";
+        StringBuilder out = new StringBuilder();
         CardSettings.add_file(_cardFile);
         for (Card card : _cardList.getCards()) {
-            out += card.toString();
+            out.append(card.toString());
         }
-        out = out.replaceAll("<((/b)|b)ody>", "");
+        out = new StringBuilder(out.toString().replaceAll("<((/b)|b)ody>", ""));
         try {
             String out2 = "<html>" + _cardList.toString() + "<body>" + out + "</body></html>";
             out2 = normalize(out2);
-            logg.info(out);
+            logg.info(out.toString());
             FileWriter fileWriter = new FileWriter(_cardFile.getFile(), false);
             fileWriter.write(out2);
             fileWriter.close();
         } catch (IOException e) {
+            // TODO Change to logger
             System.out.println(e);
         }
     }

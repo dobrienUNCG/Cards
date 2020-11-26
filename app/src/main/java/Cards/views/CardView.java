@@ -13,10 +13,11 @@ import Cards.models.Card;
 import Cards.models.CardList;
 import Cards.models.HTMLMod;
 
-import Cards.models.ViewIO;
+
 import Cards.translators.io.CardFile;
 
 import Cards.translators.io.HTMLTranslator;
+import Cards.translators.io.ViewIO;
 import javafx.fxml.FXML;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -31,6 +32,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 import static Cards.models.CardLogger.logg;
 import static Cards.models.settings.CardSettings.add_file;
@@ -84,8 +86,7 @@ public class CardView {
         fileChooser.setTitle("Save");
         // FIXME Needs to be HTML File
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("All Files", "*"));
-        CardFile cardFile1 = new CardFile(fileChooser.showSaveDialog(stage));
-        return cardFile1;
+        return new CardFile(fileChooser.showSaveDialog(stage));
 
     }
 
@@ -93,8 +94,7 @@ public class CardView {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Load CardFile");
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("All Files", "*"));
-        CardFile cardFile1 = new CardFile(fileChooser.showOpenDialog(stage));
-        return cardFile1;
+        return new CardFile(fileChooser.showOpenDialog(stage));
 
     }
 
@@ -301,10 +301,10 @@ public class CardView {
             }
 
             // TODO Add Caller to Event View and edit event code to the card.
-            AppModel.newWindow(new Scene(AppModel.changeView(ViewIO.View.EVENT)));
+            AppModel.newWindow(new Scene(Objects.requireNonNull(AppModel.changeView(ViewIO.View.EVENT))));
 
             Parent parent = AppModel.changeView(ViewIO.View.CARD);
-            Scene eventEditor = new Scene(parent);
+            Scene eventEditor = new Scene(Objects.requireNonNull(parent));
             AppModel.newWindowHold(eventEditor);
             System.out.println(eventEditor.toString());
 

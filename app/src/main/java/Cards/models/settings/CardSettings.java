@@ -12,8 +12,8 @@ import java.util.Scanner;
 import static Cards.models.CardLogger.logg;
 
 public class CardSettings {
-    public static ArrayList<CardFile> recentCards = new ArrayList<CardFile>();
-    static File settingsFile = new File("Settings.cfg");
+    public static final ArrayList<CardFile> recentCards = new ArrayList<CardFile>();
+    static final File settingsFile = new File("Settings.cfg");
 
     public CardSettings() {
         if ( settingsFile.exists() ) {

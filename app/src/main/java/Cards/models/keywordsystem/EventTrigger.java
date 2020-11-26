@@ -1,8 +1,8 @@
 package Cards.models.keywordsystem;
 
 public class EventTrigger<K, V> {
-    private K key;
-    private V type;
+    private final K key;
+    private final V type;
 
     EventTrigger(K _key, V _type){
         this.key = _key;

@@ -7,11 +7,9 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static Cards.models.CardLogger.logg;
-
 public class CardScanner implements DevMode{
-    String input;
-    ArrayList<Pattern> keys = new ArrayList<Pattern>();
+    final String input;
+    final ArrayList<Pattern> keys = new ArrayList<Pattern>();
 
 
     public CardScanner(String input) {
