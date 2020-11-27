@@ -1,23 +1,29 @@
 package Cards.data.request;
 
+import Cards.app.AppModel;
 import Cards.translators.api.TaskEvent;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class Request {
 private final RequestType requestType;
-private final ArrayList<String> params;
+
 private TaskEvent taskEvent;
+private TaskEvent oldTaskEvent;
 
 
-public Request(RequestType _requestType, ArrayList<String> _params){
+public Request(RequestType _requestType){
     this.requestType = _requestType;
-            this.params = _params;
+}
+public Request(RequestType _requestType, TaskEvent _taskEvent){
+    this.requestType = _requestType;
+            this.taskEvent = _taskEvent;
+            this.oldTaskEvent = _taskEvent;
+    AppModel.requestManager.addRequest(this);
 }
 
-    public ArrayList<String> getParams() {
-        return params;
-    }
+
 
     public RequestType getRequestType() {
         return requestType;
@@ -26,6 +32,25 @@ public Request(RequestType _requestType, ArrayList<String> _params){
     public TaskEvent getTaskEvent(){
     return taskEvent;
     }
+    public TaskEvent getOldTaskEvent(){
+    return oldTaskEvent;
+    }
+
+
+    public boolean equals(Request _o) {
+        if(this.requestType == _o.requestType){
+            if(this.taskEvent == _o.taskEvent){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(requestType, taskEvent, oldTaskEvent);
+    }
+
     public void setTaskEvent(TaskEvent _taskEvent){
         this.taskEvent = _taskEvent;
     }

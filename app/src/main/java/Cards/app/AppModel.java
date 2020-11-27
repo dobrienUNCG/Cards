@@ -1,9 +1,9 @@
 package Cards.app;
-/**
- * Updated: 11/18/2020
- * This class connects everything together.
- *
- * @Author Devin M. O'Brien
+/*
+  Updated: 11/18/2020
+  This class connects everything together.
+
+  @Author Devin M. O'Brien
  */
 
 import Cards.data.request.RequestManager;
@@ -20,16 +20,18 @@ import javafx.stage.Stage;
 import static Cards.models.settings.CardSettings.save_settings;
 
 public class AppModel extends Application {
-
+    public static boolean running = false;
     public static CardFile activeFile = null;
-    public static RequestManager requestManager = new RequestManager();
+    CardSettings cardSettings = null;
+    public static RequestManager requestManager = null;
     public static final ViewIO viewIO = new ViewIO();
     static boolean launched = false;
-    CardSettings cardSettings;
+
 
     public AppModel() {
 
     }
+
 
     /**
      * Starts up the JavaFX Application.
@@ -94,10 +96,13 @@ public class AppModel extends Application {
      */
     final public void launcher() {
         if (!launched) {
+            running = true;
             launched = true;
             cardSettings = new CardSettings();
+            requestManager = new RequestManager();
             launch();
             save_settings();
+            requestManager.submit();
         }
     }
 

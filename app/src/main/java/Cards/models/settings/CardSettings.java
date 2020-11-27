@@ -12,11 +12,26 @@ import java.util.Scanner;
 import static Cards.models.CardLogger.logg;
 
 public class CardSettings {
-    public static final ArrayList<CardFile> recentCards = new ArrayList<CardFile>();
-    static final File settingsFile = new File("Settings.cfg");
 
+    private static final ArrayList<CardFile> recentCards = new ArrayList<>();
+    static final File settingsFile = new File("Settings.cfg");
+    public static boolean calendarCreated = false;
+    private static enum Preface{
+        FILE{
+            @Override
+           public  String toString(){
+                return "#File:";
+            }
+        }, CALENDAR{
+            @Override
+            public String toString(){
+                return "#Calendar:";
+            }
+        };
+
+    }
     public CardSettings() {
-        if ( settingsFile.exists() ) {
+        if (settingsFile.exists()) {
             getSettings();
         } else {
             create_settings();
@@ -25,9 +40,13 @@ public class CardSettings {
 
     }
 
+    public static ArrayList<CardFile> getRecentFiles(){
+        return recentCards;
+    }
+
     public static void add_file(CardFile _cardFile) {
-        for ( CardFile cardFile : recentCards ) {
-            if ( cardFile.getFile().getAbsolutePath().contentEquals(_cardFile.getFile().getAbsolutePath()) ) {
+        for (CardFile cardFile : recentCards) {
+            if (cardFile.getFile().getAbsolutePath().contentEquals(_cardFile.getFile().getAbsolutePath())) {
                 return;
             }
         }
@@ -38,12 +57,13 @@ public class CardSettings {
         try {
             FileWriter writer = new FileWriter(settingsFile, false);
 
-            for ( CardFile cardFile : recentCards ) {
-                writer.write("#File:" + cardFile.get_card_file().getAbsolutePath() + "\n");
+            for (CardFile cardFile : recentCards) {
+                writer.write(Preface.FILE + cardFile.get_card_file().getAbsolutePath() + "\n");
             }
+            writer.write(Preface.CALENDAR + String.valueOf(calendarCreated));
             writer.close();
-        } catch ( IOException _e ) {
-            _e.printStackTrace();
+        } catch (IOException error) {
+            error.printStackTrace();
         }
 
     }
@@ -51,16 +71,28 @@ public class CardSettings {
     private void getSettings() {
         try {
             Scanner read = new Scanner(settingsFile);
-            Boolean file_segment = false;
-            while ( read.hasNext() ) {
+            Boolean fileSegment = false;
+            while (read.hasNext()) {
                 String line = read.nextLine();
                 logg.info(line);
-                if ( line.contains("#File:") ) {
-                    recentCards.add(new CardFile(line.substring(6)));
+                if (line.contains(Preface.FILE.toString())) {
+                    // TODO Add Checker to prevent Exception from crashing
+                    try {
+                        CardFile test = new CardFile(line.substring(6));
+                        if(test.getFile().exists())
+                        recentCards.add(new CardFile(line.substring(6)));
+                    }catch(Exception error){
+                        logg.severe(error.toString());
+                    }
+                }
+                if (line.contains(Preface.CALENDAR.toString())){
+                    if(line.toLowerCase().contains("true")){
+                        calendarCreated = true;
+                    }
                 }
             }
-        } catch ( FileNotFoundException _e ) {
-            _e.printStackTrace();
+        } catch (FileNotFoundException error) {
+            error.printStackTrace();
         }
 
     }
@@ -68,10 +100,11 @@ public class CardSettings {
     private void create_settings() {
         try {
             FileWriter fileWriter = new FileWriter(settingsFile, false);
-            fileWriter.write("#File:Test.html");
+            fileWriter.write(Preface.FILE+ "Test.html");
+            fileWriter.write(Preface.CALENDAR + ((String.valueOf(calendarCreated))));
             fileWriter.close();
-        } catch ( IOException _e ) {
-            _e.printStackTrace();
+        } catch (IOException error) {
+            error.printStackTrace();
         }
     }
 }

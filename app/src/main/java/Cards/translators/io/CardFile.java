@@ -1,13 +1,13 @@
 package Cards.translators.io;
-/**
- * Last Updated: 10/28/2020
- * Card File
- *
- * @author Devin M. O'Brien
+/*
+  Last Updated: 10/28/2020
+  Card File
+
+  @author Devin M. O'Brien
  * TODO Fix Settings Crash when files are moved
  */
 
-import Cards.models.CardList;
+import Cards.models.cards.CardList;
 
 import java.io.File;
 import java.nio.file.Path;

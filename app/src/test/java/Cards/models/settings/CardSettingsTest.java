@@ -18,6 +18,7 @@ class CardSettingsTest {
             Scanner scan = new Scanner(settingsFile.getAbsolutePath());
             temp = scan.nextLine();
             if(temp.contains("#")){
+                //noinspection RedundantOperationOnEmptyContainer
                 for(String x: files){
                     if(x.contentEquals(temp)){
                         fail("Duplicates Found");

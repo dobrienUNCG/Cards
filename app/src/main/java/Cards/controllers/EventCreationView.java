@@ -1,21 +1,24 @@
-package Cards.views;
-/***
+package Cards.controllers;
+/*
  * Date: 11/25/2020
  * Event Creation Dialog
  *
  * @author Devin M. O'Brien
  */
+import Cards.app.AppModel;
 import Cards.models.UID;
 import Cards.translators.api.TaskEvent;
 import com.google.api.client.util.DateTime;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 import javafx.util.converter.DateTimeStringConverter;
-
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
-
+import java.util.Arrays;
+import static Cards.models.CardLogger.logg;
 public class EventCreationView {
+
     @FXML
     TextArea description;
     @FXML
@@ -41,21 +44,25 @@ public class EventCreationView {
             startTime.setTextFormatter(new TextFormatter<>(new DateTimeStringConverter(format), format.parse("00:00")));
             endTime.setTextFormatter(new TextFormatter<>(new DateTimeStringConverter(format), format.parse("00:00")));
 
-        }catch(Exception e){
+        }catch(Exception error){
             // TODO Change to Logger
-            System.err.println(e);
+            logg.warning(Arrays.toString(error.getStackTrace()));
         }
     }
 
     @FXML
     TaskEvent createEvent(){
-        // TODO Setup
+        Stage stage =  (Stage) this.endTime.getScene().getWindow();
+        stage.close();
         try {
-            return new TaskEvent(eventTitle.getText(), DateTime.parseRfc3339(startDate.getValue().toString() + "T" + startTime.getText()), DateTime.parseRfc3339(endDate.getValue().toString() + "T" + endTime.getText()),
-                    description.getText(), DateTime.parseRfc3339(LocalDateTime.now().toString()), null, new UID().toString(), allDay.isSelected());
+            return new TaskEvent(this.eventTitle.getText(), new DateTime(this.startDate.getValue().toString()+'T'+ this.startTime.getText() + ":00.000-05:00"), new DateTime(this.endDate.getValue().toString() + "T" + endTime.getText() + ":00.000-05:00"),
+                    this.description.getText(), DateTime.parseRfc3339(LocalDateTime.now().toString()), null, new UID().toString(), allDay.isSelected());
         } catch(Exception error){
-            // TODO Change to logger
-            System.err.println(error);
+            logg.severe(Arrays.toString(error.getStackTrace()));
+        }
+        logg.warning("'EventCreationView' method 'createEvent' is returning null");
+        {
+            AppModel.requestManager.submit();
         }
         return null;
     }

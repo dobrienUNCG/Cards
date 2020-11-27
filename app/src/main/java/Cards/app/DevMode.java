@@ -1,11 +1,11 @@
 package Cards.app;
-/**
- * Updated: 11/25/2020
- * Helper class for debugging.
+/*
+  Updated: 11/25/2020
+  Helper class for debugging.
+
+  @author Devin M. O'Brien
  *
- * @author Devin M. O'Brien
- *
- * TODO Remove DevMode
+ * IDK: Should be removed or changed for final version
  */
 
 import static Cards.models.CardLogger.logg;

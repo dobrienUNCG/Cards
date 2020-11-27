@@ -1,13 +1,15 @@
 package Cards.models;
-/**
- * Last Updated: 11/18/2020
- * HTML Data Model
- *
- * @apiNote Moving away from using this to HTMLTranslator.
+/*
+  Last Updated: 11/18/2020
+  HTML Data Model
+
+  @apiNote Moving away from using this to HTMLTranslator.
  * @AUTHOR Devin M. O'Brien
  */
 
 
+import Cards.models.cards.Card;
+import Cards.models.cards.CardList;
 import Cards.models.settings.CardSettings;
 import Cards.translators.io.CardFile;
 import Cards.translators.jsoup.JSoupTranslator;
@@ -18,8 +20,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import static Cards.models.CardLogger.logg;
-import static Cards.translators.jsoup.JSoupTranslator.normalize;
-import static Cards.translators.jsoup.JSoupTranslator.replaceBodyTag;
+import static Cards.translators.jsoup.JSoupTranslator.*;
 
 public class HTMLMod {
 
@@ -43,15 +44,14 @@ public class HTMLMod {
     }
 
     public void parse() {
-        CardFile _x = cardFile;
-        JSoupTranslator jsoup = new JSoupTranslator(_x);
-        this.head = jsoup.get_head();
+        JSoupTranslator jsoup =  JSoupBuilder(cardFile);
+        this.head = jsoup.getHead();
         logg.info("head = " + this.head);
-        this.body = jsoup.get_body();
+        this.body = jsoup.getBody();
         logg.info("body - " + this.body);
-        this.doc = jsoup.get_doc();
+        this.doc = jsoup.getDoc();
         logg.info("doc = " + this.doc);
-        this.cards = jsoup.get_cards();
+        this.cards = jsoup.getCards();
     }
 
     /**

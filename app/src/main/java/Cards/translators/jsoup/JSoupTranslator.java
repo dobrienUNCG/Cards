@@ -1,14 +1,15 @@
 package Cards.translators.jsoup;
-/**
- * Last Updated: 10/28/2020
- * JSoup Translator Class
- *
- * @author Devin M. O'Brien
+/*
+  Last Updated: 10/28/2020
+  JSoup Translator Class
+
+  @author Devin M. O'Brien
  */
 
-import Cards.models.Card;
-import Cards.models.CardEvent;
+import Cards.models.cards.Card;
+import Cards.models.cards.CardEvent;
 import Cards.translators.io.CardFile;
+import org.jetbrains.annotations.Nullable;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -26,45 +27,69 @@ public class JSoupTranslator {
     private final CardFile cardFile;
     private Document doc;
 
+
+
     /**
      * JSoup Translator Constructor
-     * @param _x
+     * @param _cardFile
      */
-    public JSoupTranslator(CardFile _x) {
-        cardFile = _x;
-        parse_file();
+     JSoupTranslator(CardFile _cardFile) {
+        this.cardFile = _cardFile;
+        this.parse_file();
     }
     /**
      * JSoup Translator Constructor
-     * @param _x
+     * @param _s
      */
-    public JSoupTranslator(String _x) {
-        cardFile = new CardFile(_x);
-
-        parse_file();
+     JSoupTranslator(String _s) {
+        this.cardFile = new CardFile(_s);
+        this.parse_file();
+    }
+   public static  JSoupTranslator JSoupBuilder(CardFile _cardFile){
+        return new JSoupTranslator(_cardFile);
+    }
+    public static  JSoupTranslator JSoupBuilder(String _s){
+        return new JSoupTranslator(_s);
     }
 
+    /**
+     * IDK No longer used, need to deprecate
+     * @param _card a card
+     * @return parsed CardFile
+     * @apiNote Was used for prototyping
+     */
     public static String parseCard(Card _card) {
-        Document temp_doc = Jsoup.parse(_card.getBody());
-        Elements section = temp_doc.getElementsByTag("section");
+        Document tempDoc = Jsoup.parse(_card.getBody());
+        Elements section = tempDoc.getElementsByTag("section");
         return section.text();
     }
 
-    public static String parseCard(String _card) {
-        Document temp_doc = Jsoup.parse(_card);
-        Elements section = temp_doc.getElementsByTag("section");
+    /**
+     * IDK No longer used, need to deprecate
+     * @param _card string of a card file
+     * @return parsed string of a card file
+     * @apiNote Was used for prototyping
+     */
+    public static String parseCard(String _card) throws Exception {
+        throw new Exception("Fail");
+        /*
+        Document tempDoc = Jsoup.parse(_card);
+        Elements section = tempDoc.getElementsByTag("section");
         if ( section.hasText() ) {
             return section.text();
         } else {
             return _card;
         }
+
+         */
     }
 
     public static String replaceBodyTag(String _input) {
         Document temp = Jsoup.parse(_input);
         Element body = temp.body();
+        Tag section = Tag.valueOf("section");
         body.replaceWith(new Element(Tag.valueOf("section"), ""));
-        if ( body.childNodeSize() == 0 ) {
+        if (0 == body.childNodeSize()) {
             logg.info("No Children");
             return _input;
         }
@@ -93,86 +118,85 @@ public class JSoupTranslator {
 
 
     private void parse_file() {
-        logg.entering(this.getClass().getName(), "parse_file()");
         try {
-            doc = Jsoup.parse(cardFile.get_card_file(), "UTF-8");
-            logg.info(doc.toString());
+            this.doc = Jsoup.parse(this.cardFile.get_card_file(), "UTF-8");
+            logg.info(this.doc.toString());
+            this.doc.normalise();
         } catch ( IOException e ) {
             logg.warning("Failed to load file");
         }
-        doc.normalise();
-        logg.exiting(this.getClass().getName(), "parse_file()");
     }
 
 
 
-    public String get_tag(String x) {
-       Elements ez = doc.getElementsByTag(x);
-        if ( ez == null ) {
+    @Nullable
+    public String getTag(String x) {
+       Elements ez = this.doc.getElementsByTag(x);
+        if (null == ez) {
             logg.warning("Invalid Input");
-            logg.exiting(this.getClass().getName(), "get_tag(String x)");
             return null;
         }
         return ez.get(0).toString();
     }
     public String get_tag_inner(String x) {
 
-        Elements ez = doc.getElementsByTag(x);
-        if ( ez == null ) {
+        Elements ez = this.doc.getElementsByTag(x);
+        if (null == ez) {
             logg.warning("Invalid Input");
             logg.exiting(this.getClass().getName(), "get_tag(String x)");
-            return null;
+            return "null";
         }
 
        return ez.text();
     }
 
     public String get_meta(String type){
-        Elements metatags = doc.getElementsByTag("meta");
+        String output = "";
+        Elements metatags = this.doc.getElementsByTag("meta");
         for(Element tag : metatags){
            if( tag.attr("name").contentEquals(type)){
-               return tag.attr("content");
+               output =  tag.attr("content");
+                break;
            }
         }
-        return null;
+        return output;
     }
 
 
 
         //=====GETTER=====
-    public String get_doc() {
-        return doc.toString();
+    public String getDoc() {
+        return this.doc.toString();
     }
 
-    public String get_body() {
-        return doc.body().toString();
+    public String getBody() {
+        return this.doc.body().toString();
     }
 
-    public String get_head() {
-        return doc.head().toString();
+    public String getHead() {
+        return this.doc.head().toString();
     }
 
-    public String get_title() {
-        Elements x = doc.getElementsByTag("title");
+    public String getTitle() {
+        Elements x = this.doc.getElementsByTag("title");
         return x.toString();
     }
 
-    public ArrayList<Card> get_cards() {
-        ArrayList<Card> cards = new ArrayList<Card>();
-        for ( Element x : doc.getElementsByTag("section") ) {
+    public ArrayList<Card> getCards() {
+        ArrayList<Card> cards = new ArrayList<>();
+        for ( Element x : this.doc.getElementsByTag("section") ) {
             String body = x.html(); // For HTML
             String title = x.attributes().get("title");
 
-            ArrayList<CardEvent> events = new ArrayList<CardEvent>();
+            ArrayList<CardEvent> events = new ArrayList<>();
             for ( Element y : x.getElementsByTag("span") ) {
 
                 if ( y.attributes().hasDeclaredValueForKey("date") ) {
-                    System.out.println("Here?");
-
-                    System.out.println("Date" + y.attr("date"));
-                    LocalDateTime date = LocalDateTime.parse(y.attr("date"));
+                    logg.fine("Date" + y.attr("date"));
+                    LocalDateTime localDateTime = LocalDateTime.parse(y.attr("date"));
                     String desc = y.text();
-                    events.add(new CardEvent(date, desc));
+                    // TODO Need to fix
+                    //events.add(new CardEvent(localDateTime, desc));
                 }
 
             }
