@@ -7,7 +7,7 @@ package Cards.translators.io;
  * TODO Fix Settings Crash when files are moved
  */
 
-import Cards.models.CardList;
+import Cards.models.cards.CardList;
 
 import java.io.File;
 import java.nio.file.Path;

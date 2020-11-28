@@ -1,17 +1,19 @@
-package Cards.models;
-/**
- * Last Updated: 11/17/2020 4:49 PM
- * Card Data Model
- *
- * @AUTHOR Devin M. O'Brien
+package Cards.models.cards;
+/*
+  Last Updated: 11/17/2020 4:49 PM
+  Card Data Model
+
+  @AUTHOR Devin M. O'Brien
  */
+
+import Cards.models.MetaData;
 
 import java.util.ArrayList;
 import java.util.UUID;
 
 import static Cards.translators.jsoup.JSoupTranslator.getTextInBody;
 
-public class Card {
+public class Card implements NormalCard{
     private final MetaData metaData = new MetaData();
     private final ArrayList<CardEvent> events;
     private String body;
@@ -57,18 +59,17 @@ public class Card {
     }
 
     public String getName() {
-        return metaData.getTitle();
+        return this.metaData.getTitle();
     }
 
     public CardEvent getRecent() {
         CardEvent recent = null;
-        for ( CardEvent event : events ) {
-            if ( recent == null ) {
+        for ( CardEvent event : this.events) {
+            if (null == recent) {
                 recent = event;
             }
-            if ( recent.getDate().compareTo(event.getDate()) < 0 ) {
 
-            } else {
+            if ( recent.compareTo(event.getDate()) > 0 ) {
                 recent = event;
             }
 

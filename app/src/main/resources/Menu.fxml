@@ -107,6 +107,7 @@
                                     <Font size="19.0" />
                                  </font>
                               </Label>
+                              <Button layoutX="475.0" layoutY="6.0" mnemonicParsing="false" onAction="#importCard" text="Import" textFill="#540000" />
                            </children></AnchorPane>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                            <children>

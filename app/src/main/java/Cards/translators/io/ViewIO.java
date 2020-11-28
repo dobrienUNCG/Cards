@@ -28,7 +28,9 @@ public class ViewIO {
         try{
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/EventCreationDialog.fxml"));
-            return loader.load();
+            Parent parent = loader.load();
+            parent.setUserData(loader);
+            return parent;
         }catch(IOException error){
             System.err.println("Couldn't load event creator");
             System.err.println(error.toString());

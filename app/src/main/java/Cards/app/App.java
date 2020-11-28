@@ -1,9 +1,12 @@
 package Cards.app;
+
+import Cards.models.AppModel;
+
 /**
- * Last Updated: 11/25/2020
+ * Last Updated: 11/27/2020
  * Starting point of the application.
  *
- * @AUTHOR Devin M. O'Brien
+ * @author Devin M. O'Brien
  * @apiNote
  */
 
@@ -13,3 +16,9 @@ public class App {
         appModel.launcher();
     }
 }
+/*
+DOC help
+ - TODO means need to do
+ - IDK means this needs to be remove or adopted
+ - FIXME is some bug that synonymous with todo
+ */

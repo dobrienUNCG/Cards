@@ -1,5 +1,5 @@
 package Cards.models;
-
+// IDK Implement or Remove
 
 public abstract class Model <T, K>   {
     protected T t;

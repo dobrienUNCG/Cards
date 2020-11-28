@@ -54,6 +54,7 @@ public class GoogleTranslator implements TranslatorInterface {
      * Goto README.md for directions on creating credentials.json and new package.*/
     protected static final String CREDENTIALS_FILE_PATH = "/credentials.json" ;
     protected static final String CALENDAR_NAME = "My Tasker Calendar";
+    private static final int port = 8888;
 
     /**
      * Uses the API to find the event in a calendar and return the eventId.
@@ -471,7 +472,7 @@ public class GoogleTranslator implements TranslatorInterface {
                 .setDataStoreFactory(new FileDataStoreFactory(new java.io.File(TOKENS_DIRECTORY_PATH)))
                 .setAccessType("offline")
                 .build();
-        LocalServerReceiver receiver = new LocalServerReceiver.Builder().setPort(8888).build();
+        LocalServerReceiver receiver = new LocalServerReceiver.Builder().setPort(port).build();
         return new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
     }
 

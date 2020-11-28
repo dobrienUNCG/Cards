@@ -1,9 +1,9 @@
 package Cards.models;
-/**
- * Last Updated: 10/26/2020
- * HTML Data Model
- *
- * @author Devin M. O'Brien
+/*
+  Last Updated: 10/26/2020
+  HTML Data Model
+
+  @author Devin M. O'Brien
  * @deprecated No longer supported, but being used as a reference.
  */
 
