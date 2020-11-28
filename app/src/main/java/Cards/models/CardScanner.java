@@ -9,7 +9,7 @@ import java.util.regex.Pattern;
 
 public class CardScanner implements DevMode{
     final String input;
-    final ArrayList<Pattern> keys = new ArrayList<Pattern>();
+    final ArrayList<Pattern> keys = new ArrayList<>();
 
 
     public CardScanner(String input) {

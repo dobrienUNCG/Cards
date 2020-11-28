@@ -41,7 +41,7 @@ public class Main {
      * @return
      * @throws ParseException
      */
-    static long dateTimeInLong(String _dateTime) throws ParseException {
+    public static long dateTimeInLong(String _dateTime) throws ParseException {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX");
         Date date = sdf.parse(_dateTime);
