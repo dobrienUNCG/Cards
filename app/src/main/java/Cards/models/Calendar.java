@@ -1,8 +1,13 @@
 package Cards.models;
 
+import Cards.app.AppModel;
 import Cards.data.request.Request;
+import Cards.data.request.RequestManager;
 import Cards.data.request.RequestType;
 import Cards.translators.api.TaskEvent;
+
+import java.sql.SQLOutput;
+import java.util.ArrayList;
 
 import java.util.List;
 
