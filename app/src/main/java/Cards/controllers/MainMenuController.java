@@ -18,6 +18,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.web.WebView;
@@ -110,10 +111,10 @@ public class MainMenuController {
                 CardSettings.getRecentFiles().remove(finalI);
             });
             titlePane.setOnMouseClicked(e -> {
-                if (e.isPrimaryButtonDown()) {
-                    AppModel.activeFile = CardSettings.getRecentFiles().get(index);
-                    create_card();
-                }
+            if(e.getButton() == MouseButton.PRIMARY) {
+                AppModel.activeFile = CardSettings.getRecentFiles().get(index);
+                this.create_card();
+            }
             });
             contextMenu.getItems().add(remove);
             webView.contextMenuEnabledProperty().set(false);

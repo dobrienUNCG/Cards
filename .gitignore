@@ -13,3 +13,4 @@ tokens/StoredCredential
 app/src/main/resources/credentials.json
 Cards.zip
 .gradle/checksums/checksums.lock
+app/tokens/StoredCredential
