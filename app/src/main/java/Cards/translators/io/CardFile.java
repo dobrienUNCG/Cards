@@ -1,9 +1,9 @@
 package Cards.translators.io;
-/*
-  Last Updated: 10/28/2020
-  Card File
-
-  @author Devin M. O'Brien
+/**
+ * Last Updated: 10/28/2020
+ * Card File
+ *
+ * @author Devin M. O'Brien
  * TODO Fix Settings Crash when files are moved
  */
 
