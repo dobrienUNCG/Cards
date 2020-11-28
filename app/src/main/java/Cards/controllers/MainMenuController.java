@@ -111,11 +111,10 @@ public class MainMenuController {
                 CardSettings.getRecentFiles().remove(finalI);
             });
             titlePane.setOnMouseClicked(e -> {
-            if(e.getButton() == MouseButton.PRIMARY) {
-                AppModel.activeFile = CardSettings.getRecentFiles().get(index);
-                this.create_card();
-            }
-
+                if (e.getButton() == MouseButton.PRIMARY) {
+                    AppModel.activeFile = CardSettings.getRecentFiles().get(index);
+                    this.create_card();
+                }
             });
             contextMenu.getItems().add(remove);
             webView.contextMenuEnabledProperty().set(false);

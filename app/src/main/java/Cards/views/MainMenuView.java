@@ -4,6 +4,7 @@ package Cards.views;
  * Main Menu View
  *
  * @author Devin M. O'Brien
+ * @deprecated No longer used.
  */
 
 import javafx.fxml.FXMLLoader;
@@ -14,6 +15,9 @@ import java.io.IOException;
 
 import static Cards.models.CardLogger.logg;
 
+/**
+ * @deprecated  No longer used.
+ */
 public class MainMenuView {
 
 

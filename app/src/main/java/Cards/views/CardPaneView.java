@@ -7,7 +7,9 @@ package Cards.views;
 
 import Cards.translators.io.CardFile;
 
-@SuppressWarnings("FieldCanBeLocal")
+/**
+ * @deprecated Not used.
+ */
 public class CardPaneView {
     private final String title;
     private final String content;

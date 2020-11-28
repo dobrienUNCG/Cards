@@ -2,7 +2,7 @@ package Cards.models;
 
 import java.util.UUID;
 
-@SuppressWarnings("unused")
+
 public class UID {
 
     protected final UUID uuid;
@@ -10,7 +10,11 @@ public class UID {
     public UID(){
         uuid = UUID.randomUUID();
     }
-    @SuppressWarnings("unused")
+
+    /**
+     * @deprecated Was going to be used for the card event.
+     * @param _uuid
+     */
     UID(String _uuid){
         uuid = UUID.fromString(_uuid);
     }

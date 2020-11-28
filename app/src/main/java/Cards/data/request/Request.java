@@ -3,9 +3,10 @@ package Cards.data.request;
 import Cards.models.AppModel;
 import Cards.translators.api.TaskEvent;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Request {
+public class Request implements Serializable {
 private final RequestType requestType;
 
 private TaskEvent taskEvent;

@@ -1,96 +1,126 @@
 package Cards.translators.io;
+/*
+ Date: 11/28/2020
+ Centralized for loading all the views.
+ @author: Devin M. O'Brien
+ */
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 
 import java.io.IOException;
 
+import static Cards.models.CardLogger.logg;
+
 public class ViewIO {
 
-    public enum View{
+    public enum View {
         CARD, MAINMENU, HELP, CALENDAR, SETTINGS, PERSONAL, EVENT
     }
 
-    public Parent getMainMenu(){
+//=================  GETTERS ===============
+
+    /**
+     * Gets the parent node of the calendar screen.
+     *
+     * @return Parent node of the calendar screen, or null if failed
+     */
+    public Parent getCalendarScreen() {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/Menu.fxml"));
-            Parent root = loader.load();
-            root.getStylesheets().add("/Main_Menu.css");
-            return root;
-        }catch(IOException error){
-            System.err.println("Couldn't Load Menu Files");
-            System.err.println(error.toString());
-        }
-        return null;
-    }
-    public Parent getEventCreator(){
-        try{
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/EventCreationDialog.fxml"));
-            Parent parent = loader.load();
-            parent.setUserData(loader);
-            return parent;
-        }catch(IOException error){
-            System.err.println("Couldn't load event creator");
-            System.err.println(error.toString());
+            loader.setLocation(getClass().getResource("/CalendarNew.fxml"));
+            return loader.load();
+        } catch (IOException _e) {
+            logg.severe(_e.toString());
         }
         return null;
     }
 
-    public Parent getCardEditor(){
+    /**
+     * Gets the parent node of the card editor.
+     *
+     * @return Parent node of the card editor screen, or null if failed.
+     */
+    public Parent getCardEditor() {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/Template.fxml"));
             Parent root = loader.load();
             root.getStylesheets().add(getClass().getResource("/Card.css").toExternalForm());
             return root;
-        }catch(IOException error){
-            System.err.println("Couldn't Load Card Editor Files");
-            System.err.println(error.toString());
+        } catch (IOException _e) {
+            logg.severe(_e.toString());
         }
         return null;
     }
 
     /**
+     * Gets the parent node of the event creator.
      *
-     * @return
+     * @return Parent node of the settings screen, or null if failed
      */
-    public Parent getSettingsScreen(){
-        try{
+    public Parent getEventCreator() {
+        try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/Settings.fxml"));
-            return loader.load();
-        }catch (Exception e){
-            System.err.println("Couldn't Load Settings Screen Files");
-            System.err.println(e.toString());
+            loader.setLocation(getClass().getResource("/EventCreationDialog.fxml"));
+            Parent parent = loader.load();
+            parent.setUserData(loader);
+            return parent;
+        } catch (IOException _e) {
+            logg.severe(_e.toString());
         }
         return null;
     }
-    public Parent getHelpScreen(){
-        // TODO Add Content to Help View
+
+    /**
+     * Gets the parent node of the help screen.
+     *
+     * @return Parent node of the help screen, or null if failed.
+     */
+    public Parent getHelpScreen() {
         try {
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/Help.fxml"));
             return loader.load();
-        }catch(Exception e){
-            System.err.println("Couldn't Load Help Files");
-            // TODO Change to Logger
-            System.err.println(e);
+        } catch (IOException _e) {
+            logg.severe(_e.toString());
         }
         return null;
     }
-    public Parent getCalendarScreen(){
-        // TODO Setup Calendar Controller
-        try{
+
+    /**
+     * Gets the parent node of the main menu.
+     *
+     * @return Parent node of the main menu screen, or null if failed.
+     */
+    public Parent getMainMenu() {
+        try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/CalendarNew.fxml"));
-            return loader.load();
-        }catch(Exception e){
-            // TODO Change to logger
-            System.err.println(e);
+            loader.setLocation(getClass().getResource("/Menu.fxml"));
+            Parent parentMainMenu = loader.load();
+            parentMainMenu.getStylesheets().add("/Main_Menu.css");
+            return parentMainMenu;
+        } catch (IOException _e) {
+            logg.severe(_e.toString());
         }
-       return null;
+        return null;
+    }
+
+    /**
+     * Gets parent node for the settings screen.
+     *
+     * @return Parent node of the settings screen, or null if failed
+     */
+    public Parent getSettingsScreen() {
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/Settings.fxml"));
+            Parent settingsParent = loader.load();
+            return settingsParent;
+        } catch (Exception _e) {
+            logg.severe(_e.toString());
+        }
+        return null;
     }
 
 }

@@ -15,6 +15,9 @@ import javafx.util.converter.DateTimeStringConverter;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 
+/**
+ * @deprecated  Moved to controller
+ */
 public class EventCreationView {
     @FXML
     TextArea description;

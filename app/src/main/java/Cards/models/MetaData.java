@@ -5,14 +5,10 @@ package Cards.models;
 
   @apiNote To be adaptable, it is using a hashmap to store data. Rather than
  *  fields.
- */
+*/
 
 import java.util.HashMap;
 
-/**
- * IDK Remove Or Implement
- * TODO Add UUID
- */
 public class MetaData {
 
     private final HashMap<String, Object> metaData = new HashMap<>();

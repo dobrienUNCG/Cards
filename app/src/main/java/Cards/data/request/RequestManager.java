@@ -10,6 +10,8 @@ import Cards.translators.api.GoogleTranslator;
 import Cards.translators.api.TaskEvent;
 
 import java.io.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -22,20 +24,23 @@ public class RequestManager {
 
 
     public RequestManager() {
-        try{
-            FileInputStream fileIn = new FileInputStream("/requests.ser");
-            ObjectInputStream in = new ObjectInputStream(fileIn);
-            this.request = (ArrayList<Request>) in.readObject();
-            in.close();
-            fileIn.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e){
+        File test = new File("/requests.ser");
+        if(test.exists()) {
+            try {
 
-        } catch (ClassNotFoundException _e) {
-            _e.printStackTrace();
+                FileInputStream fileIn = new FileInputStream("requests.ser");
+                ObjectInputStream in = new ObjectInputStream(fileIn);
+                this.request = (ArrayList<Request>) in.readObject();
+                in.close();
+                fileIn.close();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+
+            } catch (ClassNotFoundException _e) {
+                _e.printStackTrace();
+            }
         }
-
         if(!CardSettings.calendarCreated) {
             logg.info(String.valueOf(CardSettings.calendarCreated));
             addRequest(new Request(RequestType.PUT_CALENDAR));
@@ -43,16 +48,19 @@ public class RequestManager {
     }
 
     public ArrayList<Object> submit() {
-        try{
-            FileOutputStream fileout = new FileOutputStream("/requests.ser");
-            ObjectOutputStream out = new ObjectOutputStream(fileout);
-            out.writeObject(request);
-            out.close();
-            fileout.close();
-        }catch (IOException error){
 
-        }
-        if (!request.isEmpty()) {
+        if (!this.request.isEmpty()) {
+            try{
+                FileOutputStream fileout = new FileOutputStream("request.ser");
+
+                ObjectOutputStream out = new ObjectOutputStream(fileout);
+                out.writeObject(this.request);
+
+                out.close();
+                fileout.close();
+            }catch (IOException error){
+                System.out.println(error);
+            }
             Iterator<Request> requestIterator = this.request.iterator();
             Request current;
             RequestType requestType;
@@ -91,7 +99,7 @@ public class RequestManager {
                 CardSettings.calendarCreated = true;
                 File serializedFile = new File("/requests.ser");
                 if(serializedFile.exists()){
-                    serializedFile.delete();
+                        serializedFile.delete();
                 }
             } catch (Exception e) {
                 // TODO Change to logger

@@ -54,8 +54,7 @@ public class GoogleTranslator implements TranslatorInterface {
      * Goto README.md for directions on creating credentials.json and new package.*/
     protected static final String CREDENTIALS_FILE_PATH = "/credentials.json" ;
     protected static final String CALENDAR_NAME = "My Tasker Calendar";
-    private static final int port = 8888;
-
+    private static final int  RIGHT_BRACE = 20, PORT=8888, beginDateTimeSubstring = 24 ,endDateTimeSubstring = 32;
     /**
      * Uses the API to find the event in a calendar and return the eventId.
      *
@@ -124,14 +123,14 @@ public class GoogleTranslator implements TranslatorInterface {
 
         //is all day? checks for a certain character to signify whether or not All-Day.
         boolean isAllDay = false;
-        if (beginDateTime.charAt(20) == '}') {
+        if (beginDateTime.charAt(RIGHT_BRACE) == '}') {
             isAllDay = true;
         }
 
         //task description
         String descrip;
         if (event.getDescription() == null) {
-            descrip = null;
+            descrip = "null";
         } else {
             descrip = event.getDescription();
         }
@@ -181,7 +180,7 @@ public class GoogleTranslator implements TranslatorInterface {
         //the description can be absent from a task.
         String descrip;
         if (event.getDescription() == null) {
-            descrip = null;
+            descrip = "null";
         } else {
             descrip = event.getDescription();
         }
@@ -233,7 +232,7 @@ public class GoogleTranslator implements TranslatorInterface {
 
         boolean isAllDay = false;
         //Checks for a certain characters to signify whether or not All-Day.
-        if (beginDateTime.substring(24, 32).equals(tester) && endDateTime.substring(24, 32).equals(tester)) {
+        if (beginDateTime.substring(beginDateTimeSubstring, endDateTimeSubstring).equals(tester) && endDateTime.substring(beginDateTimeSubstring, endDateTimeSubstring).equals(tester)) {
             isAllDay = true;
         }
         return isAllDay;
@@ -283,7 +282,7 @@ public class GoogleTranslator implements TranslatorInterface {
                 DateTime eventEnd;
                 boolean allDay = false;
                 //Is it all-day?
-                if (eventEndString.charAt(20) == '}') {
+                if (eventEndString.charAt(RIGHT_BRACE) == '}') {
                     //Yes, parse from Date type and change today checker to tomorrow.
                     todayDueCheck = tomorrowDate;
                     thisEventEndDate = eventEndString.substring(9, 19);
@@ -472,7 +471,7 @@ public class GoogleTranslator implements TranslatorInterface {
                 .setDataStoreFactory(new FileDataStoreFactory(new java.io.File(TOKENS_DIRECTORY_PATH)))
                 .setAccessType("offline")
                 .build();
-        LocalServerReceiver receiver = new LocalServerReceiver.Builder().setPort(port).build();
+        LocalServerReceiver receiver = new LocalServerReceiver.Builder().setPort(PORT).build();
         return new AuthorizationCodeInstalledApp(flow, receiver).authorize("user");
     }
 
