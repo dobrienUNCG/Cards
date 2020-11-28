@@ -6,11 +6,13 @@ package Cards.controllers;
   @author Devin M. O'Brien
  */
 
+
 import Cards.app.AppModel;
 
 import Cards.models.cards.CardList;
 import Cards.models.settings.CardSettings;
 import Cards.translators.io.HTMLTranslator;
+
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

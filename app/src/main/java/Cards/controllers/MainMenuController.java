@@ -115,6 +115,7 @@ public class MainMenuController {
                 AppModel.activeFile = CardSettings.getRecentFiles().get(index);
                 this.create_card();
             }
+
             });
             contextMenu.getItems().add(remove);
             webView.contextMenuEnabledProperty().set(false);
