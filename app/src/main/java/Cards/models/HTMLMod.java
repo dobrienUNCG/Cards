@@ -1,12 +1,9 @@
 package Cards.models;
-==== BASE ====
-/**
- * Last Updated: 11/18/2020
- * HTML Data Model
- *
- * @apiNote Moving away from using this to HTMLTranslator.
- *
-==== BASE ====
+/*
+  Last Updated: 11/18/2020
+  HTML Data Model
+
+  @apiNote Moving away from using this to HTMLTranslator.
  * @AUTHOR Devin M. O'Brien
  */
 
@@ -57,11 +54,6 @@ public class HTMLMod {
         this.cards = jsoup.getCards();
     }
 
-    public HTMLMod(File _x) {
-        this.cardFile = new CardFile(_x);
-    }
-
-==== BASE ====
     /**
      * @param _input
      * @deprecated Replaced
