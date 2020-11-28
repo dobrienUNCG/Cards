@@ -15,4 +15,8 @@ public class UID {
         uuid = UUID.fromString(_uuid);
     }
 
+    @Override
+    public String toString() {
+       return uuid.toString();
+    }
 }

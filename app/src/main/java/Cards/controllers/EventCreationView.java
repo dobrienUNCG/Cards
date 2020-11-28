@@ -5,7 +5,7 @@ package Cards.controllers;
  *
  * @author Devin M. O'Brien
  */
-import Cards.app.AppModel;
+import Cards.models.AppModel;
 import Cards.models.UID;
 import Cards.translators.api.TaskEvent;
 import com.google.api.client.util.DateTime;
@@ -69,15 +69,14 @@ public class EventCreationView {
 
     @Override
     public String toString() {
-        return "EventCreationView{" +
-                "description=" + description.getText() +
-                ", eventTitle=" + eventTitle.getText() +
-                ", startDate=" + startDate.getValue().toString() +
-                ", endDate=" + endDate.getValue().toString() +
-                ", startTime=" + startTime.getText() +
-                ", endTime=" + endTime.getText() +
-                ", allDay=" + allDay.isSelected() +
-                ", completed=" + completed.isSelected() +
-                '}';
+        return "description=\"" + description.getText() +
+                "\" eventTitle=\"" + eventTitle.getText() +
+                "\" startDate=\"" + startDate.getValue().toString() +
+                "\" endDate=\"" + endDate.getValue().toString() +
+                "\" startTime=\"" + startTime.getText() +
+                "\" endTime=\"" + endTime.getText() +
+                "\" allDay=\"" + allDay.isSelected() +
+                "\" completed=\"" + completed.isSelected() +
+                '"';
     }
 }

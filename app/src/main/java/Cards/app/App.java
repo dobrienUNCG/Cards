@@ -1,6 +1,9 @@
 package Cards.app;
+
+import Cards.models.AppModel;
+
 /**
- * Last Updated: 11/25/2020
+ * Last Updated: 11/27/2020
  * Starting point of the application.
  *
  * @author Devin M. O'Brien

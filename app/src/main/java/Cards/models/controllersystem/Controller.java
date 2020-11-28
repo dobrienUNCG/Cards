@@ -1,7 +1,5 @@
 package Cards.models.controllersystem;
 
-import Cards.app.AppModel;
-
 abstract class Controller extends Thread{
     private final boolean appController;
     private Model model;

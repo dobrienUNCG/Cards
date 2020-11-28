@@ -7,15 +7,13 @@ package Cards.controllers;
   @author Devin M. O'Brien
  */
 
-import Cards.app.AppModel;
-
 import Cards.data.request.RequestManager;
+import Cards.models.AppModel;
+import Cards.models.HTMLMod;
 import Cards.models.cards.Card;
 import Cards.models.cards.CardList;
-import Cards.models.HTMLMod;
-
+import Cards.translators.api.TaskEvent;
 import Cards.translators.io.CardFile;
-
 import Cards.translators.io.HTMLTranslator;
 import Cards.translators.io.ViewIO;
 import javafx.fxml.FXML;
@@ -30,9 +28,11 @@ import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Optional;
 
 import static Cards.models.CardLogger.logg;
 import static Cards.models.settings.CardSettings.add_file;
@@ -47,18 +47,20 @@ public class CardViewController {
     @FXML
     Button titlebutton;
     Stage stage;
-    int current = 0;
+    int current;
     CardFile openCard;
     CardList cardList;
     HTMLMod htmlMod;
-
+    boolean deleted;
     private static final int buttonWidth = 100000000;
 
     public CardViewController() {
+        super();
 
     }
 
-    public CardViewController(CardFile x) {
+    public CardViewController(CardFile _cardFile) {
+        super();
         logg.entering(this.getClass().getName(), "CardViewController()");
 
         logg.exiting(this.getClass().getName(), "CardViewController()");
@@ -67,7 +69,7 @@ public class CardViewController {
     @FXML
     public void initialize() {
         if (AppModel.activeFile != null) {
-            openFile(AppModel.activeFile);
+            this.openFile(AppModel.activeFile);
             AppModel.activeFile = null;
         } else {
             this.cardList = new CardList("New Card", "Description", new ArrayList<>());
@@ -81,21 +83,21 @@ public class CardViewController {
 
     }
 
-    public CardFile askSavePath() {
+    public  CardFile askSavePath() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save");
         // TODO Add HTML Filter
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("All Files", "*"));
-        return new CardFile(fileChooser.showSaveDialog(stage));
-
+        File file = fileChooser.showSaveDialog(this.stage);
+        return new CardFile(file);
     }
 
-    public CardFile askFilePath() {
+   public  CardFile askFilePath() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Load CardFile");
         // TODO Add HTML Filter
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("All Files", "*"));
-        return new CardFile(fileChooser.showOpenDialog(stage));
+        return new CardFile(fileChooser.showOpenDialog(this.stage));
 
     }
 
@@ -112,22 +114,42 @@ public class CardViewController {
         String title = inputDialog.getEditor().getText();
         Button button = new Button();
         button.setText(title);
-        button.setMaxWidth(this.buttonWidth);
-
-        this.cardList.getCards().add((new Card(title, "", null)));
+        button.setMaxWidth(buttonWidth);
+        Card card = new Card(title, "", null);
+        this.cardList.getCards().add((card));
         int index = this.cardList.cards.size() - 1;
-        button.setOnAction(e -> switch_card(index));
+        button.setOnAction(e -> {
+            this.switch_card(this.cardList.getCards().indexOf(card));
+        });
         MenuItem menu = new MenuItem("Edit");
-        menu.setOnAction(event -> {
+        MenuItem delete = new MenuItem("Delete");
+
+        menu.setOnAction(e -> {
             button.fire();
-            inputDialog.getEditor().setText(cardList.getCard(index).getName());
+            inputDialog.getEditor().setText(this.cardList.getCard(index).getName());
             inputDialog.showAndWait();
             String input = inputDialog.getEditor().getText();
-            cardList.getCard((index)).setName(input);
+            this.cardList.getCard((this.cardList.getCards().indexOf(card))).setName(input);
             button.setText(input);
+
+        });
+        delete.setOnAction(event -> {
+            button.fire();
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Confirmation Dialog");
+            alert.setHeaderText("Delete Confirmation");
+            alert.setContentText("Do you want to delete this card?");
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) {
+                this.cardList.getCards().remove(card);
+
+            }
+            this.sidebar.getChildren().remove(button);
+            this.deleted = true;
         });
         ContextMenu contextMenu = new ContextMenu();
         contextMenu.getItems().add(menu);
+        contextMenu.getItems().add(delete);
         button.setContextMenu(contextMenu);
         this.sidebar.getChildren().add(button);
     }
@@ -142,7 +164,7 @@ public class CardViewController {
         this.openCard = _cardFile;
         this.removeOldCards();
         add_file(this.openCard);
-        HTMLTranslator htmlTranslator = new HTMLTranslator(openCard);
+        HTMLTranslator htmlTranslator = new HTMLTranslator(this.openCard);
         this.cardList = htmlTranslator.get_card_list();
 
         if (!this.cardList.cards.isEmpty()) {
@@ -158,7 +180,41 @@ public class CardViewController {
             button.setText(name);
             button.setMaxWidth(buttonWidth);
             int finalCounter = counter;
-            button.setOnAction(e -> this.switch_card(finalCounter));
+
+            MenuItem menu = new MenuItem("Edit");
+            MenuItem delete = new MenuItem("Delete");
+            menu.setOnAction(event -> {
+                button.fire();
+                TextInputDialog inputDialog = new TextInputDialog();
+                inputDialog.setTitle("Title");
+                inputDialog.getDialogPane().getButtonTypes().add(ButtonType.APPLY);
+                inputDialog.getEditor().setText(this.cardList.getCard(this.cardList.getCards().indexOf(card)).getName());
+                inputDialog.showAndWait();
+                String input = inputDialog.getEditor().getText();
+                this.cardList.getCard(this.cardList.getCards().indexOf(card)).setName(input);
+                button.setText(input);
+                this.deleted = true;
+            });
+            delete.setOnAction(event -> {
+                button.fire();
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Confirmation Dialog");
+                alert.setHeaderText("Delete Confirmation");
+                alert.setContentText("Do you want to delete this card?");
+                Optional<ButtonType> result = alert.showAndWait();
+                if (result.get() == ButtonType.OK) {
+                    this.cardList.getCards().remove(card);
+                    this.sidebar.getChildren().remove(button);
+
+                }
+                this.deleted = true;
+            });
+            ContextMenu contextMenu = new ContextMenu();
+            contextMenu.getItems().add(menu);
+            contextMenu.getItems().add(delete);
+            button.setContextMenu(contextMenu);
+
+            button.setOnAction(e -> this.switch_card(this.cardList.getCards().indexOf(card)));
             counter++;
             this.sidebar.getChildren().add(button);
         }
@@ -166,7 +222,7 @@ public class CardViewController {
     }
 
     public void openFile() {
-        openFile(askFilePath());
+        this.openFile(this.askFilePath());
     }
 
     /**
@@ -186,9 +242,11 @@ public class CardViewController {
      */
     public void switch_card(int _index) {
         logg.entering("CardViewController", "switch_card");
-        saveCard();
+        if (!this.deleted)
+            this.saveCard();
+        this.deleted = false;
         this.current = _index;
-        updateEditor(this.cardList.cards.get(_index).getBody());
+        this.updateEditor(this.cardList.cards.get(_index).getBody());
         logg.exiting("CardViewController", "switch_card");
     }
 
@@ -202,20 +260,20 @@ public class CardViewController {
         GridPane grid = new GridPane();
         TextField title = new TextField();
         if (this.cardList.getName() != null)
-            title.setText(cardList.getName());
+            title.setText(this.cardList.getName());
         TextArea desc = new TextArea();
         if (this.cardList.getBody() != null)
             desc.setText(this.cardList.getBody());
-        grid.add(title, 2, 1);
+        grid.add(title, 1, 1);
         grid.add(desc, 1, 2);
 
         Dialog dia = new Dialog();
         dia.getDialogPane().setContent(grid);
         dia.getDialogPane().getButtonTypes().add(ButtonType.OK);
         dia.showAndWait();
-        cardList.setName(title.getText());
-        cardList.setBody(desc.getText());
-        titlebutton.setText(cardList.getName());
+        this.cardList.setName(title.getText());
+        this.cardList.setBody(desc.getText());
+        this.titlebutton.setText(this.cardList.getName());
     }
 
     public void go_to_main_menu() throws IOException {
@@ -225,7 +283,7 @@ public class CardViewController {
     public void showHTML() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("HTML");
-        alert.setContentText(editor.getHtmlText());
+        alert.setContentText(this.editor.getHtmlText());
         alert.show();
     }
 
@@ -235,13 +293,17 @@ public class CardViewController {
         }
         if (this.htmlMod == null)
             this.htmlMod = new HTMLMod(this.openCard.getPath().toString());
-        saveCard();
+        this.saveCard();
         this.htmlMod.save(this.openCard, this.cardList);
 
     }
 
     public void com_load() {
-        openFile();
+        this.openFile();
+    }
+
+    private int getIndexOf(Card _card) {
+        return this.cardList.getCards().indexOf(_card);
     }
 
     private void removeOldCards() {
@@ -282,8 +344,8 @@ public class CardViewController {
                 "    x.setAttribute(\"type\", \"edit\");\n" +
                 "    range.surroundContents(x);\n" +
                 "})()";
-        WebView webView = (WebView) this.editor.lookup("WebView");
 
+        WebView webView = (WebView) this.editor.lookup("WebView");
         if (null != webView) {
             webView.getEngine().executeScript(script);
             // For Debugging TODO Remove Out
@@ -299,14 +361,17 @@ public class CardViewController {
 
         AppModel.newWindowHold(eventEditor);
 
-        System.out.println(cr.toString());
-        RequestManager.createEventRequest(cr.createEvent());
-        // TODO Add
-
+        TaskEvent event = cr.createEvent();
+        RequestManager.createEventRequest(event);
+        saveCard();
+        HTMLTranslator html = new HTMLTranslator(cardList.getCards().get(current));
+        html.addEventsToCard(cardList.getCard(current), event, cr.completed.isSelected());
+        updateEditor(cardList.getCard(current).getBody());
         return null;
+
     }
 
-    // TODO Implement or Remove
+    // F Implement or Remove
     @FXML
     void close_menu() {
 
@@ -314,6 +379,10 @@ public class CardViewController {
 
     void saveCard() {
         String htmlText = this.editor.getHtmlText();
+        if(this.cardList.getCards().isEmpty()){
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("There are no cards to save!");
+        }else
         this.cardList.cards.get(this.current).setBody(htmlText);
     }
 

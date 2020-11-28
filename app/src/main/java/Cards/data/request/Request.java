@@ -1,9 +1,8 @@
 package Cards.data.request;
 
-import Cards.app.AppModel;
+import Cards.models.AppModel;
 import Cards.translators.api.TaskEvent;
 
-import java.util.ArrayList;
 import java.util.Objects;
 
 public class Request {

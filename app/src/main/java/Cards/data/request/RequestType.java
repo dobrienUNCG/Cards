@@ -1,6 +1,6 @@
 package Cards.data.request;
 
-enum RequestType {
+public enum RequestType {
     GET_EVENTID, GET_INFO_ALL, GET_IS_ALL_DAY, GET_DUE_DATE, GET_DESCRIPTION,
     GET_DATE_CREATED, GET_DUE_TODAY, GET_UPCOMING, GET_LIMIT,
     POST_SUMMARY, POST_DATE_BEGIN, POST_DATE_END, POST_DESCRIPTION, POST_LIMIT,
@@ -10,6 +10,9 @@ enum RequestType {
 
     RequestType() {
 
+    }
+    public void setI(int _i){
+        this.i = _i;
     }
 
     RequestType(int _value) {

@@ -1,4 +1,4 @@
-package Cards.app;
+package Cards.models;
 /*
   Updated: 11/18/2020
   This class connects everything together.
@@ -7,7 +7,6 @@ package Cards.app;
  */
 
 import Cards.data.request.RequestManager;
-
 
 import Cards.models.settings.CardSettings;
 import Cards.translators.io.CardFile;
@@ -20,18 +19,12 @@ import javafx.stage.Stage;
 import static Cards.models.settings.CardSettings.save_settings;
 
 public class AppModel extends Application {
-    public static boolean running = false;
-    public static CardFile activeFile = null;
-    CardSettings cardSettings = null;
-    public static RequestManager requestManager = null;
+    // TODO Change Acces MTYpe
     public static final ViewIO viewIO = new ViewIO();
-    static boolean launched = false;
-
-
-    public AppModel() {
-
-    }
-
+    public static CardFile activeFile;
+    public static RequestManager requestManager;
+    static boolean launched;
+    CardSettings cardSettings;
 
     /**
      * Starts up the JavaFX Application.
@@ -49,14 +42,18 @@ public class AppModel extends Application {
 
     /**
      * Creates a new window from a scene.
-     *
-     * @param _scene
+     * @param _scene JavaFX scene
      */
     public static void newWindow(Scene _scene) {
         Stage stage = new Stage();
         stage.setScene(_scene);
         stage.show();
     }
+
+    /**
+     * Creates a window then waits
+     * @param _scene JavaFX scene
+     */
     public static void newWindowHold(Scene _scene) {
         Stage stage = new Stage();
         stage.setScene(_scene);
@@ -64,41 +61,42 @@ public class AppModel extends Application {
     }
 
     /**
-     * @param _view
+     * Gets the parent node for a view
+     * @param _view reqyested view type
      * @return JavaFX Parent Element
      */
     public static Parent changeView(ViewIO.View _view) {
+        Parent out = null;
         switch (_view) {
             case HELP -> {
-                return viewIO.getHelpScreen();
+                out = viewIO.getHelpScreen();
             }
             case CALENDAR -> {
-                return viewIO.getCalendarScreen();
+                out = viewIO.getCalendarScreen();
             }
             case SETTINGS -> {
-                return viewIO.getSettingsScreen();
+                out = viewIO.getSettingsScreen();
             }
             case MAINMENU -> {
-                return viewIO.getMainMenu();
+                out = viewIO.getMainMenu();
             }
             case EVENT -> {
-                return viewIO.getEventCreator();
+                out = viewIO.getEventCreator();
             }
             case CARD -> {
-                return viewIO.getCardEditor();
+                out = viewIO.getCardEditor();
             }
         }
-        return null;
+        return out;
     }
 
     /**
      * Starts JavaFX Application
      */
-    final public void launcher() {
+    public final void launcher() {
         if (!launched) {
-            running = true;
             launched = true;
-            cardSettings = new CardSettings();
+            this.cardSettings = new CardSettings();
             requestManager = new RequestManager();
             launch();
             save_settings();

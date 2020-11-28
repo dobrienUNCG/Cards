@@ -7,3 +7,9 @@
 .titled-pane{
     -fx-background-color: grey;
 }
+span{
+    -fx-text-fill: green;
+}
+.event{
+   -fx-background-color: orange;
+}

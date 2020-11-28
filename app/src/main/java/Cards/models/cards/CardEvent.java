@@ -9,26 +9,39 @@ package Cards.models.cards;
 import Cards.translators.api.TaskEvent;
 import com.google.api.client.util.DateTime;
 
-public class CardEvent{
-   private TaskEvent taskEvent;
+public class CardEvent {
 
-   public CardEvent(TaskEvent _taskEvent){
+    private TaskEvent taskEvent;
+    private Boolean complete;
+
+    public CardEvent(TaskEvent _taskEvent, Boolean _complete) {
         this.taskEvent = _taskEvent;
-   }
-
-    public DateTime getDate() {
-       return taskEvent.getBeginDateTime();
+        this.complete = _complete;
     }
-    public long compareTo(DateTime _dateTime){
-       return this.taskEvent.getBeginDateTime().getValue() - _dateTime.getValue();
+
+    public long compareTo(DateTime _dateTime) {
+        return this.taskEvent.getBeginDateTime().getValue() - _dateTime.getValue();
+    }
+
+//=================  GETTERS ===============
+    public DateTime getDate() {
+        return this.taskEvent.getBeginDateTime();
     }
 
     public TaskEvent getTaskEvent() {
-        return taskEvent;
+        return this.taskEvent;
     }
 
+    public boolean isComplete() {
+        return this.complete;
+    }
+
+//=================  SETTERS  ===============
     public void setTaskEvent(TaskEvent _taskEvent) {
         this.taskEvent = _taskEvent;
+    }
+    public void setComplete(boolean _complete){
+        this.complete = _complete;
     }
 
 }

@@ -26,6 +26,8 @@ public class RequestManager {
             FileInputStream fileIn = new FileInputStream("/requests.ser");
             ObjectInputStream in = new ObjectInputStream(fileIn);
             this.request = (ArrayList<Request>) in.readObject();
+            in.close();
+            fileIn.close();
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e){
@@ -40,11 +42,13 @@ public class RequestManager {
         }
     }
 
-    public ArrayList<String> submit() {
+    public ArrayList<Object> submit() {
         try{
             FileOutputStream fileout = new FileOutputStream("/requests.ser");
             ObjectOutputStream out = new ObjectOutputStream(fileout);
             out.writeObject(request);
+            out.close();
+            fileout.close();
         }catch (IOException error){
 
         }
@@ -52,7 +56,7 @@ public class RequestManager {
             Iterator<Request> requestIterator = this.request.iterator();
             Request current;
             RequestType requestType;
-            ArrayList<String> response = new ArrayList<>();
+            ArrayList<Object> response = new ArrayList<>();
             int responseSizeBefore;
             int responseSizeAfter;
             try {
@@ -65,11 +69,11 @@ public class RequestManager {
                         case GET_DATE_CREATED -> response.add(googleTranslator.taskDateCreated(current.getTaskEvent().getEventId()));
                         case GET_EVENTID -> response.add(googleTranslator.myEventId(current.getTaskEvent().getSummary()));
                         case GET_INFO_ALL -> response.add(googleTranslator.taskInfoAll(current.getTaskEvent().getEventId()));
-                        case GET_IS_ALL_DAY -> response.add(String.valueOf(googleTranslator.taskAllDay(current.getTaskEvent().getEventId())));
+                        case GET_IS_ALL_DAY -> response.add((googleTranslator.taskAllDay(current.getTaskEvent().getEventId())));
                         case GET_DUE_DATE -> response.add(googleTranslator.taskDueDate(current.getTaskEvent().getEventId()));
                         case GET_DESCRIPTION -> response.add(googleTranslator.taskDescription(current.getTaskEvent().getEventId()));
-                        case GET_DUE_TODAY -> response.add(String.valueOf(googleTranslator.dueToday()));
-                        case GET_UPCOMING -> response.add(String.valueOf(googleTranslator.upcomingTasks(requestType.getI())));
+                        case GET_DUE_TODAY -> response.add((googleTranslator.dueToday()));
+                        case GET_UPCOMING -> response.add(googleTranslator.upcomingTasks(requestType.getI()));
                         case POST_SUMMARY -> googleTranslator.editTaskSummary(current.getOldTaskEvent().getSummary(), current.getTaskEvent().getSummary());
                         case POST_DATE_BEGIN -> googleTranslator.editBeginDate(current.getTaskEvent().getSummary(), current.getTaskEvent().getEndDate());
                         case POST_DATE_END -> googleTranslator.editEndDate(current.getTaskEvent().getSummary(), current.getTaskEvent().getEndDateTime());
