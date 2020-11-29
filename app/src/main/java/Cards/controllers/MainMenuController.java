@@ -53,7 +53,8 @@ public class MainMenuController {
 
     @FXML
     public void importCard() {
-        CardSettings.getRecentFiles().add(askFilePath());
+        CardSettings.getRecentFiles().add(0, askFilePath());
+
         removeAll();
         loadPane();
     }
@@ -83,7 +84,7 @@ public class MainMenuController {
 
     void loadPane() {
 
-        for (int i = 0; i < CardSettings.getRecentFiles().size(); i++) {
+        for (int i = 0; i < CardSettings.getRecentFiles().size() && i < 6; i++) {
             // Gets Card List
 
             HTMLTranslator htmlTranslator = new HTMLTranslator(CardSettings.getRecentFiles().get(i));
@@ -109,10 +110,13 @@ public class MainMenuController {
             remove.setOnAction(_actionEvent -> {
                 grid.getChildren().remove(titlePane);
                 CardSettings.getRecentFiles().remove(finalI);
+                removeAll();
+                loadPane();
             });
             titlePane.setOnMouseClicked(e -> {
                 if (e.getButton() == MouseButton.PRIMARY) {
                     AppModel.activeFile = CardSettings.getRecentFiles().get(index);
+                    CardSettings.getRecentFiles().set(0, AppModel.activeFile);
                     this.create_card();
                 }
             });

@@ -74,7 +74,6 @@ public class CardSettings {
             Boolean fileSegment = false;
             while (read.hasNext()) {
                 String line = read.nextLine();
-                logg.info(line);
                 if (line.contains(Preface.FILE.toString())) {
                     // TODO Add Checker to prevent Exception from crashing
                     try {
