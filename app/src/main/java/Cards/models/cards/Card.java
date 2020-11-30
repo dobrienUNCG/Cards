@@ -7,16 +7,19 @@ package Cards.models.cards;
  */
 
 import Cards.models.MetaData;
+import Cards.models.UID;
 
 import java.util.ArrayList;
 import java.util.UUID;
 
 import static Cards.translators.jsoup.JSoupTranslator.getTextInBody;
 
-public class Card implements NormalCard{
+public class Card implements NormalCard {
+
     private final MetaData metaData = new MetaData();
     private final ArrayList<CardEvent> events;
     private String body;
+
     /**
      * @param _name   Name of Card
      * @param _body   Body of Card HTML
@@ -24,7 +27,11 @@ public class Card implements NormalCard{
      */
     public Card(String _name, String _body, ArrayList<CardEvent> _events) {
         metaData.setTitle(_name);
-        this.body = _body;
+        if(!_body.contains("<script>"))
+            this.body = _body + "<script>function openEvent(x){test.getCardEvent(x);}</script>";
+        else {
+            this.body = _body;
+        }
         this.events = _events;
     }
 
@@ -33,16 +40,16 @@ public class Card implements NormalCard{
     }
 
     /**
-     * @deprecated Not Implemented
      * @param _index position
+     * @deprecated Not Implemented
      */
     public void remove_event(int _index) {
         throw new RuntimeException("Not Implemented");
     }
 
     /**
-     * @deprecated Not Implemented
      * @param uuid
+     * @deprecated Not Implemented
      */
     public void remove_event(UUID uuid) {
         throw new RuntimeException("Not Implemented");
@@ -53,9 +60,35 @@ public class Card implements NormalCard{
         return "<section title=\"" + metaData.getTitle() + "\">" + this.body + "</section>";
     }
 
+    public CardEvent getEvent(UID _uid) {
+        for (CardEvent event :
+                events) {
+            if (event.getTaskEvent().getEventId().contentEquals(_uid.toString())) {
+                return event;
+            }
+
+        }
+        return null;
+    }
+    public CardEvent getEvent(String _uid) {
+        for (CardEvent event :
+                events) {
+            if (event.getTaskEvent().getEventId().contentEquals(_uid.toString())) {
+                return event;
+            }
+
+        }
+        return null;
+    }
+
+//=================  GETTERS ===============
     //=====GETTER=====
     public String getBody() {
         return this.body;
+    }
+
+    public ArrayList<CardEvent> getEvents() {
+        return events;
     }
 
     public String getName() {
@@ -64,12 +97,12 @@ public class Card implements NormalCard{
 
     public CardEvent getRecent() {
         CardEvent recent = null;
-        for ( CardEvent event : this.events) {
+        for (CardEvent event : this.events) {
             if (null == recent) {
                 recent = event;
             }
 
-            if ( recent.compareTo(event.getDate()) > 0 ) {
+            if (recent.compareTo(event.getDate()) > 0) {
                 recent = event;
             }
 
@@ -77,6 +110,7 @@ public class Card implements NormalCard{
         return recent;
     }
 
+//=================  SETTERS  ===============
     //=====SETTERS=====
     public void setBody(String _input) {
         String test = getTextInBody(_input);

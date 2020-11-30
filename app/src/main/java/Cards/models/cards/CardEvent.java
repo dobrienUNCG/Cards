@@ -44,4 +44,11 @@ public class CardEvent {
         this.complete = _complete;
     }
 
+    @Override
+    public String toString() {
+        return "CardEvent{" +
+                "taskEvent=" + taskEvent +
+                ", complete=" + complete +
+                '}';
+    }
 }

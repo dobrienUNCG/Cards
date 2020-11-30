@@ -25,6 +25,7 @@ import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.util.Collections;
 import java.util.Objects;
 
 import static Cards.models.CardLogger.logg;
@@ -46,9 +47,11 @@ public class MainMenuController {
     private static final int buttonMax = 255;
     private static final boolean contextMenuOpen = false;
 
+
     @SuppressWarnings("ConstantConditions")
     public void create_card() {
         AppModel.newWindow(new Scene(AppModel.changeView(CARD)));
+
     }
 
     @FXML
@@ -67,6 +70,7 @@ public class MainMenuController {
         current = (AnchorPane) splitpane.getParent();
         loadPane();
 
+
     }
 
     public CardFile askFilePath() {
@@ -83,77 +87,82 @@ public class MainMenuController {
     }
 
     void loadPane() {
+        if(!running) {
+            running = true;
+            for (int i = 0; i < CardSettings.getRecentFiles().size() && i < 6; i++) {
+                // Gets Card List
 
-        for (int i = 0; i < CardSettings.getRecentFiles().size() && i < 6; i++) {
-            // Gets Card List
+                HTMLTranslator htmlTranslator = new HTMLTranslator(CardSettings.getRecentFiles().get(i));
+                CardList cardList = htmlTranslator.get_card_list();
+                System.out.println(cardList.theRecent() != null ? cardList.theRecent().toString() : "");
+                WebView webView = new WebView();
+                CardSettings.getRecentFiles().get(i).set_cardlist(cardList);
 
-            HTMLTranslator htmlTranslator = new HTMLTranslator(CardSettings.getRecentFiles().get(i));
-            CardList cardList = htmlTranslator.get_card_list();
+                String body = cardList.getBody();
 
-            WebView webView = new WebView();
-            CardSettings.getRecentFiles().get(i).set_cardlist(cardList);
+                webView.getEngine().loadContent("<p>" + body + "</p>");
+                webView.setEffect(new DropShadow());
+                final int index = i;
 
-            String body = cardList.getBody();
+                String name = cardList.getName();
+                TitledPane titlePane = new TitledPane(name, webView);
+                titlePane.getStyleClass().add("title");
+                titlePane.setCollapsible(false);
+                titlePane.setEffect(new DropShadow());
+                final ContextMenu contextMenu = new ContextMenu();
+                MenuItem remove = new MenuItem("Remove");
+                int finalI = i;
+                remove.setOnAction(_actionEvent -> {
+                    grid.getChildren().remove(titlePane);
+                    CardSettings.getRecentFiles().remove(finalI);
+                    removeAll();
+                    loadPane();
+                });
+                titlePane.setOnMouseClicked(e -> {
+                    if (e.getButton() == MouseButton.PRIMARY) {
+                        removeAll();
+                        AppModel.activeFile = CardSettings.getRecentFiles().get(index);
+                        CardSettings.moveToFront(AppModel.activeFile);
+                        loadPane();
+                        this.create_card();
+                    }
+                });
+                contextMenu.getItems().add(remove);
+                webView.contextMenuEnabledProperty().set(false);
+                titlePane.setContextMenu(contextMenu);
+                titlePane.setOnContextMenuRequested(_contextMenuEvent -> {
+                    if (contextMenuOpen) {
+                        contextMenu.hide();
+                    } else {
 
-            webView.getEngine().loadContent("<p>" + body + "</p>");
-            webView.setEffect(new DropShadow());
-            final int index = i;
+                    }
+                });
+                grid.add(titlePane, i % 3, i / 3);
+                if (i / 3 > 2 && i % 3 == 0) {
+                    grid.addRow(i / 3 + 1);
+                }
 
-            String name = cardList.getName();
-            TitledPane titlePane = new TitledPane(name, webView);
-            titlePane.getStyleClass().add("title");
-            titlePane.setCollapsible(false);
-            titlePane.setEffect(new DropShadow());
-            final ContextMenu contextMenu = new ContextMenu();
-            MenuItem remove = new MenuItem("Remove");
-            int finalI = i;
-            remove.setOnAction(_actionEvent -> {
-                grid.getChildren().remove(titlePane);
-                CardSettings.getRecentFiles().remove(finalI);
-                removeAll();
-                loadPane();
-            });
-            titlePane.setOnMouseClicked(e -> {
-                if (e.getButton() == MouseButton.PRIMARY) {
-                    AppModel.activeFile = CardSettings.getRecentFiles().get(index);
-                    CardSettings.getRecentFiles().set(0, AppModel.activeFile);
+            }
+
+            logg.info(String.valueOf(CardSettings.getRecentFiles().size()));
+
+            if (CardSettings.getRecentFiles().size() < 6) {
+                logg.info("Not Enough Cards");
+                Button addCard = new Button();
+                addCard.setText("+");
+                addCard.setOnMouseClicked(event -> {
                     this.create_card();
+
+                });
+                addCard.setMaxWidth(buttonMax);
+                addCard.setMaxHeight(buttonMax);
+                int i = this.grid.getChildren().size();
+                this.grid.add(addCard, i % 3, i / 3);
+                if (i / 3 > 2 && i % 3 == 0) {
+                    grid.addRow(i / 3 + 1);
                 }
-            });
-            contextMenu.getItems().add(remove);
-            webView.contextMenuEnabledProperty().set(false);
-            titlePane.setContextMenu(contextMenu);
-            titlePane.setOnContextMenuRequested(_contextMenuEvent -> {
-                if (contextMenuOpen) {
-                    contextMenu.hide();
-                } else {
-                    _contextMenuEvent.consume();
-                }
-            });
-            grid.add(titlePane, i % 3, i / 3);
-            if (i / 3 > 2 && i % 3 == 0) {
-                grid.addRow(i / 3 + 1);
             }
-
-        }
-
-        logg.info(String.valueOf(CardSettings.getRecentFiles().size()));
-
-        if (CardSettings.getRecentFiles().size() < 6) {
-            logg.info("Not Enough Cards");
-            Button addCard = new Button();
-            addCard.setText("+");
-            addCard.setOnMouseClicked(event -> {
-                this.create_card();
-
-            });
-            addCard.setMaxWidth(buttonMax);
-            addCard.setMaxHeight(buttonMax);
-            int i = this.grid.getChildren().size();
-            this.grid.add(addCard, i % 3, i / 3);
-            if (i / 3 > 2 && i % 3 == 0) {
-                grid.addRow(i / 3 + 1);
-            }
+            running = false;
         }
     }
 

@@ -11,10 +11,11 @@ package Cards.translators.api;
 import com.google.api.client.util.DateTime;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.security.GeneralSecurityException;
 import java.text.ParseException;
 
-public class TaskEvent extends Main {
+public class TaskEvent extends Main  implements Serializable {
 
     private final TranslatorInterface thisTranslator = new GoogleTranslator();
     private String summary;
@@ -313,4 +314,20 @@ public class TaskEvent extends Main {
         this.fileLocation = _fileLocation;
     }
 
+    @Override
+    public String toString() {
+        return "TaskEvent{" +
+                "thisTranslator=" + thisTranslator +
+                ", summary='" + summary + '\'' +
+                ", beginDate=" + beginDate +
+                ", endDate=" + endDate +
+                ", beginDateTime=" + beginDateTime +
+                ", endDateTime=" + endDateTime +
+                ", description='" + description + '\'' +
+                ", dateCreated=" + dateCreated +
+                ", fileLocation=" + fileLocation +
+                ", eventId='" + eventId + '\'' +
+                ", allDay=" + allDay +
+                '}';
+    }
 }

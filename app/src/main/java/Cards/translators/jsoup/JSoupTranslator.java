@@ -85,11 +85,13 @@ public class JSoupTranslator {
 
     public String addTask(TaskEvent taskInfo, boolean completed) {
         try {
+
             Elements spans = this.doc.getElementsByTag("span");
             for (Element span : spans) {
                 if (span.attr("type").equals("edit")) {
                     try {
                         span = span.attr("type", String.valueOf(EVENT));
+                        span.attr("onclick", "openEvent('" + taskInfo.getEventId() + "');");
                         span.addClass("event");
                         span.attr(String.valueOf(EVENT_ID), taskInfo.getEventId());
                         span.attr(String.valueOf(EVENT_NAME), taskInfo.getSummary());
@@ -111,6 +113,34 @@ public class JSoupTranslator {
         }
         return null;
 
+    }
+
+    public String editTask(CardEvent _old, CardEvent _new){
+        //TODO
+        try{
+            Elements spans = doc.getElementsByAttributeValue(String.valueOf(EVENT_ID), _old.getTaskEvent().getEventId());
+            Element span = spans.get(0);
+            TaskEvent taskInfo = _new.getTaskEvent();
+            span.attr("onclick", "openEvent('" + taskInfo.getEventId() + "');");
+            span.addClass("event");
+            span.attr(String.valueOf(EVENT_ID), taskInfo.getEventId());
+            span.attr(String.valueOf(EVENT_NAME), taskInfo.getSummary());
+            span.attr(String.valueOf(EVENT_DESCRIPTION), taskInfo.getDescription());
+            span.attr(String.valueOf(EVENT_ALL_DAY), taskInfo.getAllDay());
+            span.attr(String.valueOf(EVENT_START_DATE), taskInfo.getBeginDateTime().toString());
+            span.attr(String.valueOf(EVENT_END_DATE), taskInfo.getEndDateTime().toString());
+            span.attr(String.valueOf(EVENT_CREATED), taskInfo.getDateCreated().toString());
+            span.attr(String.valueOf(EVENT_COMPLETED), _new.isComplete());
+            return doc.toString();
+        }catch (Exception ex){
+            ex.printStackTrace();
+        }
+        return null;
+    }
+    public String deleteTask(CardEvent _old){
+        Elements spans = doc.getElementsByAttributeValue(String.valueOf(EVENT_ID), _old.getTaskEvent().getEventId());
+        spans.get(0).remove();
+        return doc.toString();
     }
 
     @Nullable
@@ -266,19 +296,23 @@ public class JSoupTranslator {
             ArrayList<CardEvent> events = new ArrayList<>();
             for (Element span : x.getElementsByTag("span")) {
 
-                if (span.attributes().hasDeclaredValueForKey(String.valueOf(EVENT))) {
-                    String id = span.attr(String.valueOf(EVENT_ID));
-                    String summary = span.attr(String.valueOf(EVENT_NAME));
-                    String description = span.attr(String.valueOf(EVENT_DESCRIPTION));
-                    String allday = span.attr(String.valueOf(EVENT_ALL_DAY));
-                    String eventStart = span.attr(String.valueOf(EVENT_START_DATE));
-                    String eventEnd = span.attr(String.valueOf(EVENT_END_DATE));
-                    String eventCreated = span.attr(String.valueOf(EVENT_CREATED));
-                    String completed = span.attr(String.valueOf(EVENT_COMPLETED));
-                    try {
-                        events.add(new CardEvent(new TaskEvent(summary, DateTime.parseRfc3339(eventStart), DateTime.parseRfc3339(eventEnd), description, DateTime.parseRfc3339(eventCreated), null, id, Boolean.parseBoolean(allday)), Boolean.parseBoolean(completed)));
-                    } catch (IOException | GeneralSecurityException ex) {
-                        ex.printStackTrace();
+                if (span.attributes().hasDeclaredValueForKey("type")) {
+
+                    if (span.attr("type").equals("event")) {
+
+                        String id = span.attr(String.valueOf(EVENT_ID));
+                        String summary = span.attr(String.valueOf(EVENT_NAME));
+                        String description = span.attr(String.valueOf(EVENT_DESCRIPTION));
+                        String allday = span.attr(String.valueOf(EVENT_ALL_DAY));
+                        String eventStart = span.attr(String.valueOf(EVENT_START_DATE));
+                        String eventEnd = span.attr(String.valueOf(EVENT_END_DATE));
+                        String eventCreated = span.attr(String.valueOf(EVENT_CREATED));
+                        String completed = span.attr(String.valueOf(EVENT_COMPLETED));
+                        try {
+                            events.add(new CardEvent(new TaskEvent(summary, DateTime.parseRfc3339(eventStart), DateTime.parseRfc3339(eventEnd), description, DateTime.parseRfc3339(eventCreated), null, id, Boolean.parseBoolean(allday)), Boolean.parseBoolean(completed)));
+                        } catch (IOException | GeneralSecurityException ex) {
+                            logg.severe(ex.toString());
+                        }
                     }
                 }
 

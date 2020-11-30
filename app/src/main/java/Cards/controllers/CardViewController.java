@@ -9,13 +9,16 @@ package Cards.controllers;
 
 import Cards.data.request.RequestManager;
 import Cards.models.AppModel;
+import Cards.models.CardEventDifference;
 import Cards.models.HTMLMod;
 import Cards.models.cards.Card;
+import Cards.models.cards.CardEvent;
 import Cards.models.cards.CardList;
 import Cards.translators.api.TaskEvent;
 import Cards.translators.io.CardFile;
 import Cards.translators.io.HTMLTranslator;
 import Cards.translators.io.ViewIO;
+import javafx.concurrent.Worker;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -24,9 +27,11 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.web.HTMLEditor;
+import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import netscape.javascript.JSObject;
 
 import java.io.File;
 import java.io.IOException;
@@ -50,6 +55,8 @@ public class CardViewController {
     int current;
     CardFile openCard;
     CardList cardList;
+    Testing test = new Testing();;
+    private JSObject javascript;
     HTMLMod htmlMod;
     boolean deleted;
     private static final int buttonWidth = 100000000;
@@ -76,6 +83,18 @@ public class CardViewController {
         }
         String name = this.cardList.getName();
         this.titlebutton.setText(name);
+        WebView web = (WebView) editor.lookup("WebView");
+        WebEngine engine = web.getEngine();
+        System.out.println("Here!");
+        engine.getLoadWorker().stateProperty().addListener(
+                (observable, oldValue, newValue)->{
+                    if(Worker.State.SUCCEEDED == newValue) {
+                        System.out.println("Here?");
+                        JSObject window = (JSObject) engine.executeScript("window");
+                        window.setMember("test", test);
+                    }
+                }
+        );
 
     }
 
@@ -280,6 +299,10 @@ public class CardViewController {
 
     }
 
+    public void openEvent(){
+        System.out.println("Testing Testing I am a Lonely Test");
+    }
+
     public void showHTML() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("HTML");
@@ -393,5 +416,42 @@ public class CardViewController {
     void check_for_events() {
 
     }
+    // TODO needs to be in its own class
+    public class Testing{
+      public void getCardEvent(String arg){
+          System.out.println("Hello?");
 
+
+          System.out.println(arg);
+          CardEvent ce = cardList.getCard(current).getEvent(arg);
+          System.out.println(ce.toString());
+          Parent parent = AppModel.changeView(ViewIO.View.EVENT);
+
+
+          System.out.println("Here");
+          FXMLLoader loader = (FXMLLoader) parent.getUserData();
+          EventCreationView ecv = (EventCreationView) loader.getController();
+          System.out.println("Something here?");
+
+
+          ecv.initData(ce);
+          Scene now = new Scene(parent);
+          AppModel.newWindowHold(now);
+
+
+          TaskEvent newTask = ecv.createEvent();
+          CardEvent b = new CardEvent(newTask,ecv.completed.isSelected());
+          HTMLTranslator html = new HTMLTranslator(cardList.getCards().get(current));
+
+
+          html.editEvent(cardList.getCard(current), ce, b);
+          updateEditor(cardList.getCard(current).getBody());
+          CardEventDifference.checkDifference(ce, b);
+          ce.setTaskEvent(b.getTaskEvent());
+
+          ce.setComplete(b.isComplete());
+          System.out.println(ecv.toString());
+
+      }
+    }
 }

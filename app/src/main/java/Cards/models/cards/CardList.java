@@ -53,6 +53,20 @@ public class CardList implements NormalCard{
         }
         return this.cards.get(_index);
     }
+    public CardEvent theRecent(){
+        CardEvent event = null;
+        for (Card card :
+                cards) {
+            if(event == null){
+                event = card.getRecent();
+            }else{
+               if (card.getRecent().compareTo(event.getDate()) < 0){
+                   event = card.getRecent();
+               }
+            }
+        }
+        return event;
+    }
 
     //=====GETTER=====
     public String getBody() {
