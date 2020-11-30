@@ -18,3 +18,4 @@ app/tokens/StoredCredential
 
 app/tokens/StoredCredential
 .gradle/checksums/checksums.lock
+bfg-1.13.0.jar
