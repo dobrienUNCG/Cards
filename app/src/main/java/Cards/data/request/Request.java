@@ -16,10 +16,15 @@ private TaskEvent oldTaskEvent;
 public Request(RequestType _requestType){
     this.requestType = _requestType;
 }
-public Request(RequestType _requestType, TaskEvent _taskEvent){
+public Request(RequestType _requestType, TaskEvent _old, TaskEvent _new){
     this.requestType = _requestType;
-            this.taskEvent = _taskEvent;
-            this.oldTaskEvent = _taskEvent;
+            this.taskEvent = _new;
+            this.oldTaskEvent = _old;
+    AppModel.requestManager.addRequest(this);
+}
+public Request(RequestType _requestType, TaskEvent _old){
+    this.requestType = _requestType;
+            this.taskEvent = _old;
     AppModel.requestManager.addRequest(this);
 }
 
@@ -55,5 +60,12 @@ public Request(RequestType _requestType, TaskEvent _taskEvent){
         this.taskEvent = _taskEvent;
     }
 
-
+    @Override
+    public String toString() {
+        return "Request{" +
+                "requestType=" + requestType +
+                ", taskEvent=" + taskEvent +
+                ", oldTaskEvent=" + oldTaskEvent +
+                '}';
+    }
 }

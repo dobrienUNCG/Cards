@@ -28,7 +28,7 @@ public class RequestManager {
         if(test.exists()) {
             try {
 
-                FileInputStream fileIn = new FileInputStream("requests.ser");
+                FileInputStream fileIn = new FileInputStream("request.ser");
                 ObjectInputStream in = new ObjectInputStream(fileIn);
                 this.request = (ArrayList<Request>) in.readObject();
                 in.close();
@@ -54,7 +54,11 @@ public class RequestManager {
                 FileOutputStream fileout = new FileOutputStream("request.ser");
 
                 ObjectOutputStream out = new ObjectOutputStream(fileout);
-                out.writeObject(this.request);
+                ArrayList<Request> temp = null;
+                out.writeObject(temp);
+                if(temp != null && temp.size() > 5){
+                    request = (ArrayList<Request>) temp.subList(temp.size() - 5, temp.size()-1);
+                }
 
                 out.close();
                 fileout.close();
@@ -70,6 +74,9 @@ public class RequestManager {
             try {
                 while (requestIterator.hasNext()) {
                     current = requestIterator.next();
+                    System.out.println(current);
+                    System.out.println(current.getOldTaskEvent());
+                    System.out.println(current.getTaskEvent());
                     logg.info(current.toString());
                     requestType = current.getRequestType();
                     responseSizeBefore = response.size();
@@ -82,7 +89,7 @@ public class RequestManager {
                         case GET_DESCRIPTION -> response.add(googleTranslator.taskDescription(current.getTaskEvent().getEventId()));
                         case GET_DUE_TODAY -> response.add((googleTranslator.dueToday()));
                         case GET_UPCOMING -> response.add(googleTranslator.upcomingTasks(requestType.getI()));
-                        case POST_SUMMARY -> googleTranslator.editTaskSummary(current.getOldTaskEvent().getSummary(), current.getTaskEvent().getSummary());
+                        case POST_SUMMARY ->  current.getOldTaskEvent().setSummary(current.getTaskEvent().getSummary());
                         case POST_DATE_BEGIN -> googleTranslator.editBeginDate(current.getTaskEvent().getSummary(), current.getTaskEvent().getEndDate());
                         case POST_DATE_END -> googleTranslator.editEndDate(current.getTaskEvent().getSummary(), current.getTaskEvent().getEndDateTime());
                         case POST_DESCRIPTION -> googleTranslator.editDescription(current.getTaskEvent().getSummary(), current.getTaskEvent().getDescription());
@@ -97,7 +104,7 @@ public class RequestManager {
 
                 }
                 CardSettings.calendarCreated = true;
-                File serializedFile = new File("/requests.ser");
+                File serializedFile = new File("request.ser");
                 if(serializedFile.exists()){
                         serializedFile.delete();
                 }

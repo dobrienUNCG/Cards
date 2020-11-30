@@ -53,6 +53,12 @@ public class CardSettings {
         recentCards.add(_cardFile);
     }
 
+  public static void moveToFront(CardFile _cardFile){
+        recentCards.remove(_cardFile);
+        recentCards.add(0, _cardFile);
+  }
+
+
     static public void save_settings() {
         try {
             FileWriter writer = new FileWriter(settingsFile, false);

@@ -7,6 +7,7 @@ package Cards.translators.io;
  */
 
 import Cards.models.cards.Card;
+import Cards.models.cards.CardEvent;
 import Cards.models.cards.CardList;
 import Cards.translators.api.TaskEvent;
 import Cards.translators.jsoup.JSoupTranslator;
@@ -48,6 +49,10 @@ public class HTMLTranslator {
     public void addEventsToCard(Card _card, TaskEvent _taskEvent, boolean completed) {
         js.addTask(_taskEvent, completed);
         _card.setBody(js.getCard().getBody());
+    }
+    public void editEvent(Card _Card, CardEvent _old, CardEvent _new){
+        _Card.setBody(js.editTask(_old, _new));
+
     }
 
 //=================  GETTERS ===============
