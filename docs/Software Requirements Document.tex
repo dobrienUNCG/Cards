@@ -1,4 +1,4 @@
-\documentclass[12pt, draft]{article}
+\documentclass[12pt]{article}
 \usepackage[acronym]{glossaries}
 \title{Software Requirements Document}
 
@@ -43,10 +43,10 @@ that are imposed by the project and the expectations of the software.
 This document was made using \LaTeX
 
 \subsection{Intended Audience}
-This SRD is intended for Professor Ike. 
+This SRD is intended for Professor Ike, and the rest of the class.
 
 \subsection{Definitions/Jargon}
-\makeglossaries
+
 SRD : Software Requirements Document
 
 JRE : Java Runtime Environment
@@ -56,32 +56,37 @@ JDK : Java Development Environment
 JVM : Java Virtual Machine 
 
 \subsection{Project Scope}
+The scope of this project consists of creating cards, creating events, using the google calendar API to store the events externally, and being able to view said events.
 
 \subsection{Technical Challenges}
+JavaFX proved to be tough, along with figuring out the best way to store cards, along with reading and writing to them.
 \subsubsection{Github and Git}
+Github became a challenge in itself as the group hadn't used it before. Figuring out how to make commits, and how to keep the files the same in the group was a continuous challenge.
 
 \subsection{References}
 
 \section{Overall Description}
 \subsection{Product Features}
-
+The product allows you to create cards, and in them create divided subsections. You can name the cards, then name the individual subsections within them. You can create events in the cards and they will appear in your Google Calendar. You are also able to view the events you have created through the app in the Calendar view.
 
 \subsection{User Characteristics}
+The user is not required to have any past experience with applications to operate the app.
 
 \subsection{Operating Enviornment}
 This software is intended to be used in a professional environment.
-\paragraph[draft=true]{What is a professional Environment?}
+
 \subsection{Design and Implementation Constraints}
 
 This software is required to be implemented in Java. 
 \subsection{Assumptions and Dependencies}
+This product depends on JavaFX and it also depends on the Jsoup library. It comes prepackaged in the app. It is assumed the system running it is capable of running both.
 
 \section{Functional Requirements}
 
 \subsection{Primary Functions}
-Primary functions are those that will always be available.
+The primary function of the application is to be able to create cards. This feature will always be available as it does not depend on outside sources.
 \subsection{Secondary Functions}
-Secondary functions are those that may not always be available.
+Creating and viewing tasks may not always be available as it relies on an external api.
 \section{Technical Requirements}
 \subsection{Operating Systems/Compatibility}
 
@@ -132,20 +137,23 @@ This software will strive to ensure that data is properly saved to prevent loss 
 \subsubsection{Maintainability}
 This software will strive to follow the standards for object oriented programming to make it easier to maintain the software.
 
-\subsubsection{Reusability}
+\subsubsection{Re-usability}
  This software will strive to follow the standards for object oriented programming. 
 \subsubsection{Portability }
-Thissoftware will strive to work cross-platform. 
+This software will strive to work cross-platform. 
 
 \subsection{Process Requirements}
 
-\subsubsection{Development Process Used}}
+\subsubsection{Development Process Used}
 
-This project plans to use a waterdown development process.
+Using the AGILE development method, we had weekly meetings to discuss and share what we had planned. Work was assigned and ideas were shared.
+
 \subsubsection{Time Constraints}
+
 There are no time constraints except for the delivery date.
 \subsubsection{ Cost and Delivery Date}
+
  The delivery date for the project is
-\textbf{\emph{December 1, 2020}}.
+\textbf{\emph{December 1, 2020}}. There is no expected cost for development.
 
 \end{document}
