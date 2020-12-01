@@ -10,14 +10,13 @@ import Cards.models.MetaData;
 import Cards.models.UID;
 
 import java.util.ArrayList;
-import java.util.UUID;
 
 import static Cards.translators.jsoup.JSoupTranslator.getTextInBody;
 
 public class Card implements NormalCard {
 
     private final MetaData metaData = new MetaData();
-    private final ArrayList<CardEvent> events;
+    private ArrayList<CardEvent> events = new ArrayList<>();
     private String body;
 
     /**
@@ -26,43 +25,34 @@ public class Card implements NormalCard {
      * @param _events CardEvents
      */
     public Card(String _name, String _body, ArrayList<CardEvent> _events) {
-        metaData.setTitle(_name);
-        if(!_body.contains("<script>"))
-            this.body = _body + "<script>function openEvent(x){test.getCardEvent(x);}</script>";
+        this.metaData.setTitle(_name);
+        if (!_body.contains("<script>"))
+            this.body = _body + "<script>function openEvent(x){javaScriptConnection.getCardEvent(x);}</script>";
         else {
             this.body = _body;
         }
         this.events = _events;
+        if (null == this.events) {
+            this.events = new ArrayList<>();
+        }
     }
 
     public void add_event(CardEvent _event) {
         this.events.add(_event);
     }
 
-    /**
-     * @param _index position
-     * @deprecated Not Implemented
-     */
-    public void remove_event(int _index) {
-        throw new RuntimeException("Not Implemented");
-    }
-
-    /**
-     * @param uuid
-     * @deprecated Not Implemented
-     */
-    public void remove_event(UUID uuid) {
-        throw new RuntimeException("Not Implemented");
+    public void remove_event(String _id) {
+        this.events.removeIf(event -> event.getTaskEvent().getEventId() == _id);
     }
 
     @Override
     public String toString() {
-        return "<section title=\"" + metaData.getTitle() + "\">" + this.body + "</section>";
+        return "<section title=\"" + this.metaData.getTitle() + "\">" + this.body + "</section>";
     }
 
     public CardEvent getEvent(UID _uid) {
         for (CardEvent event :
-                events) {
+                this.events) {
             if (event.getTaskEvent().getEventId().contentEquals(_uid.toString())) {
                 return event;
             }
@@ -70,10 +60,11 @@ public class Card implements NormalCard {
         }
         return null;
     }
+
     public CardEvent getEvent(String _uid) {
         for (CardEvent event :
-                events) {
-            if (event.getTaskEvent().getEventId().contentEquals(_uid.toString())) {
+                this.events) {
+            if (event.getTaskEvent().getEventId().contentEquals(_uid)) {
                 return event;
             }
 
@@ -81,14 +72,14 @@ public class Card implements NormalCard {
         return null;
     }
 
-//=================  GETTERS ===============
+    //=================  GETTERS ===============
     //=====GETTER=====
     public String getBody() {
         return this.body;
     }
 
     public ArrayList<CardEvent> getEvents() {
-        return events;
+        return this.events;
     }
 
     public String getName() {
@@ -102,7 +93,7 @@ public class Card implements NormalCard {
                 recent = event;
             }
 
-            if (recent.compareTo(event.getDate()) > 0) {
+            if (0 < recent.compareTo(event.getDate())) {
                 recent = event;
             }
 
@@ -110,16 +101,17 @@ public class Card implements NormalCard {
         return recent;
     }
 
-//=================  SETTERS  ===============
+    //=================  SETTERS  ===============
     //=====SETTERS=====
     public void setBody(String _input) {
         String test = getTextInBody(_input);
-        String test2 = test.replaceAll("<((/b)|b)ody>", " ");
+         test = test.replaceAll("<((/b)|b)ody>", " ");
+        test = test.replaceAll("<script>[.\\n]*<\\/script>", "");
         this.body = test;
 
     }
 
     public void setName(String _name) {
-        metaData.setTitle(_name);
+        this.metaData.setTitle(_name);
     }
 }

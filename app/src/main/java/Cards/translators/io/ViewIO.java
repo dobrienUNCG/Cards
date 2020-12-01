@@ -28,7 +28,7 @@ public class ViewIO {
     public Parent getCalendarScreen() {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/CalendarNew.fxml"));
+            loader.setLocation(this.getClass().getResource("/CalendarNew.fxml"));
             return loader.load();
         } catch (IOException _e) {
             logg.severe(_e.toString());
@@ -44,10 +44,11 @@ public class ViewIO {
     public Parent getCardEditor() {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/Template.fxml"));
-            Parent root = loader.load();
-            root.getStylesheets().add(getClass().getResource("/Card.css").toExternalForm());
-            return root;
+            loader.setLocation(this.getClass().getResource("/Template.fxml"));
+            Parent parent = loader.load();
+            parent.setUserData(loader);
+            parent.getStylesheets().add(this.getClass().getResource("/Card.css").toExternalForm());
+            return parent;
         } catch (IOException _e) {
             logg.severe(_e.toString());
         }
@@ -62,7 +63,7 @@ public class ViewIO {
     public Parent getEventCreator() {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/EventCreationDialog.fxml"));
+            loader.setLocation(this.getClass().getResource("/EventCreationDialog.fxml"));
             Parent parent = loader.load();
             parent.setUserData(loader);
             return parent;
@@ -80,7 +81,7 @@ public class ViewIO {
     public Parent getHelpScreen() {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/Help.fxml"));
+            loader.setLocation(this.getClass().getResource("/Help.fxml"));
             return loader.load();
         } catch (IOException _e) {
             logg.severe(_e.toString());
@@ -96,7 +97,7 @@ public class ViewIO {
     public Parent getMainMenu() {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/Menu.fxml"));
+            loader.setLocation(this.getClass().getResource("/Menu.fxml"));
             Parent parentMainMenu = loader.load();
             parentMainMenu.getStylesheets().add("/Main_Menu.css");
             return parentMainMenu;
@@ -114,7 +115,7 @@ public class ViewIO {
     public Parent getSettingsScreen() {
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/Settings.fxml"));
+            loader.setLocation(this.getClass().getResource("/Settings.fxml"));
             Parent settingsParent = loader.load();
             return settingsParent;
         } catch (Exception _e) {

@@ -1,5 +1,10 @@
 package Cards.data.request;
 
+/**
+ * Date: 12/1/2020
+ * Enumerated request types.
+ * @author Devin M. O'Brien
+ */
 public enum RequestType {
     GET_EVENTID, GET_INFO_ALL, GET_IS_ALL_DAY, GET_DUE_DATE, GET_DESCRIPTION,
     GET_DATE_CREATED, GET_DUE_TODAY, GET_UPCOMING, GET_LIMIT,

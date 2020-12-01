@@ -1,13 +1,13 @@
 package Cards.models;
-
-import java.util.logging.*;
-
 /**
  * Last Updated: 10/28/2020
  * Logger for Card Project
  *
  * @author Devin M. O'Brien
  */
+import java.util.logging.*;
+
+
 public class CardLogger {
     /**
      * This is the logger; import into other classes to use it.

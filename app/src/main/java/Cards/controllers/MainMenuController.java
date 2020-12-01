@@ -1,20 +1,19 @@
 package Cards.controllers;
 /*
-  Last Updated: 11/26/2020
+  Last Updated: 12/1/2020
   Controller for Main Menu View
 
   @author Devin M. O'Brien
  */
 
-import Cards.models.AppModel;
 
+import Cards.models.AppModel;
 import Cards.models.cards.CardList;
-import Cards.models.settings.CardSettings;
 import Cards.translators.io.CardFile;
 import Cards.translators.io.HTMLTranslator;
-
 import javafx.fxml.FXML;
-
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.effect.DropShadow;
@@ -25,16 +24,15 @@ import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.Objects;
 
 import static Cards.models.CardLogger.logg;
-
 import static Cards.translators.io.ViewIO.View.*;
 
 public class MainMenuController {
 
-    boolean running = false;
+    boolean running;
     @FXML
     Button home_button;
     @FXML
@@ -47,19 +45,27 @@ public class MainMenuController {
     private static final int buttonMax = 255;
     private static final boolean contextMenuOpen = false;
 
-
-    @SuppressWarnings("ConstantConditions")
     public void create_card() {
         AppModel.newWindow(new Scene(AppModel.changeView(CARD)));
 
     }
 
+    public static void create_card(CardFile _cardFile) {
+            Parent parent = AppModel.changeView(CARD);
+            FXMLLoader loader = (FXMLLoader) parent.getUserData();
+            CardViewController cardViewController = loader.getController();
+            Scene scene = new Scene(parent);
+            AppModel.newWindow(scene);
+            cardViewController.initData(_cardFile);
+
+
+    }
+
     @FXML
     public void importCard() {
-        CardSettings.getRecentFiles().add(0, askFilePath());
-
-        removeAll();
-        loadPane();
+        AppModel.settingsController.addCardFile(this.askFilePath());
+        this.removeAll();
+        this.loadPane();
     }
 
     /**
@@ -67,19 +73,15 @@ public class MainMenuController {
      */
     @FXML
     public void initialize() {
-        current = (AnchorPane) splitpane.getParent();
-        loadPane();
-
-
+        this.current = (AnchorPane) this.splitpane.getParent();
+        this.loadPane();
     }
 
     public CardFile askFilePath() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Load CardFile");
-        // TODO Add HTML Filter
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("All Files", "*"));
         return new CardFile(fileChooser.showOpenDialog(this.stage));
-
     }
 
     void removeAll() {
@@ -87,44 +89,40 @@ public class MainMenuController {
     }
 
     void loadPane() {
-        if(!running) {
-            running = true;
-            for (int i = 0; i < CardSettings.getRecentFiles().size() && i < 6; i++) {
+        if (!this.running) {
+            ArrayList<CardFile> cardFileArrayList = AppModel.settingsController.getCardFiles();
+            this.running = true;
+            for (int i = 0; i < cardFileArrayList.size() && 6 > i; i++) {
                 // Gets Card List
-
-                HTMLTranslator htmlTranslator = new HTMLTranslator(CardSettings.getRecentFiles().get(i));
+                HTMLTranslator htmlTranslator = new HTMLTranslator(cardFileArrayList.get(i));
                 CardList cardList = htmlTranslator.get_card_list();
-                System.out.println(cardList.theRecent() != null ? cardList.theRecent().toString() : "");
                 WebView webView = new WebView();
-                CardSettings.getRecentFiles().get(i).set_cardlist(cardList);
-
+                cardFileArrayList.get(i).set_cardlist(cardList);
                 String body = cardList.getBody();
-
                 webView.getEngine().loadContent("<p>" + body + "</p>");
                 webView.setEffect(new DropShadow());
-                final int index = i;
-
+                int index = i;
                 String name = cardList.getName();
                 TitledPane titlePane = new TitledPane(name, webView);
                 titlePane.getStyleClass().add("title");
                 titlePane.setCollapsible(false);
                 titlePane.setEffect(new DropShadow());
-                final ContextMenu contextMenu = new ContextMenu();
+                ContextMenu contextMenu = new ContextMenu();
                 MenuItem remove = new MenuItem("Remove");
                 int finalI = i;
                 remove.setOnAction(_actionEvent -> {
-                    grid.getChildren().remove(titlePane);
-                    CardSettings.getRecentFiles().remove(finalI);
-                    removeAll();
-                    loadPane();
+                    this.grid.getChildren().remove(titlePane);
+                    cardFileArrayList.remove(finalI);
+                    this.removeAll();
+                    this.loadPane();
                 });
                 titlePane.setOnMouseClicked(e -> {
-                    if (e.getButton() == MouseButton.PRIMARY) {
-                        removeAll();
-                        AppModel.activeFile = CardSettings.getRecentFiles().get(index);
-                        CardSettings.moveToFront(AppModel.activeFile);
-                        loadPane();
-                        this.create_card();
+                    if (MouseButton.PRIMARY == e.getButton()) {
+                        CardFile cardFile = cardFileArrayList.get(finalI);
+                        AppModel.settingsController.movetoFront(cardFile);
+                        this.removeAll();
+                        this.loadPane();
+                        MainMenuController.create_card(cardFile);
                     }
                 });
                 contextMenu.getItems().add(remove);
@@ -134,19 +132,18 @@ public class MainMenuController {
                     if (contextMenuOpen) {
                         contextMenu.hide();
                     } else {
-
                     }
                 });
-                grid.add(titlePane, i % 3, i / 3);
-                if (i / 3 > 2 && i % 3 == 0) {
-                    grid.addRow(i / 3 + 1);
+                this.grid.add(titlePane, i % 3, i / 3);
+                if (2 < i / 3 && 0 == i % 3) {
+                    this.grid.addRow(i / 3 + 1);
                 }
 
             }
 
-            logg.info(String.valueOf(CardSettings.getRecentFiles().size()));
+            logg.info(String.valueOf(cardFileArrayList.size()));
 
-            if (CardSettings.getRecentFiles().size() < 6) {
+            if (6 > cardFileArrayList.size()) {
                 logg.info("Not Enough Cards");
                 Button addCard = new Button();
                 addCard.setText("+");
@@ -158,39 +155,39 @@ public class MainMenuController {
                 addCard.setMaxHeight(buttonMax);
                 int i = this.grid.getChildren().size();
                 this.grid.add(addCard, i % 3, i / 3);
-                if (i / 3 > 2 && i % 3 == 0) {
-                    grid.addRow(i / 3 + 1);
+                if (2 < i / 3 && 0 == i % 3) {
+                    this.grid.addRow(i / 3 + 1);
                 }
             }
-            running = false;
+            this.running = false;
         }
     }
 
     @FXML
     void openHome() {
 
-        current.getChildren().setAll(splitpane);
-        removeAll();
-        loadPane();
+        this.current.getChildren().setAll(this.splitpane);
+        this.removeAll();
+        this.loadPane();
     }
 
     @FXML
     void openCalendar() {
-        current.getChildren().setAll(AppModel.changeView(CALENDAR));
+        this.current.getChildren().setAll(AppModel.changeView(CALENDAR));
     }
 
     @FXML
     void openSettings() {
-        current.getChildren().setAll(AppModel.changeView(SETTINGS));
+        this.current.getChildren().setAll(AppModel.changeView(SETTINGS));
     }
 
     @FXML
     void openPersonal() {
-        current.getChildren().setAll(AppModel.changeView(PERSONAL));
+        this.current.getChildren().setAll(AppModel.changeView(PERSONAL));
     }
 
     @FXML
     void openHelp() {
-        current.getChildren().setAll(AppModel.changeView(HELP));
+        this.current.getChildren().setAll(AppModel.changeView(HELP));
     }
 }

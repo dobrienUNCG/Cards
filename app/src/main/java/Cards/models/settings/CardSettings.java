@@ -1,4 +1,10 @@
 package Cards.models.settings;
+/*
+  Last Updated: 10/10/2020
+  Card Settings model
+
+  @AUTHOR Devin M. O'Brien
+ */
 
 import Cards.translators.io.CardFile;
 
@@ -13,70 +19,56 @@ import static Cards.models.CardLogger.logg;
 
 public class CardSettings {
 
-    private static final ArrayList<CardFile> recentCards = new ArrayList<>();
-    static final File settingsFile = new File("Settings.cfg");
-    public static boolean calendarCreated = false;
-    private static enum Preface{
-        FILE{
-            @Override
-           public  String toString(){
-                return "#File:";
-            }
-        }, CALENDAR{
-            @Override
-            public String toString(){
-                return "#Calendar:";
-            }
-        };
+    private final ArrayList<CardFile> recentCards = new ArrayList<>();
+    private final File settingsFile = new File("Settings.cfg");
+    private boolean calendarCreated;
 
-    }
     public CardSettings() {
-        if (settingsFile.exists()) {
-            getSettings();
+        if (this.settingsFile.exists()) {
+            this.getSettings();
         } else {
-            create_settings();
+            this.create_settings();
 
         }
 
     }
 
-    public static ArrayList<CardFile> getRecentFiles(){
-        return recentCards;
+    public void removeCardFile(CardFile _cardFile) {
+        this.recentCards.remove(_cardFile);
     }
 
-    public static void add_file(CardFile _cardFile) {
-        for (CardFile cardFile : recentCards) {
+    public void add_file(CardFile _cardFile) {
+        for (CardFile cardFile : this.recentCards) {
             if (cardFile.getFile().getAbsolutePath().contentEquals(_cardFile.getFile().getAbsolutePath())) {
                 return;
             }
         }
-        recentCards.add(_cardFile);
+        this.recentCards.add(_cardFile);
     }
 
-  public static void moveToFront(CardFile _cardFile){
-        recentCards.remove(_cardFile);
-        recentCards.add(0, _cardFile);
-  }
+    public void moveToFront(CardFile _cardFile) {
+        this.recentCards.remove(_cardFile);
+        this.recentCards.add(0, _cardFile);
+    }
 
-
-    static public void save_settings() {
+    public void save_settings() {
         try {
-            FileWriter writer = new FileWriter(settingsFile, false);
+            FileWriter writer = new FileWriter(this.settingsFile, false);
 
-            for (CardFile cardFile : recentCards) {
+            for (CardFile cardFile : this.recentCards) {
                 writer.write(Preface.FILE + cardFile.get_card_file().getAbsolutePath() + "\n");
             }
-            writer.write(Preface.CALENDAR + String.valueOf(calendarCreated));
+            writer.write(Preface.CALENDAR + String.valueOf(this.calendarCreated));
             writer.close();
         } catch (IOException error) {
-            error.printStackTrace();
+            logg.warning(error.toString());
         }
 
     }
 
     private void getSettings() {
         try {
-            Scanner read = new Scanner(settingsFile);
+            Scanner read = new Scanner(this.settingsFile);
             Boolean fileSegment = false;
             while (read.hasNext()) {
                 String line = read.nextLine();
@@ -84,32 +76,60 @@ public class CardSettings {
                     // TODO Add Checker to prevent Exception from crashing
                     try {
                         CardFile test = new CardFile(line.substring(6));
-                        if(test.getFile().exists())
-                        recentCards.add(new CardFile(line.substring(6)));
-                    }catch(Exception error){
+                        if (test.getFile().exists())
+                            this.recentCards.add(new CardFile(line.substring(6)));
+                    } catch (Exception error) {
                         logg.severe(error.toString());
                     }
                 }
-                if (line.contains(Preface.CALENDAR.toString())){
-                    if(line.toLowerCase().contains("true")){
-                        calendarCreated = true;
+                if (line.contains(Preface.CALENDAR.toString())) {
+                    if (line.toLowerCase().contains("true")) {
+                        this.calendarCreated = true;
                     }
                 }
             }
         } catch (FileNotFoundException error) {
-            error.printStackTrace();
+            logg.warning(error.toString());
         }
 
     }
 
     private void create_settings() {
         try {
-            FileWriter fileWriter = new FileWriter(settingsFile, false);
-            fileWriter.write(Preface.FILE+ "Test.html");
-            fileWriter.write(Preface.CALENDAR + ((String.valueOf(calendarCreated))));
+            FileWriter fileWriter = new FileWriter(this.settingsFile, false);
+            fileWriter.write(Preface.CALENDAR + ((String.valueOf(this.calendarCreated))));
             fileWriter.close();
         } catch (IOException error) {
-            error.printStackTrace();
+            logg.warning(error.toString());
         }
+    }
+
+    private enum Preface {
+        FILE {
+            @Override
+            public String toString() {
+                return "#File:";
+            }
+        }, CALENDAR {
+            @Override
+            public String toString() {
+                return "#Calendar:";
+            }
+        }
+
+    }
+
+    //=================  GETTERS ===============
+    public ArrayList<CardFile> getRecentFiles() {
+        return this.recentCards;
+    }
+
+    public boolean isCalendarCreated() {
+        return this.calendarCreated;
+    }
+
+    //=================  SETTERS  ===============
+    public void setCalendarCreated(boolean _calendarCreated) {
+        this.calendarCreated = _calendarCreated;
     }
 }

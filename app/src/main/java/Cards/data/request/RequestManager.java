@@ -1,17 +1,16 @@
 package Cards.data.request;
 /**
+ * Date: 12/1/2020
  * Request Manager
- * @author Devin M. O'Brien
  *
+ * @author Devin M. O'Brien
  */
 
-import Cards.models.settings.CardSettings;
+import Cards.models.AppModel;
 import Cards.translators.api.GoogleTranslator;
 import Cards.translators.api.TaskEvent;
 
 import java.io.*;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Iterator;
 
@@ -19,13 +18,12 @@ import static Cards.models.CardLogger.logg;
 
 public class RequestManager {
 
-     ArrayList<Request> request = new ArrayList<>();
     final GoogleTranslator googleTranslator = new GoogleTranslator();
-
+    private ArrayList<Request> request = new ArrayList<>();
 
     public RequestManager() {
         File test = new File("/requests.ser");
-        if(test.exists()) {
+        if (test.exists()) {
             try {
 
                 FileInputStream fileIn = new FileInputStream("request.ser");
@@ -41,8 +39,7 @@ public class RequestManager {
                 _e.printStackTrace();
             }
         }
-        if(!CardSettings.calendarCreated) {
-            logg.info(String.valueOf(CardSettings.calendarCreated));
+        if (!AppModel.settingsController.isCalendarCreated()) {
             addRequest(new Request(RequestType.PUT_CALENDAR));
         }
     }
@@ -50,19 +47,19 @@ public class RequestManager {
     public ArrayList<Object> submit() {
 
         if (!this.request.isEmpty()) {
-            try{
+            try {
                 FileOutputStream fileout = new FileOutputStream("request.ser");
 
                 ObjectOutputStream out = new ObjectOutputStream(fileout);
                 ArrayList<Request> temp = null;
                 out.writeObject(temp);
-                if(temp != null && temp.size() > 5){
-                    request = (ArrayList<Request>) temp.subList(temp.size() - 5, temp.size()-1);
+                if (temp != null && temp.size() > 5) {
+                    request = (ArrayList<Request>) temp.subList(temp.size() - 5, temp.size() - 1);
                 }
 
                 out.close();
                 fileout.close();
-            }catch (IOException error){
+            } catch (IOException error) {
                 System.out.println(error);
             }
             Iterator<Request> requestIterator = this.request.iterator();
@@ -89,7 +86,7 @@ public class RequestManager {
                         case GET_DESCRIPTION -> response.add(googleTranslator.taskDescription(current.getTaskEvent().getEventId()));
                         case GET_DUE_TODAY -> response.add((googleTranslator.dueToday()));
                         case GET_UPCOMING -> response.add(googleTranslator.upcomingTasks(requestType.getI()));
-                        case POST_SUMMARY ->  current.getOldTaskEvent().setSummary(current.getTaskEvent().getSummary());
+                        case POST_SUMMARY -> current.getOldTaskEvent().setSummary(current.getTaskEvent().getSummary());
                         case POST_DATE_BEGIN -> googleTranslator.editBeginDate(current.getTaskEvent().getSummary(), current.getTaskEvent().getEndDate());
                         case POST_DATE_END -> googleTranslator.editEndDate(current.getTaskEvent().getSummary(), current.getTaskEvent().getEndDateTime());
                         case POST_DESCRIPTION -> googleTranslator.editDescription(current.getTaskEvent().getSummary(), current.getTaskEvent().getDescription());
@@ -103,10 +100,10 @@ public class RequestManager {
                     }
 
                 }
-                CardSettings.calendarCreated = true;
+                AppModel.settingsController.calendarCreated();
                 File serializedFile = new File("request.ser");
-                if(serializedFile.exists()){
-                        serializedFile.delete();
+                if (serializedFile.exists()) {
+                    serializedFile.delete();
                 }
             } catch (Exception e) {
                 // TODO Change to logger
@@ -120,14 +117,12 @@ public class RequestManager {
         return null;
     }
 
-    public static  Request createEventRequest(TaskEvent _taskEvent){
+    public static Request createEventRequest(TaskEvent _taskEvent) {
         return new Request(RequestType.PUT_EVENT, _taskEvent);
     }
 
-
-
-   public void addRequest(Request _request) {
-        if(request.contains(_request))
+    public void addRequest(Request _request) {
+        if (request.contains(_request))
             return;
         request.add(_request);
 

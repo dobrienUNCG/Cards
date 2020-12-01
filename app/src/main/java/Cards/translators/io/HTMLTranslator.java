@@ -20,6 +20,7 @@ import Cards.translators.jsoup.JSoupTranslator;
 public class HTMLTranslator {
 
     private final JSoupTranslator js;
+    private CardFile cardFile;
 
     /**
      * Creates a new HTML Translator
@@ -27,16 +28,17 @@ public class HTMLTranslator {
      * @param _file the file
      */
     public HTMLTranslator(CardFile _file) {
-        js = JSoupTranslator.JSoupBuilder(_file);
+        this.js = JSoupTranslator.JSoupBuilder(_file);
     }
 
-    /**
-     * Creates a new HTML Translator
-     *
-     * @param card the card
-     */
-    public HTMLTranslator(Card card) {
-        js = JSoupTranslator.JSoupBuilder(card);
+    public HTMLTranslator(Card _card) {
+        this.js = JSoupTranslator.JSoupBuilder(_card);
+
+    }
+
+    public HTMLTranslator(String _input) {
+        this.cardFile = new CardFile(_input);
+        this.js = JSoupTranslator.JSoupBuilder(this.cardFile);
     }
 
     /**
@@ -47,24 +49,33 @@ public class HTMLTranslator {
      * @param completed  is completed
      */
     public void addEventsToCard(Card _card, TaskEvent _taskEvent, boolean completed) {
-        js.addTask(_taskEvent, completed);
-        _card.setBody(js.getCard().getBody());
+        this.js.addTask(_taskEvent, completed);
+        _card.setBody(this.js.getCard().getBody());
     }
-    public void editEvent(Card _Card, CardEvent _old, CardEvent _new){
-        _Card.setBody(js.editTask(_old, _new));
+
+    public void editEvent(Card _Card, CardEvent _old, CardEvent _new) {
+        _Card.setBody(this.js.editTask(_old, _new));
 
     }
 
 //=================  GETTERS ===============
+
     /**
      * Gets card list.
      *
      * @return the card list
      */
     public CardList get_card_list() {
-        String title = js.get_tag_inner("title");
-        String desc = js.get_meta("description");
-        return new CardList(title, desc, js.getCards());
+        String title = this.js.get_tag_inner("title");
+        String desc = this.js.get_meta("description");
+        return new CardList(title, desc, this.js.getCards());
     }
+
+    public void deleteEvent(Card _card, CardEvent _event) {
+        _card.setBody(this.js.deleteTask(_event));
+        _card.remove_event(_event.getTaskEvent().getEventId());
+
+    }
+
 
 }

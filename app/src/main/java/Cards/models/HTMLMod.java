@@ -10,7 +10,6 @@ package Cards.models;
 
 import Cards.models.cards.Card;
 import Cards.models.cards.CardList;
-import Cards.models.settings.CardSettings;
 import Cards.translators.io.CardFile;
 import Cards.translators.jsoup.JSoupTranslator;
 
@@ -75,7 +74,7 @@ public class HTMLMod {
 
     public void save(CardFile _cardFile, ArrayList<Card> _cards) {
         StringBuilder out = new StringBuilder();
-        CardSettings.add_file(_cardFile);
+        AppModel.settingsController.addCardFile(_cardFile);
         for (Card card : _cards) {
             out.append(card.toString());
         }
@@ -94,7 +93,7 @@ public class HTMLMod {
 
     public void save(CardFile _cardFile, CardList _cardList) {
         StringBuilder out = new StringBuilder();
-        CardSettings.add_file(_cardFile);
+        AppModel.settingsController.addCardFile(_cardFile);
         for (Card card : _cardList.getCards()) {
             out.append(card.toString());
         }

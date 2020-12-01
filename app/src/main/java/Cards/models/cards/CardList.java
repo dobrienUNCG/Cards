@@ -1,14 +1,21 @@
 package Cards.models.cards;
+/*
+  Last Updated: 10/28/2020
+  Card list model
+
+  @AUTHOR Devin M. O'Brien
+ */
 
 import Cards.models.MetaData;
 
 import java.util.ArrayList;
 
-public class CardList implements NormalCard{
-    @SuppressWarnings("UnusedAssignment")
+import static Cards.models.CardLogger.logg;
+
+public class CardList implements NormalCard {
+
     public ArrayList<Card> cards = new ArrayList<>();
     private final MetaData metaData = new MetaData();
-
 
     /**
      * Creates a Card List
@@ -17,7 +24,7 @@ public class CardList implements NormalCard{
      * @param _description
      * @param _cards
      */
-    public CardList(String _title, String _description, ArrayList<Card> _cards){
+    public CardList(String _title, String _description, ArrayList<Card> _cards) {
         this.metaData.setTitle(_title);
         this.metaData.setDescription(_description);
         this.cards = _cards;
@@ -25,12 +32,12 @@ public class CardList implements NormalCard{
 
     public Card most_recent() {
         Card mostRecent = null;
-        for ( Card card : this.cards ) {
-            if ( mostRecent == null ) {
+        for (Card card : this.cards) {
+            if (null == mostRecent) {
                 mostRecent = card;
             }
             // TODO Reverse IF Order
-            if ( mostRecent.getRecent().compareTo(card.getRecent().getDate()) >= 0 ) {
+            if (0 <= mostRecent.getRecent().compareTo(card.getRecent().getDate())) {
                 mostRecent = card;
             }
         }
@@ -40,29 +47,30 @@ public class CardList implements NormalCard{
     public String toString() {
         // TODO Fix Regex
         String title = "<title>" + this.metaData.getTitle().replaceAll("<(/|t)itle>", "") + "</title>";
-        String description = "<meta name=\"description\" content=\""+ this.metaData.getDescription() + "\">";
+        String description = "<meta name=\"description\" content=\"" + this.metaData.getDescription() + "\">";
 
         return "<head>" + title + " " + description + "</head>";
     }
 
     public Card getCard(int _index) {
-        if ( cards.size() <= _index ) {
-            System.err.println(
+        if (this.cards.size() <= _index) {
+            logg.warning(
                     "Given index (" + _index + ") " + "is larger than the number of cards in card list (" + this.getName() + ")");
             return null;
         }
         return this.cards.get(_index);
     }
-    public CardEvent theRecent(){
+
+    public CardEvent theRecent() {
         CardEvent event = null;
         for (Card card :
-                cards) {
-            if(event == null){
+                this.cards) {
+            if (null == event) {
                 event = card.getRecent();
-            }else{
-               if (card.getRecent().compareTo(event.getDate()) < 0){
-                   event = card.getRecent();
-               }
+            } else {
+                if (0 > card.getRecent().compareTo(event.getDate())) {
+                    event = card.getRecent();
+                }
             }
         }
         return event;
@@ -77,10 +85,11 @@ public class CardList implements NormalCard{
         return this.metaData.getTitle();
     }
 
-    public void setName(String _title){
+    public void setName(String _title) {
         this.metaData.setTitle(_title);
     }
-    public void setBody(String _description){
+
+    public void setBody(String _description) {
         this.metaData.setDescription(_description);
     }
 
