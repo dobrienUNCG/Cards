@@ -23,7 +23,7 @@ public class CardEvent {
         return this.taskEvent.getBeginDateTime().getValue() - _dateTime.getValue();
     }
 
-//=================  GETTERS ===============
+    //=================  GETTERS ===============
     public DateTime getDate() {
         return this.taskEvent.getBeginDateTime();
     }
@@ -36,19 +36,20 @@ public class CardEvent {
         return this.complete;
     }
 
-//=================  SETTERS  ===============
+    //=================  SETTERS  ===============
     public void setTaskEvent(TaskEvent _taskEvent) {
         this.taskEvent = _taskEvent;
     }
-    public void setComplete(boolean _complete){
+
+    public void setComplete(boolean _complete) {
         this.complete = _complete;
     }
 
     @Override
     public String toString() {
         return "CardEvent{" +
-                "taskEvent=" + taskEvent +
-                ", complete=" + complete +
+                "taskEvent=" + this.taskEvent +
+                ", complete=" + this.complete +
                 '}';
     }
 }

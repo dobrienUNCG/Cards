@@ -43,33 +43,15 @@
                                 <menus>
                                   <Menu mnemonicParsing="false" text="File">
                                     <items>
-                                      <MenuItem mnemonicParsing="false" onAction="#close_menu" text="Close" />
+                                          <Menu mnemonicParsing="false" onAction="#com_load" text="Load" />
+                                        <MenuItem fx:id="debug_save" mnemonicParsing="false" onAction="#com_save" text="Save" />
                                     </items>
                                   </Menu>
                                   <Menu mnemonicParsing="false" text="Edit">
                                     <items>
-                                      <MenuItem mnemonicParsing="false" text="Delete" />
-                                          <MenuItem mnemonicParsing="false" text="Check for Dates" />
-                                          <MenuItem mnemonicParsing="false" onAction="#get_selection" text="Get Selection" />
+                                          <MenuItem mnemonicParsing="false" onAction="#get_selection" text="Create Event" />
                                     </items>
                                   </Menu>
-                                  <Menu mnemonicParsing="false" text="Help">
-                                    <items>
-                                      <MenuItem mnemonicParsing="false" text="About" />
-                                    </items>
-                                  </Menu>
-                                    <Menu mnemonicParsing="false" text="Debug">
-                                      <items>
-                                        <MenuItem fx:id="debug_save" mnemonicParsing="false" onAction="#com_save" text="Save" />
-                                          <Menu mnemonicParsing="false" onAction="#com_load" text="Load">
-                                            <items>
-                                              <MenuItem mnemonicParsing="false" text="Load Test File" />
-                                            </items>
-                                          </Menu>
-                                          <MenuItem mnemonicParsing="false" onAction="#go_to_main_menu" text="Main Menu" />
-                                          <MenuItem mnemonicParsing="false" onAction="#showHTML" text="Show HTML" />
-                                      </items>
-                                    </Menu>
                                 </menus>
                               </MenuBar>
                            </children>

@@ -1,13 +1,15 @@
 package Cards.translators.jsoup;
 /*
-  Last Updated: 11/28/2020
+  Last Updated: 12/1/2020
   JSoup Translator Class
 
   @author Devin M. O'Brien
  */
 
+import Cards.models.AppModel;
 import Cards.models.cards.Card;
 import Cards.models.cards.CardEvent;
+import Cards.models.cards.CardList;
 import Cards.translators.api.TaskEvent;
 import Cards.translators.io.CardFile;
 import com.google.api.client.util.DateTime;
@@ -17,11 +19,10 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.parser.Tag;
 import org.jsoup.select.Elements;
-import org.w3c.dom.Node;
 
+import java.io.FileWriter;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import static Cards.models.CardLogger.logg;
@@ -50,7 +51,7 @@ public class JSoupTranslator {
      */
     JSoupTranslator(Card card) {
         this.card = card;
-        parseCard(this.card);
+        this.parseCard(this.card);
     }
 
     public static JSoupTranslator JSoupBuilder(CardFile _cardFile) {
@@ -72,12 +73,14 @@ public class JSoupTranslator {
         }
         return body.toString();
     }
+
     public static String getTextInBody(String _input) {
         Document temp = Jsoup.parse(_input);
         Element init = temp.body();
         return init.html();
 
     }
+
     public static String normalize(String _input) {
         Document temp = Jsoup.parse(_input);
         return temp.normalise().outerHtml();
@@ -93,6 +96,8 @@ public class JSoupTranslator {
                         span = span.attr("type", String.valueOf(EVENT));
                         span.attr("onclick", "openEvent('" + taskInfo.getEventId() + "');");
                         span.addClass("event");
+                        span.attr("contenteditable", "false");
+                        span.attr("style", "background-color: yellow;");
                         span.attr(String.valueOf(EVENT_ID), taskInfo.getEventId());
                         span.attr(String.valueOf(EVENT_NAME), taskInfo.getSummary());
                         span.attr(String.valueOf(EVENT_DESCRIPTION), taskInfo.getDescription());
@@ -101,7 +106,7 @@ public class JSoupTranslator {
                         span.attr(String.valueOf(EVENT_END_DATE), taskInfo.getEndDateTime().toString());
                         span.attr(String.valueOf(EVENT_CREATED), taskInfo.getDateCreated().toString());
                         span.attr(String.valueOf(EVENT_COMPLETED), completed);
-                        return doc.toString();
+                        return this.doc.toString();
                     } catch (Exception ex) {
 
                     }
@@ -115,13 +120,15 @@ public class JSoupTranslator {
 
     }
 
-    public String editTask(CardEvent _old, CardEvent _new){
+    public String editTask(CardEvent _old, CardEvent _new) {
         //TODO
-        try{
-            Elements spans = doc.getElementsByAttributeValue(String.valueOf(EVENT_ID), _old.getTaskEvent().getEventId());
+        try {
+            Elements spans = this.doc.getElementsByAttributeValue(String.valueOf(EVENT_ID), _old.getTaskEvent().getEventId());
             Element span = spans.get(0);
             TaskEvent taskInfo = _new.getTaskEvent();
+            span.attr("contenteditable", "false");
             span.attr("onclick", "openEvent('" + taskInfo.getEventId() + "');");
+            span.attr("style", "background-color: yellow;");
             span.addClass("event");
             span.attr(String.valueOf(EVENT_ID), taskInfo.getEventId());
             span.attr(String.valueOf(EVENT_NAME), taskInfo.getSummary());
@@ -131,16 +138,19 @@ public class JSoupTranslator {
             span.attr(String.valueOf(EVENT_END_DATE), taskInfo.getEndDateTime().toString());
             span.attr(String.valueOf(EVENT_CREATED), taskInfo.getDateCreated().toString());
             span.attr(String.valueOf(EVENT_COMPLETED), _new.isComplete());
-            return doc.toString();
-        }catch (Exception ex){
+            return this.doc.toString();
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
         return null;
     }
-    public String deleteTask(CardEvent _old){
-        Elements spans = doc.getElementsByAttributeValue(String.valueOf(EVENT_ID), _old.getTaskEvent().getEventId());
+
+    public String deleteTask(CardEvent _old) {
+        Elements spans = this.doc.getElementsByAttributeValue(String.valueOf(EVENT_ID), _old.getTaskEvent().getEventId());
+        String inner = spans.get(0).html();
+        spans.get(0).before(inner);
         spans.get(0).remove();
-        return doc.toString();
+        return this.doc.toString();
     }
 
     @Nullable
@@ -176,9 +186,9 @@ public class JSoupTranslator {
         }
         return output;
     }
-    
+
     private void parseCard(Card _card) {
-        doc = Jsoup.parse(_card.getBody());
+        this.doc = Jsoup.parse(_card.getBody());
     }
 
     private void parse_file() {
@@ -188,6 +198,25 @@ public class JSoupTranslator {
             this.doc.normalise();
         } catch (IOException e) {
             logg.warning("Failed to load file");
+        }
+    }
+
+    public static void save(CardFile _cardFile, CardList _cardList) {
+        StringBuilder out = new StringBuilder();
+        AppModel.settingsController.addCardFile(_cardFile);
+        for (Card card : _cardList.getCards()) {
+            out.append(card);
+        }
+        out = new StringBuilder(out.toString().replaceAll("<((/b)|b)ody>", ""));
+        try {
+            String out2 = "<html>" + _cardList + "<body>" + out + "</body></html>";
+            out2 = normalize(out2);
+            FileWriter fileWriter = new FileWriter(_cardFile.getFile(), false);
+            fileWriter.write(out2);
+            fileWriter.close();
+        } catch (IOException _e) {
+
+            logg.severe(_e.toString());
         }
     }
 
@@ -260,10 +289,10 @@ public class JSoupTranslator {
         ArrayList<Card> cards = new ArrayList<>();
 
         Element html = this.doc;
-        String title = doc.attributes().get("title");
+        String title = this.doc.attributes().get("title");
 
         ArrayList<CardEvent> events = new ArrayList<>();
-        for (Element span : doc.getElementsByTag("span")) {
+        for (Element span : this.doc.getElementsByTag("span")) {
 
             if (span.attributes().hasDeclaredValueForKey(String.valueOf(EVENT))) {
                 String id = span.attr(String.valueOf(EVENT_ID));
@@ -282,7 +311,7 @@ public class JSoupTranslator {
             }
 
         }
-        String body = doc.getElementsByTag("body").get(0).html();
+        String body = this.doc.getElementsByTag("body").get(0).html();
         return new Card(title, body, events);
 
     }
@@ -309,6 +338,7 @@ public class JSoupTranslator {
                         String eventCreated = span.attr(String.valueOf(EVENT_CREATED));
                         String completed = span.attr(String.valueOf(EVENT_COMPLETED));
                         try {
+                            logg.info(eventStart);
                             events.add(new CardEvent(new TaskEvent(summary, DateTime.parseRfc3339(eventStart), DateTime.parseRfc3339(eventEnd), description, DateTime.parseRfc3339(eventCreated), null, id, Boolean.parseBoolean(allday)), Boolean.parseBoolean(completed)));
                         } catch (IOException | GeneralSecurityException ex) {
                             logg.severe(ex.toString());

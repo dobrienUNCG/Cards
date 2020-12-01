@@ -1,26 +1,23 @@
 package Cards.models;
+/**
+ * Date: 12/1/2020
+ * Used to generate eventids for card events. Not used afterwards.
+ * @author Devin M. O'Brien
+ */
 
 import java.util.UUID;
-
 
 public class UID {
 
     protected final UUID uuid;
 
-    public UID(){
-        uuid = UUID.randomUUID();
+    public UID() {
+        this.uuid = UUID.randomUUID();
     }
 
-    /**
-     * @deprecated Was going to be used for the card event.
-     * @param _uuid
-     */
-    UID(String _uuid){
-        uuid = UUID.fromString(_uuid);
-    }
 
     @Override
     public String toString() {
-       return uuid.toString();
+        return this.uuid.toString();
     }
 }

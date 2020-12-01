@@ -21,11 +21,10 @@ public class CardFile {
     private Path path;
     private CardList cardList;
 
-
     public CardFile(String _file) {
         try {
             this.path = Paths.get(_file);
-            this.file = new File(String.valueOf(path));
+            this.file = new File(String.valueOf(this.path));
         } catch (Exception e) {
             logg.warning(e.toString());
         }
@@ -36,7 +35,7 @@ public class CardFile {
         this.path = this.file.toPath();
     }
 
-//=================  GETTERS ===============
+    //=================  GETTERS ===============
     public CardList getCardList() {
         return this.cardList;
     }
@@ -47,14 +46,14 @@ public class CardFile {
     }
 
     public Path getPath() {
-        return path;
+        return this.path;
     }
 
     public File get_card_file() {
         return this.file;
     }
 
-//=================  SETTERS  ===============
+    //=================  SETTERS  ===============
     public void set_cardlist(CardList _cardlist) {
         this.cardList = _cardlist;
     }
@@ -69,10 +68,10 @@ public class CardFile {
 
         try {
             this.path = Paths.get(_path);
-            logg.info("Path: " + this.path.toString());
+            logg.info("Path: " + this.path);
 
         } catch (Exception e) {
-            logg.warning("Failed To Get Path " + e.toString());
+            logg.warning("Failed To Get Path " + e);
         }
         logg.exiting(this.getClass().getName(), "CardFile(String _path)");
 

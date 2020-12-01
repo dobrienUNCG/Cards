@@ -1,14 +1,14 @@
 package Cards.controllers;
 /*
-  Last Updated: 11/17/2020 4:48 PM
+  Last Updated: 12/1/2020
   Moving over from CardViewController
   Card View
 
   @author Devin M. O'Brien
  */
 
-import Cards.data.request.RequestManager;
 import Cards.models.AppModel;
+import Cards.data.request.RequestManager;
 import Cards.models.CardEventDifference;
 import Cards.models.HTMLMod;
 import Cards.models.cards.Card;
@@ -30,36 +30,29 @@ import javafx.scene.web.HTMLEditor;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import javafx.stage.FileChooser;
-import javafx.stage.Stage;
 import netscape.javascript.JSObject;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Objects;
 import java.util.Optional;
 
 import static Cards.models.CardLogger.logg;
-import static Cards.models.settings.CardSettings.add_file;
 
 public class CardViewController {
 
-    public String body;
-    @FXML
-    VBox sidebar;
-    @FXML
-    HTMLEditor editor;
-    @FXML
-    Button titlebutton;
-    Stage stage;
     int current;
     CardFile openCard;
     CardList cardList;
-    Testing test = new Testing();;
-    private JSObject javascript;
-    HTMLMod htmlMod;
+    JavaScriptConnection javaScriptConnection = new JavaScriptConnection();
     boolean deleted;
     private static final int buttonWidth = 100000000;
+    @FXML
+    private VBox sidebar;
+    @FXML
+    private HTMLEditor editor;
+    @FXML
+    private Button titlebutton;
 
     public CardViewController() {
         super();
@@ -68,55 +61,48 @@ public class CardViewController {
 
     public CardViewController(CardFile _cardFile) {
         super();
-        logg.entering(this.getClass().getName(), "CardViewController()");
-
-        logg.exiting(this.getClass().getName(), "CardViewController()");
     }
 
     @FXML
     public void initialize() {
-        if (AppModel.activeFile != null) {
-            this.openFile(AppModel.activeFile);
-            AppModel.activeFile = null;
+        // Check if a card was passed by AppModel
+        System.out.println(this.openCard);
+        if (this.openCard != null) {
+            this.openFile(this.openCard);
+
         } else {
             this.cardList = new CardList("New Card", "Description", new ArrayList<>());
         }
         String name = this.cardList.getName();
         this.titlebutton.setText(name);
-        WebView web = (WebView) editor.lookup("WebView");
+        WebView web = (WebView) this.editor.lookup("WebView");
         WebEngine engine = web.getEngine();
-        System.out.println("Here!");
         engine.getLoadWorker().stateProperty().addListener(
-                (observable, oldValue, newValue)->{
-                    if(Worker.State.SUCCEEDED == newValue) {
-                        System.out.println("Here?");
+                (observable, oldValue, newValue) -> {
+                    if (Worker.State.SUCCEEDED == newValue) {
                         JSObject window = (JSObject) engine.executeScript("window");
-                        window.setMember("test", test);
+                        window.setMember("javaScriptConnection", this.javaScriptConnection);
                     }
                 }
         );
 
     }
 
-    public void setTags() {
-
-    }
-
-    public  CardFile askSavePath() {
+    public CardFile askSavePath() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Save");
         // TODO Add HTML Filter
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("All Files", "*"));
-        File file = fileChooser.showSaveDialog(this.stage);
+        File file = fileChooser.showSaveDialog(this.sidebar.getScene().getWindow());
         return new CardFile(file);
     }
 
-   public  CardFile askFilePath() {
+    public CardFile askFilePath() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Load CardFile");
         // TODO Add HTML Filter
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("All Files", "*"));
-        return new CardFile(fileChooser.showOpenDialog(this.stage));
+        return new CardFile(fileChooser.showOpenDialog(this.sidebar.getScene().getWindow()));
 
     }
 
@@ -182,7 +168,7 @@ public class CardViewController {
         this.current = 0;
         this.openCard = _cardFile;
         this.removeOldCards();
-        add_file(this.openCard);
+        AppModel.settingsController.addCardFile(this.openCard);
         HTMLTranslator htmlTranslator = new HTMLTranslator(this.openCard);
         this.cardList = htmlTranslator.get_card_list();
 
@@ -251,7 +237,7 @@ public class CardViewController {
      */
     public void updateEditor(String _input) {
         this.editor.setHtmlText(_input);
-        System.out.println(_input);
+        logg.info(_input);
     }
 
     /**
@@ -278,10 +264,10 @@ public class CardViewController {
     public void changeDetails() {
         GridPane grid = new GridPane();
         TextField title = new TextField();
-        if (this.cardList.getName() != null)
+        if (null != this.cardList.getName())
             title.setText(this.cardList.getName());
         TextArea desc = new TextArea();
-        if (this.cardList.getBody() != null)
+        if (null != this.cardList.getBody())
             desc.setText(this.cardList.getBody());
         grid.add(title, 1, 1);
         grid.add(desc, 1, 2);
@@ -295,29 +281,14 @@ public class CardViewController {
         this.titlebutton.setText(this.cardList.getName());
     }
 
-    public void go_to_main_menu() throws IOException {
-
-    }
-
-    public void openEvent(){
-        System.out.println("Testing Testing I am a Lonely Test");
-    }
-
-    public void showHTML() {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("HTML");
-        alert.setContentText(this.editor.getHtmlText());
-        alert.show();
-    }
-
     public void com_save() {
-        if (this.openCard == null) {
+        if (null == this.openCard) {
             this.openCard = this.askSavePath();
         }
-        if (this.htmlMod == null)
-            this.htmlMod = new HTMLMod(this.openCard.getPath().toString());
+
+        HTMLMod htmlMod = new HTMLMod(this.openCard.getPath().toString());
         this.saveCard();
-        this.htmlMod.save(this.openCard, this.cardList);
+        htmlMod.save(this.openCard, this.cardList);
 
     }
 
@@ -325,18 +296,62 @@ public class CardViewController {
         this.openFile();
     }
 
-    private int getIndexOf(Card _card) {
-        return this.cardList.getCards().indexOf(_card);
+    public void initData(CardFile _openCard) {
+        this.openCard = _openCard;
+        openFile(this.openCard);
     }
 
     private void removeOldCards() {
-        if (this.sidebar.getChildren().size() > 2) {
+        if (2 < this.sidebar.getChildren().size()) {
             this.sidebar.getChildren().remove(2, this.sidebar.getChildren().size());
         }
     }
 
-//=================  GETTERS ===============
+    /**
+     * This is can be directly called by the JavaScript. Needs to be a subclass for access to cardlist.
+     */
+    public class JavaScriptConnection {
 
+        public void getCardEvent(String arg) {
+
+            logg.warning(arg);
+            CardEvent ce = CardViewController.this.cardList.getCard(CardViewController.this.current).getEvent(arg);
+            Parent parent = AppModel.changeView(ViewIO.View.EVENT);
+
+            FXMLLoader loader = (FXMLLoader) parent.getUserData();
+            EventCreationView ecv = loader.getController();
+
+            ecv.initData(ce);
+            Scene now = new Scene(parent);
+            AppModel.newWindowHold(now);
+            CardViewController.this.saveCard();
+            CardViewController.this.com_save();
+            if (ecv.deleteEvent) {
+                CardEvent temp = new CardEvent(ecv.createEvent(), ecv.completed.isSelected());
+                CardViewController.this.saveCard();
+                HTMLTranslator html = new HTMLTranslator(CardViewController.this.cardList.getCard(CardViewController.this.current));
+                html.deleteEvent(CardViewController.this.cardList.getCard(CardViewController.this.current), temp);
+                CardViewController.this.saveCard();
+                CardViewController.this.com_save();
+                return;
+            } else {
+
+                TaskEvent newTask = ecv.createEvent();
+                CardEvent b = new CardEvent(newTask, ecv.completed.isSelected());
+                HTMLTranslator html = new HTMLTranslator(CardViewController.this.cardList.getCards().get(CardViewController.this.current));
+
+                html.editEvent(CardViewController.this.cardList.getCard(CardViewController.this.current), ce, b);
+                CardViewController.this.updateEditor(CardViewController.this.cardList.getCard(CardViewController.this.current).getBody());
+                CardEventDifference.checkDifference(ce, b);
+                ce.setTaskEvent(b.getTaskEvent());
+
+                ce.setComplete(b.isComplete());
+
+            }
+        }
+    }
+
+//=================  GETTERS ===============
     /**
      * Creates an event.
      *
@@ -367,7 +382,8 @@ public class CardViewController {
                 "    x.setAttribute(\"type\", \"edit\");\n" +
                 "    range.surroundContents(x);\n" +
                 "})()";
-
+        this.saveCard();
+        this.com_save();
         WebView webView = (WebView) this.editor.lookup("WebView");
         if (null != webView) {
             webView.getEngine().executeScript(script);
@@ -386,72 +402,24 @@ public class CardViewController {
 
         TaskEvent event = cr.createEvent();
         RequestManager.createEventRequest(event);
-        saveCard();
-        HTMLTranslator html = new HTMLTranslator(cardList.getCards().get(current));
-        html.addEventsToCard(cardList.getCard(current), event, cr.completed.isSelected());
-        updateEditor(cardList.getCard(current).getBody());
+        this.saveCard();
+        HTMLTranslator html = new HTMLTranslator(this.cardList.getCards().get(this.current));
+        html.addEventsToCard(this.cardList.getCard(this.current), event, cr.completed.isSelected());
+        CardEvent event1 = new CardEvent(event, cr.completed.isSelected());
+        this.updateEditor(this.cardList.getCard(this.current).getBody());
+        this.cardList.getCard(this.current).add_event(event1);
         return null;
 
     }
 
-    // F Implement or Remove
-    @FXML
-    void close_menu() {
-
-    }
-
+    //=================  SETTERS  ===============
     void saveCard() {
         String htmlText = this.editor.getHtmlText();
-        if(this.cardList.getCards().isEmpty()){
+        if (this.cardList.getCards().isEmpty()) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setContentText("There are no cards to save!");
-        }else
-        this.cardList.cards.get(this.current).setBody(htmlText);
+        } else
+            this.cardList.cards.get(this.current).setBody(htmlText);
     }
 
-    /**
-     * @deprecated Not implemented
-     * TODO Finsih Checking for Events
-     */
-    void check_for_events() {
-
-    }
-    // TODO needs to be in its own class
-    public class Testing{
-      public void getCardEvent(String arg){
-          System.out.println("Hello?");
-
-
-          System.out.println(arg);
-          CardEvent ce = cardList.getCard(current).getEvent(arg);
-          System.out.println(ce.toString());
-          Parent parent = AppModel.changeView(ViewIO.View.EVENT);
-
-
-          System.out.println("Here");
-          FXMLLoader loader = (FXMLLoader) parent.getUserData();
-          EventCreationView ecv = (EventCreationView) loader.getController();
-          System.out.println("Something here?");
-
-
-          ecv.initData(ce);
-          Scene now = new Scene(parent);
-          AppModel.newWindowHold(now);
-
-
-          TaskEvent newTask = ecv.createEvent();
-          CardEvent b = new CardEvent(newTask,ecv.completed.isSelected());
-          HTMLTranslator html = new HTMLTranslator(cardList.getCards().get(current));
-
-
-          html.editEvent(cardList.getCard(current), ce, b);
-          updateEditor(cardList.getCard(current).getBody());
-          CardEventDifference.checkDifference(ce, b);
-          ce.setTaskEvent(b.getTaskEvent());
-
-          ce.setComplete(b.isComplete());
-          System.out.println(ecv.toString());
-
-      }
-    }
 }

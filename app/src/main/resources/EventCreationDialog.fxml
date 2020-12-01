@@ -25,8 +25,9 @@
             <DatePicker fx:id="endDate" layoutX="71.0" layoutY="74.0" promptText="End Date" showWeekNumbers="true" />
             <TextField fx:id="startTime" layoutX="251.0" layoutY="43.0" promptText="Start Time" />
             <TextField fx:id="endTime" layoutX="251.0" layoutY="74.0" promptText="End Time" />
-            <Button layoutX="513.0" layoutY="338.0" mnemonicParsing="false" onAction="#createEvent" text="Create Event" />
+            <Button fx:id="create" layoutX="513.0" layoutY="338.0" mnemonicParsing="false" onAction="#createEvent" text="Create Event" />
             <CheckBox fx:id="allDay" layoutX="231.0" layoutY="21.0" mnemonicParsing="false" text="All Day" />
+            <Button fx:id="delete" disable="true" layoutX="529.0" layoutY="304.0" mnemonicParsing="false" onAction="#deleteEvent" opacity="0.0" text="Delete" />
          </children></AnchorPane>
   </content>
 </TitledPane>
