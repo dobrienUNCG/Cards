@@ -1,6 +1,6 @@
 package Cards.models;
 /**
- * Updated: 11/18/2020
+ * Updated: 5/3/21
  * This class connects everything together.
  *
  * @Author Devin M. O'Brien
