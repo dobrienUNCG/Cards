@@ -66,27 +66,27 @@ public class AppModel extends Application {
      */
     public static Parent changeView(ViewIO.View _view) {
         switch (_view) {
-            case HELP -> {
-                return viewIO.getHelpScreen();
-            }
-            case CALENDAR -> {
+		case HELP:
+                	return viewIO.getHelpScreen();
+        	
+		case CALENDAR: 
                 return viewIO.getCalendarScreen();
-            }
-            case SETTINGS -> {
+            
+		case SETTINGS: 
                 return viewIO.getSettingsScreen();
-            }
-            case MAINMENU -> {
+            
+		case MAINMENU: 
                 return viewIO.getMainMenu();
-            }
-            case EVENT -> {
+            
+		case EVENT:
                 return viewIO.getEventCreator();
-            }
-            case CARD -> {
+            
+		case CARD: 
                 return viewIO.getCardEditor();
-            }
-        }
+            
+		default: 
         return null;
-    }
+	}}
 
     /**
      * Starts JavaFX Application

@@ -78,21 +78,49 @@ public class RequestManager {
                     requestType = current.getRequestType();
                     responseSizeBefore = response.size();
                     switch (requestType) {
-                        case GET_DATE_CREATED -> response.add(googleTranslator.taskDateCreated(current.getTaskEvent().getEventId()));
-                        case GET_EVENTID -> response.add(googleTranslator.myEventId(current.getTaskEvent().getSummary()));
-                        case GET_INFO_ALL -> response.add(googleTranslator.taskInfoAll(current.getTaskEvent().getEventId()));
-                        case GET_IS_ALL_DAY -> response.add((googleTranslator.taskAllDay(current.getTaskEvent().getEventId())));
-                        case GET_DUE_DATE -> response.add(googleTranslator.taskDueDate(current.getTaskEvent().getEventId()));
-                        case GET_DESCRIPTION -> response.add(googleTranslator.taskDescription(current.getTaskEvent().getEventId()));
-                        case GET_DUE_TODAY -> response.add((googleTranslator.dueToday()));
-                        case GET_UPCOMING -> response.add(googleTranslator.upcomingTasks(requestType.getI()));
-                        case POST_SUMMARY -> current.getOldTaskEvent().setSummary(current.getTaskEvent().getSummary());
-                        case POST_DATE_BEGIN -> googleTranslator.editBeginDate(current.getTaskEvent().getSummary(), current.getTaskEvent().getEndDate());
-                        case POST_DATE_END -> googleTranslator.editEndDate(current.getTaskEvent().getSummary(), current.getTaskEvent().getEndDateTime());
-                        case POST_DESCRIPTION -> googleTranslator.editDescription(current.getTaskEvent().getSummary(), current.getTaskEvent().getDescription());
-                        case DELETE_EVENT -> googleTranslator.deleteTask(current.getTaskEvent().getEventId());
-                        case PUT_EVENT -> googleTranslator.newEvent(current.getTaskEvent());
-                        case PUT_CALENDAR -> response.add(googleTranslator.newCalendar());
+			    case GET_DATE_CREATED:
+				    response.add(googleTranslator.taskDateCreated(current.getTaskEvent().getEventId()));
+				    break;
+                        case GET_EVENTID: response.add(googleTranslator.myEventId(current.getTaskEvent().getSummary()));
+					  break;
+                        case GET_INFO_ALL: 
+					  response.add(googleTranslator.taskInfoAll(current.getTaskEvent().getEventId()));
+					  break;
+                        case GET_IS_ALL_DAY:
+					  response.add((googleTranslator.taskAllDay(current.getTaskEvent().getEventId())));
+					  break;
+			case GET_DUE_DATE:
+					  response.add(googleTranslator.taskDueDate(current.getTaskEvent().getEventId()));
+					  break;
+			case GET_DESCRIPTION:
+					  response.add(googleTranslator.taskDescription(current.getTaskEvent().getEventId()));
+					  break;
+			case GET_DUE_TODAY:
+					  response.add((googleTranslator.dueToday()));
+					  break;
+                        case GET_UPCOMING:
+					  response.add(googleTranslator.upcomingTasks(requestType.getI()));
+					  break;
+			case POST_SUMMARY: current.getOldTaskEvent().setSummary(current.getTaskEvent().getSummary());
+					   break;
+			case POST_DATE_BEGIN:
+					   googleTranslator.editBeginDate(current.getTaskEvent().getSummary(), current.getTaskEvent().getEndDate());
+					   break;
+			case POST_DATE_END: 
+					   googleTranslator.editEndDate(current.getTaskEvent().getSummary(), current.getTaskEvent().getEndDateTime());
+					   break;
+			case POST_DESCRIPTION:
+					   googleTranslator.editDescription(current.getTaskEvent().getSummary(), current.getTaskEvent().getDescription());
+					   break;
+			case DELETE_EVENT: 
+					   googleTranslator.deleteTask(current.getTaskEvent().getEventId());
+					   break;
+                        case PUT_EVENT:
+					   googleTranslator.newEvent(current.getTaskEvent());
+					   break;
+			case PUT_CALENDAR:
+					   response.add(googleTranslator.newCalendar());
+					   break;
                     }
                     responseSizeAfter = response.size();
                     if (responseSizeBefore == responseSizeAfter) {
