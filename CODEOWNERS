@@ -1,9 +1,9 @@
- 
-app/src/main/java/Cards/app/* @dobrienUNCG
-app/src/main/java/Cards/translators/jsoup/* @dobrienUNCG
-app/src/main/java/Cards/translators/io/* @dobrienUNCG
-app/src/main/java/Cards/translators/api/* @JakeKeels @wayTooMuchSauce
-app/src/main/java/Cards/models/* @dobrienUNCG
-app/src/main/java/Cards/models/Calendar.java @JakeKeels
-app/src/main/java/Cards/data/* @dobrienUNCG
-app/src/main/java/Cards/controllers/* @dobrienUNCG
+/app/src/main/java/Cards/app/App.java  @dobrienUNCG
+/app/src/main/java/Cards/app/* 		@dobrienUNCG
+/app/src/main/java/Cards/translators/jsoup/* @dobrienUNCG
+/app/src/main/java/Cards/translators/io/* @dobrienUNCG
+/app/src/main/java/Cards/translators/api/* @JakeKeels @wayTooMuchSauce
+/app/src/main/java/Cards/models/* @dobrienUNCG
+/app/src/main/java/Cards/models/Calendar.java @JakeKeels
+/app/src/main/java/Cards/data/* @dobrienUNCG
+/app/src/main/java/Cards/controllers/* @dobrienUNCG
