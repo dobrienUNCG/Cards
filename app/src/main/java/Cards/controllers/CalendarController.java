@@ -1,9 +1,9 @@
 package Cards.controllers;
 /*
-  Last Updated: 11/26/2020
+  Last Updated: 05/04/2021
   Controller for Main Menu View
 
-  @author Devin M. O'Brien
+  @authors Jake Keels and Devin M. O'Brien
  */
 
 import Cards.models.Calendar;
